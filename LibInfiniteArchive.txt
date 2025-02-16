@@ -1,0 +1,29 @@
+## Title: LibInfiniteArchive
+## Description: Events and helpers for addons in the Infinite Archive
+## Author: Flat Badger
+## APIVersion: 101044 101045
+## AddOnVersion: 1000
+## Version: 1.0.0
+## IsLibrary: true
+## OptionalDependsOn: LibGroupBroadcast>=71
+
+# DISCLAIMER:
+#
+# This library is not created by, affiliated with or sponsored by ZeniMax
+# Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+# registered trademarks or trademarks of ZeniMax Media Inc. in the United
+# States and/or other countries. All rights reserved.
+#
+# You can read the full terms at:
+# https://account.elderscrollsonline.com/add-on-terms
+
+languages/en.lua
+languages/$(language).lua
+
+LibInfiniteArchive.lua
+
+misc/constants.lua
+misc/helpers.lua
+misc/sharing.lua
+
+handlers/handlers.lua

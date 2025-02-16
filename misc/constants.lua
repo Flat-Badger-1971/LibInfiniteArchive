@@ -1,0 +1,67 @@
+local L = LibInfiniteArchive
+
+L.lia = "LIBINFINITEARCHIVE_"
+
+L.UNKNOWN_PORTAL_STATE_UNKNOWN = 0
+L.UNKNOWN_PORTAL_STATE_EXITED = 1
+L.UNKNOWN_PORTAL_STATE_ENTERED = 2
+L.UNKNOWN_PORTAL_STATE_STARTED = 3
+L.UNKNOWN_PORTAL_STATE_FAILED = 4
+L.UNKNOWN_PORTAL_STATE_SUCCEEDED = 5
+L.UNKNOWN_PORTAL_STATE_ENDED = 6
+
+L.MARKER_STATE_CLEARED = 0
+L.MARKER_STATE_USED = 1
+
+L.EVENT_BUFF_SELECTED = 51
+L.EVENT_MARAUDER_SPAWNED = 52
+L.EVENT_MARKER_STATE_CHANGED = 53
+L.EVENT_MYSTERY_VERSE_USED = 54
+L.EVENT_TOMESHELL_DESTROYED = 55
+L.EVENT_UNIT_OR_ITEM_DETECTED = 56
+L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 57
+
+L.DETECTED_ITEM = 0
+L.DETECTED_UNIT = 1
+
+L.EVENTS = {
+    [L.EVENT_BUFF_SELECTED] = { name = "BuffSelected", fields = { [1] = { name = "id", type = "number" }, [2] = { name = "name", type = "string" } } },
+    [L.EVENT_MARAUDER_SPAWNED] = { name = "MarauderSpawned", fields = { [1] = { name = "name", type = "string" } } },
+    [L.EVENT_MARKER_STATE_CHANGED]={},
+    [L.EVENT_MYSTERY_VERSE_USED] = { name = "MysteryVerseUsed", fields = { [1] = { name = "id", type = "number" }, [2] = { name = "name", type = "string" } } },
+    [L.EVENT_TOMESHELL_DESTROYED] = { name = "TomeshellDestroyed", fields = { [1] = { name = "destroyed", type = "number" }, [2] = { name = "remaining", type = "number" } } },
+    [L.EVENT_UNIT_OR_ITEM_DETECTED] = { name = "UnitOrItemDetected", fields = { [1] = { name = "type", type = "number" }, [2] = { name = "extraInfo", type = "string" } } },
+    [L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED] = { name = "UnknownPortalStateChanged", fields = { [1] = { name = "id", type = "number" }, [2] = { name = "name", type = "string" }, [3] = { name = "state", type = "number" } } }
+}
+
+-- map id of the archive index/lobby
+L.ARCHIVE_INDEX = 2407
+
+L.MAPS = {
+    TREACHEROUS_CROSSING = { id = 2420, name = GetString(_G[L.lia .. "MAP_TREACHEROUS_CROSSING"]) },
+    HAEFELS_BUTCHERY = { id = 2421, name = GetString(_G[L.lia .. "MAP_HAEFELS_BUTCHERY"]) },
+    FILERS_WING = { id = 2422, name = GetString(_G[L.lia .. "MAP_FILERS_WING"]) },
+    ECHOING_DEN = { id = 2423, name = GetString(_G[L.lia .. "MAP_ECHOING_DEN"]) },
+    THEATRE_OF_WAR = { id = 2424, name = GetString(_G[L.lia .. "MAP_THEATRE_OF_WAR"]) },
+    DESTOZUNOS_LIBRARY = { id = 2425, name = GetString(_G[L.lia .. "MAP_DESTOZUNOS_LIBRARY"]) }
+}
+
+L.MARAUDERS = {
+    GetString(_G[L.lia .. "MARAUDER_GOTHMAU"]),
+    GetString(_G[L.lia .. "MARAUDER_HILKARAX"]),
+    GetString(_G[L.lia .. "MARAUDER_ULMOR"]),
+    GetString(_G[L.lia .. "MARAUDER_BITTOG"]),
+    GetString(_G[L.lia .. "MARAUDER_ZULFIMBUL"])
+}
+
+-- quests that require you to collect objects in the infinite archive
+L.ARCHIVE_QUESTS = { GetQuestName(7091), GetQuestName(7101), GetQuestName(7102) }
+
+-- mystery verse ids and texture names
+L.MYSTERY = {
+    [203611] = "u40_verse_item_offense", -- offensive
+    [203612] = "u40_verse_item_defense", -- defensive
+    [203613] = "u40_verse_item_utility"  -- utility
+}
+
+L.TOMESHELLS = { SOLO = 4, DUO = 8 }
