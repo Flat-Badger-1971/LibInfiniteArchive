@@ -1,9 +1,16 @@
 local L = LibInfiniteArchive
 local lgb = L.s:New(L.Name)
+local foundgw = false
 local Bosses = {}
 
 function L.OnCombatStateChanged(_, inCombat)
     L.InCombat = inCombat
+
+    if (inCombat) then
+        EVENT_MANAGER:RegisterForEvent(L.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED, L.OnReticleTargetChanged)
+    else
+        EVENT_MANAGER:UnregisterForEvent(L.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED)
+    end
 end
 
 local lastMapId
@@ -53,6 +60,8 @@ local function resetValues()
     ZO_ClearNumericallyIndexedTable(L.Bosses)
 
     L.FoundQuestItem = false
+
+    foundgw = false
 end
 
 -- minimise false zone change detections
@@ -285,4 +294,19 @@ function L.OnHiding()
         end,
         1500
     )
+end
+
+local gw = zo_strlower(GetString(LIBINFINITEARCHIVE_GW))
+
+-- SHARE: Gw the Pilferer has been detected
+function L.OnReticleTargetChanged()
+    if (L.IsInsideArchive()) then
+        if (not foundgw) then
+            local unit = GetUnitName("reticleover")
+
+            if (zo_strfind(unit, gw, 1, true)) then
+                lgb:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, L.DETECTED_UNIT, "Gw")
+            end
+        end
+    end
 end

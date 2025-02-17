@@ -26,4 +26,5 @@ L("MARAUDER_ZULFIMBUL", "zulfimbul") -- zulfimbul
 L("AUDITOR_NAME", "Верный Аудитор")
 L("FILERS_WING_FAIL", "сбежали")
 L("FILERS_WING_SUCCESS", "остановился")
+L("GW", "гв воришка")
 L("TOMESHELL", "Книжная оболочка")
