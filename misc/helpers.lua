@@ -1,8 +1,8 @@
 local L = LibInfiniteArchive
 
---- determine if the supplied ability id is an avatar verse/vision
+--- determine if the supplied ability id is an avatar verse
 --- @param abilityId number the ability id of a verse or vision
---- @return boolean # true if the ability id is an avatar verse/vision
+--- @return boolean # true if the ability id is an avatar verse
 function L.IsAvatar(abilityId)
     for avatar, info in pairs(L.AVATAR) do
         if (ZO_IsElementInNumericallyIndexedTable(info.abilityIds, abilityId)) then

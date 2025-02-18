@@ -101,6 +101,7 @@ local tomeName = zo_strlower(GetString(LIBINFINITEARCHIVE_TOMESHELL))
 local tomesFound = 0
 local tomesTotal = 0
 
+--- SHARE: A tome shell has been destroyed
 local function tomeCheck(...)
     local result = select(2, ...)
     local sourceName, _, targetName = select(7, ...)

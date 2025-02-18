@@ -108,6 +108,11 @@ function s:Share(event, ...)
     self:d("Sharing event " .. L.EVENTS[event].name)
 
     if (L.EVENTS[event].fields) then
+        if (event == L.EVENT_BUFF_SELECTED or event == L.EVENT_TOMESHELL_DESTROYED) then
+            self:SendProtocolMessage(event, ..., zo_strformat(GetUnitName("player")))
+        else
+            self:SendProtocolMessage(event, ...)
+        end
         self:SendProtocolMessage(event, ...)
     else
         self:FireEvent(event)
@@ -120,7 +125,7 @@ function s:RegisterForEvent(event, callback)
     assert(type(callback) == "function", "Callback must be a function")
     assert(eventName, "Event not recognised")
 
-    self:RegisterCallback(eventName, callback)
+    self:RegisterCallback(eventName, callback, event)
 end
 
 function s:UnregisterForEvent(event, callback)
@@ -129,5 +134,5 @@ function s:UnregisterForEvent(event, callback)
     assert(type(callback) == "function", "Callback must be a function")
     assert(eventName, "Event not recognised")
 
-    self:UnregisterCallback(eventName, callback)
+    self:UnregisterCallback(eventName, callback, event)
 end

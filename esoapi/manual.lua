@@ -423,7 +423,7 @@ function ZO_AutoComplete:OnCommit(commitBehavior, commitMethod) end
 --- @class ZO_CallbackObjectMixin
 ZO_CallbackObjectMixin = {}
 function ZO_CallbackObjectMixin:RegisterCallback(eventName, callback, arg, priority) end
-function ZO_CallbackObjectMixin:UnregisterCallback(eventName, callback) end
+function ZO_CallbackObjectMixin:UnregisterCallback(eventName, callback, arg) end
 function ZO_CallbackObjectMixin:UnregisterAllCallbacks(eventName) end
 function ZO_CallbackObjectMixin:SetHandleOnce(handleOnce) end
 function ZO_CallbackObjectMixin:FireCallbacks(eventName, ...) end

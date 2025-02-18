@@ -10,28 +10,23 @@ L.UNKNOWN_PORTAL_STATE_FAILED = 4
 L.UNKNOWN_PORTAL_STATE_SUCCEEDED = 5
 L.UNKNOWN_PORTAL_STATE_ENDED = 6
 
-L.MARKER_STATE_CLEARED = 0
-L.MARKER_STATE_USED = 1
-
 L.EVENT_BUFF_SELECTED = 51
 L.EVENT_MARAUDER_SPAWNED = 52
-L.EVENT_MARKER_STATE_CHANGED = 53
-L.EVENT_MYSTERY_VERSE_USED = 54
-L.EVENT_TOMESHELL_DESTROYED = 55
-L.EVENT_UNIT_OR_ITEM_DETECTED = 56
-L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 57
+L.EVENT_MYSTERY_VERSE_USED = 53
+L.EVENT_TOMESHELL_DESTROYED = 54
+L.EVENT_UNIT_OR_ITEM_DETECTED = 55
+L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 56
 
 L.DETECTED_ITEM = 0
 L.DETECTED_UNIT = 1
 
 L.EVENTS = {
-    [L.EVENT_BUFF_SELECTED] = { name = "BuffSelected", fields = { [1] = { name = "id", type = "number" }, [2] = { name = "name", type = "string" } } },
+    [L.EVENT_BUFF_SELECTED] = { name = "BuffSelected", fields = { [1] = { name = "abilityId", type = "number" }, [2] = { name = "name", type = "string" }, [3] = { name = "unitName", type = "string" } } },
     [L.EVENT_MARAUDER_SPAWNED] = { name = "MarauderSpawned", fields = { [1] = { name = "name", type = "string" } } },
-    [L.EVENT_MARKER_STATE_CHANGED]={},
-    [L.EVENT_MYSTERY_VERSE_USED] = { name = "MysteryVerseUsed", fields = { [1] = { name = "id", type = "number" }, [2] = { name = "name", type = "string" } } },
+    [L.EVENT_MYSTERY_VERSE_USED] = { name = "MysteryVerseUsed", fields = { [1] = { name = "abilityId", type = "number" }, [2] = { name = "name", type = "string" } } },
     [L.EVENT_TOMESHELL_DESTROYED] = { name = "TomeshellDestroyed", fields = { [1] = { name = "destroyed", type = "number" }, [2] = { name = "remaining", type = "number" } } },
     [L.EVENT_UNIT_OR_ITEM_DETECTED] = { name = "UnitOrItemDetected", fields = { [1] = { name = "type", type = "number" }, [2] = { name = "extraInfo", type = "string" } } },
-    [L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED] = { name = "UnknownPortalStateChanged", fields = { [1] = { name = "id", type = "number" }, [2] = { name = "name", type = "string" }, [3] = { name = "state", type = "number" } } }
+    [L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED] = { name = "UnknownPortalStateChanged", fields = { [1] = { name = "mapId", type = "number" }, [2] = { name = "mapName", type = "string" }, [3] = { name = "state", type = "number" } } }
 }
 
 -- map id of the archive index/lobby
@@ -44,6 +39,20 @@ L.MAPS = {
     ECHOING_DEN = { id = 2423, name = GetString(_G[L.lia .. "MAP_ECHOING_DEN"]) },
     THEATRE_OF_WAR = { id = 2424, name = GetString(_G[L.lia .. "MAP_THEATRE_OF_WAR"]) },
     DESTOZUNOS_LIBRARY = { id = 2425, name = GetString(_G[L.lia .. "MAP_DESTOZUNOS_LIBRARY"]) }
+}
+
+L.CLASSES = {
+    AVATAR = SI_ENDLESSDUNGEONBUFFTYPE_AVATAR2,
+    DEFENCE = SI_ENDLESSDUNGEONBUFFBUCKETTYPE1,
+    OFFENCE = SI_ENDLESSDUNGEONBUFFBUCKETTYPE0,
+    UTILITY = SI_ENDLESSDUNGEONBUFFBUCKETTYPE2
+}
+
+L.AVATAR = {
+    ICE = {id = 3795, abilityIds = {202134, 202510, 200494, 199997}, class = L.CLASSES.DEFENCE, transform = 202134},
+    WOLF = {id = 3796, abilityIds = {202743, 200421, 199990, 191802}, class = L.CLASSES.OFFENCE, transform = 191802},
+    IRON = {id = 3797, abilityIds = {202804, 200679, 200004, 196018}, class = L.CLASSES.UTILITY, transform = 196018},
+    UNDEAD = {id = 4155, abilityIds = {220557, 220563, 220568, 220189}, class = L.CLASSES.OFFENCE, transform = 220189}
 }
 
 L.MARAUDERS = {

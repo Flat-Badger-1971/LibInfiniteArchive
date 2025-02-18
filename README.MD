@@ -1,67 +1,96 @@
-### work in progress
+# LibInfiniteArchive
+This library contains utility functions and custom events shared between group members whilst inside the Infinite Archive
 
+## Usage
 
+```lua
+local lia = LibInfiniteArchive
+
+lia.RegisterForEvent("myAddonName", lia.EVENT_MARAUDER_DETECTED, function(...) myCallbackFunction(...) end)
+
+local avatarVerse = lia.IsAvatar(202134)
+```
 ## Events
 
-### `EVENT_UNKNOWN_PORTAL_STATE_CHANGED`
+- `EVENT_UNKNOWN_PORTAL_STATE_CHANGED`
+    - **Description:**
+        - The player has entered/left/started/finished a portal to the unknown.
+    - **Arguments:**
+        - `eventid` - number
+        - `mapId` - number
+        - `mapName` - string
+        - `state` - [UNKNOWN_PORTAL_STATE](#unknownportalstate)
 
-The player has entered/left/started/finished a portal to the unknown.
+- `EVENT_MYSTERY_VERSE_USED`
+    - **Description:**
+        - A player has used a mystery verse.
+    - **Arguments:**
+        - `eventId` - number
+        - `abilityId` - number
+        - `name` - string
 
-### `EVENT_MYSTERY_VERSE_USED`
+- `EVENT_BUFF_SELECTED`
+    - **Description:**
+        - A verse/vision has been selected.
+    - **Arguments:**
+        - `eventId` - number
+        - `abilityId` - number
+        - `name` - string
+        - `unitName` - string
 
-A player has used a mystery verse.
+- `EVENT_UNIT_OR_ITEM_DETECTED`
+    - **Description:**
+        - A quest marker or unit type (currenly only [Gw the Pilferer](https://en.uesp.net/wiki/Online:Gw_the_Pilferer)) has been detected
+    - **Arguments:**
+        - `eventId` - number
+        - `type` - [DETECTED](#detected)
+        - `extraInfo` - string|nil
 
-### `EVENT_BUFF_SELECTED`
+- `EVENT_MARAUDER_SPAWNED`
+    - **Description:**
+        - A Marauder has spawned.
+    - **Arguments:**
+        - `eventId` - number
+        - `name` - string
 
-The choice of verse/vision made by the current player.
-
-### `EVENT_UNIT_OR_ITEM_DETECTED`
-
-A quest marker has been seen crossing the center point of the in-game compass.
-
-### `EVENT_MARAUDER_SPAWNED`
-
-A Marauder has spawned.
-
-### `EVENT_MARKER_STATE_CHANGED`
-
-todo:
-
-### `EVENT_TOMESHELL_DESTROYED`
-
-todo:
-
-This document provides an overview of the helper functions available in the `helpers.lua` file of the `LibInfiniteArchive` addon for Elder Scrolls Online.
+- `EVENT_TOMESHELL_DESTROYED`
+    -   **Description:**
+        - A tomeshell has been destroyed in the Filer's Wing
+    - **Arguments:**
+        - `eventId` - number
+        - `destroyed` - number
+        - `remaining` - number
+        - `unitName` - string
 
 ## Enums
 
 ## UNKNOWN_PORTAL_STATE
-### `UNKNOWN_PORTAL_STATE_UNKNOWN`
-### `UNKNOWN_PORTAL_STATE_EXITED`
-### `UNKNOWN_PORTAL_STATE_ENTERED`
-### `UNKNOWN_PORTAL_STATE_STARTED`
-### `UNKNOWN_PORTAL_STATE_FAILED`
-### `UNKNOWN_PORTAL_STATE_SUCCEEDED`
-### `UNKNOWN_PORTAL_STATE_ENDED`
-
-## MARKER_STATE
-### `MARKER_STATE_CLEARED`
-### `MARKER_STATE_USED`
+```
+UNKNOWN_PORTAL_STATE_UNKNOWN
+UNKNOWN_PORTAL_STATE_EXITED
+UNKNOWN_PORTAL_STATE_ENTERED
+UNKNOWN_PORTAL_STATE_STARTED
+UNKNOWN_PORTAL_STATE_FAILED
+UNKNOWN_PORTAL_STATE_SUCCEEDED
+UNKNOWN_PORTAL_STATE_ENDED
+```
 
 ## DETECTED
-### `DETECTED_ITEM`
-### `DETECTED_UNIT`
+```
+DETECTED_ITEM
+DETECTED_UNIT
+```
 
 ## Functions
 
 ### `IsAvatar(abilityId)`
 
-Determine if the supplied ability ID is an avatar verse/vision.
+Determine if the supplied ability ID is an avatar verse.
 
 - **Parameters:**
     - `abilityId` (number): The ability ID of a verse or vision.
 - **Returns:**
-    - `boolean`: `true` if the ability ID is an avatar verse/vision.
+    - `boolean`: `true` if the ability ID is an avatar verse.
 
 ### `IsInsideArchive()`
 
