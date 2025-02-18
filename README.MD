@@ -1,5 +1,7 @@
 # LibInfiniteArchive
-This library contains utility functions and custom events shared between group members whilst inside the Infinite Archive.
+LibInfiniteArchive is intended for addon authors **only** - it is not a standalone addon.
+
+This library contains utility functions and custom events shared between group members whilst inside the Infinite Archive from update 45 and onwards.
 
 ## Usage
 
