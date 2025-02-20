@@ -1,5 +1,5 @@
-local L = LibInfiniteArchive
-
+LibInfiniteArchiveConstants = {}
+local L = LibInfiniteArchiveConstants
 L.lia = "LIBINFINITEARCHIVE_"
 
 L.UNKNOWN_PORTAL_STATE_UNKNOWN = 0

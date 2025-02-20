@@ -20,10 +20,8 @@
 languages/en.lua
 languages/$(language).lua
 
-LibInfiniteArchive.lua
-
-misc/constants.lua
-misc/helpers.lua
-misc/sharing.lua
+core/constants.lua
+core/sharing.lua
+core/lib.lua
 
 handlers/handlers.lua

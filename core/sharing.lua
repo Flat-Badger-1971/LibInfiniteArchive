@@ -1,14 +1,10 @@
 -- *** FOR INTERNAL USE ONLY ***
-
-local L = LibInfiniteArchive
-L.s = ZO_InitializingCallbackObject:Subclass()
+local L = LibInfiniteArchiveConstants
 
 --- @class Sharing : ZO_InitializingCallbackObject
-local s = L.s
+local slib = ZO_InitializingCallbackObject:Subclass()
 
-function s:Initialize(name)
-    assert(name == L.Name, "This class is only for internal use by LibInfiniteArchive")
-
+function slib:Initialize()
     EVENT_MANAGER:RegisterForEvent(L.NAME, EVENT_GROUP_UPDATE, function() self.grouped = IsUnitGrouped("player") end)
 
     self.grouped = IsUnitGrouped("player")
@@ -27,19 +23,19 @@ function s:Initialize(name)
     self.debug = (GetDisplayName() == "@Flat-Badger") and true
 end
 
-function s:d(message)
+function slib:d(message)
     if (self.debug) then
         d(message)
     end
 end
 
-function s:OnData(event, unitTag, data)
+function slib:OnData(event, unitTag, data)
     if (AreUnitsEqual(unitTag, "player")) then return end
 
     self:FireCallbacks(event, unitTag, data)
 end
 
-function s:RegisterEvents()
+function slib:RegisterEvents()
     if (not L.LGB) then return end
     
     for event, data in pairs(L.EVENTS) do
@@ -49,7 +45,7 @@ function s:RegisterEvents()
     end
 end
 
-function s:RegisterProtocols()
+function slib:RegisterProtocols()
     if (not L.LGB) then return end
 
     for event, data in pairs(L.EVENTS) do
@@ -81,7 +77,7 @@ function s:RegisterProtocols()
     end
 end
 
-function s:FireEvent(event)
+function slib:FireEvent(event)
     self:d("Firing event " .. L.EVENTS[event].name)
 
     if (self.grouped) then
@@ -91,7 +87,7 @@ function s:FireEvent(event)
     self:FireCallbacks(event)
 end
 
-function s:SendProtocolMessage(event, ...)
+function slib:SendProtocolMessage(event, ...)
     local eventInfo = L.EVENTS[event]
 
     self:d("Sending protocol message " .. eventInfo.name)
@@ -104,7 +100,7 @@ function s:SendProtocolMessage(event, ...)
     self:FireCallbacks(event, ...)
 end
 
-function s:Share(event, ...)
+function slib:Share(event, ...)
     self:d("Sharing event " .. L.EVENTS[event].name)
 
     if (L.EVENTS[event].fields) then
@@ -119,20 +115,5 @@ function s:Share(event, ...)
     end
 end
 
-function s:RegisterForEvent(event, callback)
-    local eventName = L.EVENT_IDS[event]
-
-    assert(type(callback) == "function", "Callback must be a function")
-    assert(eventName, "Event not recognised")
-
-    self:RegisterCallback(eventName, callback, event)
-end
-
-function s:UnregisterForEvent(event, callback)
-    local eventName = L.EVENT_IDS[event]
-
-    assert(type(callback) == "function", "Callback must be a function")
-    assert(eventName, "Event not recognised")
-
-    self:UnregisterCallback(eventName, callback, event)
-end
+--- @diagnostic disable-next-line: undefined-field
+LibInfiniteArchiveSharing = slib:New()
