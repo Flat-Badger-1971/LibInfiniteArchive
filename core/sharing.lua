@@ -32,12 +32,13 @@ end
 function slib:OnData(event, unitTag, data)
     if (AreUnitsEqual(unitTag, "player")) then return end
 
+    self:d("received data from " .. unitTag .. " " .. data)
     self:FireCallbacks(event, unitTag, data)
 end
 
 function slib:RegisterEvents()
     if (not L.LGB) then return end
-    
+
     for event, data in pairs(L.EVENTS) do
         if (not data.fields) then
             self.events[event] = self.handler:DeclareCustomEvent(event, data.name)
@@ -84,7 +85,7 @@ function slib:FireEvent(event)
         self.events[event]()
     end
 
-    self:FireCallbacks(event)
+    self:FireCallbacks(L.EVENTS[event].name)
 end
 
 function slib:SendProtocolMessage(event, ...)
@@ -97,7 +98,7 @@ function slib:SendProtocolMessage(event, ...)
         self.protocols[event]:Send(...)
     end
 
-    self:FireCallbacks(event, ...)
+    self:FireCallbacks(L.EVENTS[event].name, ...)
 end
 
 function slib:Share(event, ...)

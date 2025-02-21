@@ -1,8 +1,8 @@
-local lib = ZO_InitializingObject():Subclass()
+local lib = ZO_InitializingObject:Subclass()
 local L = LibInfiniteArchiveConstants
 
-local function onHiding()
-    zo_callLater(function() LibInifiniteArchive.showingBuffs = false end, 1500)
+local function onHiding(self)
+    zo_callLater(function() self.showingBuffs = false end, 1500)
 end
 
 local function onChoiceCommitted(self)
@@ -24,7 +24,7 @@ local function onCompassUpdate(self)
 
                     if (pinType == MAP_PIN_TYPE_QUEST_INTERACT) then
                         self.FoundQuestItem = true
-                        self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, L.DETECTED_ITEM, "QuestItem")
+                        self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_ITEM, "QuestItem")
                     end
                 end
             end
@@ -54,8 +54,8 @@ local function onPlayerActivated(self)
         end
 
         if (unknownportal) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = mapId, name = unknownportal.name, state = L.UNKNOWN_PORTAL_STATE_ENTERED })
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, unknownportal.name,
+                self.UNKNOWN_PORTAL_STATE_ENTERED)
         end
     end
 
@@ -76,22 +76,18 @@ local function checkMessage(self, messageParams)
         local success = zo_strlower(zo_strformat(_G[L.lia .. "HERD_SUCCESS"]))
 
         if (zo_strfind(message, start, 1, true)) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = L.MAPS.ECHOING_DEN.id, name = L.MAPS.ECHOING_DEN.name, state = L.UNKNOWN_PORTAL_STATE_STARTED })
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
+                self.UNKNOWN_PORTAL_STATE_STARTED)
         elseif (zo_strfind(message, fail, 1, true)) or (zo_strfind(secondaryMessage, fail, 1, true)) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = L.MAPS.ECHOING_DEN.id, name = L.MAPS.ECHOING_DEN.name, state = L.UNKNOWN_PORTAL_STATE_FAILED })
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = L.MAPS.ECHOING_DEN.id, name = L.MAPS.ECHOING_DEN.name, state = L.UNKNOWN_PORTAL_STATE_ENDED })
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
+                self.UNKNOWN_PORTAL_STATE_FAILED)
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
+                self.UNKNOWN_PORTAL_STATE_ENDED)
         elseif (zo_strfind(message, success, 1, true)) or zo_strfind(secondaryMessage, success, 1, true) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                {
-                    id = L.MAPS.ECHOING_DEN.id,
-                    name = L.MAPS.ECHOING_DEN.name,
-                    state = L.UNKNOWN_PORTAL_STATE_SUCCEEDED
-                })
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = L.MAPS.ECHOING_DEN.id, name = L.MAPS.ECHOING_DEN.name, state = L.UNKNOWN_PORTAL_STATE_ENDED })
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
+                self.UNKNOWN_PORTAL_STATE_SUCCEEDED)
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
+                self.UNKNOWN_PORTAL_STATE_ENDED)
         end
     end
 end
@@ -166,7 +162,7 @@ local function onStunned(self, _, stunned)
         if ((now - (self.LastStun or 0)) > 2) then
             zo_callLater(
                 function()
-                    if (not LibInifiniteArchive.ShowingBuffs) then
+                    if (not self.ShowingBuffs) then
                         resetValues(self)
                     end
                 end,
@@ -194,7 +190,7 @@ local function tomeCheck(self, ...)
 
             tomesLeft = (tomesLeft < 0) and 0 or tomesLeft
 
-            self.las.Share(L.EVENT_TOMESHELL_DESTROYED, self.TomesFound, tomesLeft)
+            self.las:Share(L.EVENT_TOMESHELL_DESTROYED, self.TomesFound, tomesLeft)
         end
     end
 end
@@ -214,14 +210,14 @@ end
 local function onHotBarChange(self, _, changed, shouldUpdate, category)
     if (GetCurrentMapId() == L.MAPS.FILERS_WING.id) then
         if ((category == HOTBAR_CATEGORY_TEMPORARY) and shouldUpdate and changed) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = L.MAPS.FILERS_WING.id, name = L.MAPS.FILERS_WING.name, state = L.UNKNOWN_PORTAL_STATE_STARTED })
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.FILERS_WING.id, L.MAPS.FILERS_WING.name,
+                self.UNKNOWN_PORTAL_STATE_STARTED)
             startTomeCheck(self)
         end
 
         if ((category == HOTBAR_CATEGORY_PRIMARY) and changed and not shouldUpdate) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
-                { id = L.MAPS.FILERS_WING.id, name = L.MAPS.FILERS_WING.name, state = L.UNKNOWN_PORTAL_STATE_ENDED })
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.FILERS_WING.id, L.MAPS.FILERS_WING.name,
+                self.UNKNOWN_PORTAL_STATE_ENDED)
             stopTomeCheck()
         end
     end
@@ -233,7 +229,7 @@ local function onReticleTargetChanged(self)
             local unit = GetUnitName("reticleover")
 
             if (zo_strfind(unit, self.gw, 1, true)) then
-                self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, L.DETECTED_UNIT, "Gw")
+                self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_UNIT, "Gw")
             end
         end
     end
@@ -270,7 +266,7 @@ local function onBuffStackCountChanged(self, _, abilityId)
     zo_callLater(
         function()
             if (self.MysteryVerse) then
-                self.las:Share(L.EVENT_MYSTERY_VERSE_USED, { id = abilityId, name = GetAbilityName(abilityId, "player") })
+                self.las:Share(L.EVENT_MYSTERY_VERSE_USED, abilityId, GetAbilityName(abilityId, "player"))
                 self.MysteryVerse = false
             end
         end,
@@ -309,8 +305,18 @@ function lib:Initialize()
         self.SELECTOR_OBJECT = string.format(selectorObject, "KEYBOARD")
     end
 
+    -- add constants
+    for state, value in pairs(L.ENUMS) do
+        self[state] = value
+    end
+
+    -- add event ids
+    for id, eventInfo in pairs(L.EVENTS) do
+        self[eventInfo.name] = id
+    end
+
     -- hooks
-    SecurePostHook(_G[self.SELECTOR], "OnHiding", onHiding)
+    SecurePostHook(_G[self.SELECTOR], "OnHiding", function() onHiding(self) end)
     SecurePostHook(_G[self.SELECTOR], "CommitChoice", function() onChoiceCommitted(self) end)
     SecurePostHook(_G[self.SELECTOR], "OnShowing", function() self.ShowingBuffs = true end)
     SecurePostHook(COMPASS, "OnUpdate", function() onCompassUpdate(self) end)
@@ -453,17 +459,17 @@ function lib:IsAuditorActive()
 end
 
 function lib:RegisterForEvent(event, callback)
-    assert(L.EVENTS[event], "Invalid event")
+    assert(L.EVENTS[event], "Invalid event " .. (event or "nil"))
     assert(callback ~= nil and type(callback) == "function", "Callback function is mandatory")
 
-    lib.las:RegisterCallback(L.EVENTS[event].name, callback)
+    self.las:RegisterCallback(L.EVENTS[event].name, callback, event)
 end
 
 function lib:UnregisterForEvent(event, callback)
     assert(L.EVENTS[event], "Invalid event")
     assert(callback ~= nil and type(callback) == "function", "Callback function is mandatory")
 
-    lib.las:UnregisterCallback(L.EVENTS[event].name, callback)
+    self.las:UnregisterCallback(L.EVENTS[event].name, callback, event)
 end
 
 LibInfiniteArchive = lib:New()
