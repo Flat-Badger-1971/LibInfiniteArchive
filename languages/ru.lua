@@ -3,10 +3,6 @@ local L = function(k, v)
     ZO_CreateStringId("LIBINFINITEARCHIVE_" .. k, v)
 end
 
-L("HERD", "соберите призрачные огни") -- Herd the Ghost Lights
-L("HERD_SUCCESS", "удалось вернуть") -- you Successfully Returned the Ghostlights / Вам удалось вернуть призрачные огни
-L("HERD_FAIL", "достаточно") -- you Did Not Herd Enough Ghostlights / Вам не удалось собрать достаточно призрачных огней
-
 -- Zones
 L("MAP_DESTOZUNOS_LIBRARY", "Библиотека Дестозуны") -- Destozuno's Library
 L("MAP_ECHOING_DEN", "Гулкое логово") -- Echoing Den
@@ -27,4 +23,7 @@ L("AUDITOR_NAME", "Верный Аудитор")
 L("FILERS_WING_FAIL", "сбежали")
 L("FILERS_WING_SUCCESS", "остановился")
 L("GW", "гв воришка")
+L("HERD", "соберите призрачные огни") -- Herd the Ghost Lights
+L("HERD_SUCCESS", "удалось вернуть") -- you Successfully Returned the Ghostlights / Вам удалось вернуть призрачные огни
+L("HERD_FAIL", "достаточно") -- you Did Not Herd Enough Ghostlights / Вам не удалось собрать достаточно призрачных огней
 L("TOMESHELL", "Книжная оболочка")

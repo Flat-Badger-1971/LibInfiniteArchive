@@ -3,10 +3,6 @@ local L = function(k, v)
     ZO_CreateStringId("LIBINFINITEARCHIVE_" .. k, v)
 end
 
-L("HERD", "Hütet die Geisterlichter")
-L("HERD_FAIL", "ausreichend") -- Ihr habt nicht ausreichend Geisterlichter gehütet
-L("HERD_SUCCESS", "erfolgreich") -- Ihr habt die Geisterlichter erfolgreich zurückgebracht
-
 -- Zones
 L("MAP_DESTOZUNOS_LIBRARY", "Destozunos Bibliothek")
 L("MAP_ECHOING_DEN", "Hallende Höhle")
@@ -27,4 +23,7 @@ L("AUDITOR_NAME", "Loyaler Wirtschaftsprüfer")
 L("FILERS_WING_FAIL", "entkamen")
 L("FILERS_WING_SUCCESS", "aufgehalten")
 L("GW", "Gw Langfinger")
+L("HERD", "Hütet die Geisterlichter")
+L("HERD_FAIL", "ausreichend")    -- Ihr habt nicht ausreichend Geisterlichter gehütet
+L("HERD_SUCCESS", "erfolgreich") -- Ihr habt die Geisterlichter erfolgreich zurückgebracht
 L("TOMESHELL", "Buchsiedler")

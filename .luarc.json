@@ -1,7 +1,14 @@
 {
     "diagnostics": {
-        "disable": ["param-type-mismatch"],
-        "libraryFiles": "Disable"
+        "disable": [
+            "param-type-mismatch"
+        ],
+        "libraryFiles": "Disable",
+        "neededFileStatus": {
+            "codestyle-check": "Any"
+        }
     },
-    "workspace.library": ["./esoapi/esoapi.lua"]
+    "workspace.library": [
+        "./esoapi/esoapi.lua"
+    ]
 }

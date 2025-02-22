@@ -1331,7 +1331,9 @@ function CompassDisplayControl:SetCardinalDirection(directionName, font, cardina
 --- @param layer DrawLayer
 --- @param drawLevelOffsetBase integer
 --- @return void
-function CompassDisplayControl:SetPinInfo(pinType, pinSize, pinTexture, areaTexture, aboveTexture, belowTexture, linkTexture, clamped, allowUpdatesWhenAnimating, maxDistanceM, closeScale, farScale, closeScaleDistanceM, farScaleDistanceM, closeAlpha, farAlpha, closeAlphaDistanceM, farAlphaDistanceM, animation, addedAnimation, removedAnimation, layer, drawLevelOffsetBase) end
+function CompassDisplayControl:SetPinInfo(pinType, pinSize, pinTexture, areaTexture, aboveTexture, belowTexture, linkTexture, clamped, allowUpdatesWhenAnimating,
+                                          maxDistanceM, closeScale, farScale, closeScaleDistanceM, farScaleDistanceM, closeAlpha, farAlpha, closeAlphaDistanceM,
+                                          farAlphaDistanceM, animation, addedAnimation, removedAnimation, layer, drawLevelOffsetBase) end
 
 --- @param pinType MapDisplayPinType
 --- @param closeScale number
@@ -1368,10 +1370,10 @@ function Control:AddTransformRotationZ(deltaZRadians) end
 
 --- @param childControl Control
 --- @return void
-function Control:AppendChild(childControl) end --*protected-attributes*
+function Control:AppendChild(childControl) end -- *protected-attributes*
 
 --- @return void
-function Control:ClearAnchors() end --*protected-attributes*
+function Control:ClearAnchors() end -- *protected-attributes*
 
 --- @return void
 function Control:ClearCircularClip() end
@@ -1380,7 +1382,7 @@ function Control:ClearCircularClip() end
 function Control:ClearClips() end
 
 --- @return void
-function Control:ClearDimensions() end --*protected-attributes*
+function Control:ClearDimensions() end -- *protected-attributes*
 
 --- @return void
 function Control:ClearFadeGradients() end
@@ -1395,7 +1397,7 @@ function Control:ClearRectangularClip() end
 function Control:ClearShaderEffectOptions() end
 
 --- @return void
-function Control:ClearSuggestedDimensions() end --*protected-attributes*
+function Control:ClearSuggestedDimensions() end -- *protected-attributes*
 
 --- @return void
 function Control:ClearTransform() end
@@ -1743,7 +1745,7 @@ function Control:Has3DRenderSpace() end
 --- @param childControl Control
 --- @param nextChild Control
 --- @return void
-function Control:InsertChildBefore(childControl, nextChild) end --*protected-attributes*
+function Control:InsertChildBefore(childControl, nextChild) end -- *protected-attributes*
 
 --- @param desiredParent Control
 --- @return boolean isChild
@@ -1846,7 +1848,7 @@ function Control:Set3DRenderSpaceUsesDepthBuffer(usesDepthBuffer) end
 
 --- @param alpha number
 --- @return void
-function Control:SetAlpha(alpha) end --*protected-attributes*
+function Control:SetAlpha(alpha) end -- *protected-attributes*
 
 --- @param point AnchorPosition
 --- @param relativeTo Control|nil
@@ -1855,11 +1857,11 @@ function Control:SetAlpha(alpha) end --*protected-attributes*
 --- @param offsetY layout_measurement|nil
 --- @param anchorConstrains AnchorConstrains|nil
 --- @return void
-function Control:SetAnchor(point, relativeTo, relativePoint, offsetX, offsetY, anchorConstrains) end --*protected-attributes*
+function Control:SetAnchor(point, relativeTo, relativePoint, offsetX, offsetY, anchorConstrains) end -- *protected-attributes*
 
 --- @param anchorTargetControl Control|nil
 --- @return void
-function Control:SetAnchorFill(anchorTargetControl) end --*protected-attributes*
+function Control:SetAnchorFill(anchorTargetControl) end -- *protected-attributes*
 
 --- @param offsetX layout_measurement
 --- @param offsetY layout_measurement
@@ -1933,19 +1935,19 @@ function Control:SetDimensionConstraints(minWidth, minHeight, maxWidth, maxHeigh
 --- @param width layout_measurement
 --- @param height layout_measurement
 --- @return void
-function Control:SetDimensions(width, height) end --*protected-attributes*
+function Control:SetDimensions(width, height) end -- *protected-attributes*
 
 --- @param layer DrawLayer
 --- @return void
-function Control:SetDrawLayer(layer) end --*protected-attributes*
+function Control:SetDrawLayer(layer) end -- *protected-attributes*
 
 --- @param level integer
 --- @return void
-function Control:SetDrawLevel(level) end --*protected-attributes*
+function Control:SetDrawLevel(level) end -- *protected-attributes*
 
 --- @param tier DrawTier
 --- @return void
-function Control:SetDrawTier(tier) end --*protected-attributes*
+function Control:SetDrawTier(tier) end -- *protected-attributes*
 
 --- @param exclude boolean
 --- @return void
@@ -1953,7 +1955,7 @@ function Control:SetExcludeFromFlexbox(exclude) end
 
 --- @param exclude boolean
 --- @return void
-function Control:SetExcludeFromResizeToFitExtents(exclude) end --*protected-attributes*
+function Control:SetExcludeFromResizeToFitExtents(exclude) end -- *protected-attributes*
 
 --- @param gradientIndex luaindex
 --- @param normalX number
@@ -2016,11 +2018,11 @@ function Control:SetHandler(handlerName, functionRef, name, controlHandlerOrder,
 
 --- @param height layout_measurement
 --- @return void
-function Control:SetHeight(height) end --*protected-attributes*
+function Control:SetHeight(height) end -- *protected-attributes*
 
 --- @param hidden boolean
 --- @return void
-function Control:SetHidden(hidden) end --*protected-attributes*
+function Control:SetHidden(hidden) end -- *protected-attributes*
 
 --- @param left layout_measurement
 --- @param top layout_measurement
@@ -2043,7 +2045,7 @@ function Control:SetInheritScale(inheritScale) end
 
 --- @param enabled boolean
 --- @return void
-function Control:SetKeyboardEnabled(enabled) end --*protected-attributes*
+function Control:SetKeyboardEnabled(enabled) end -- *protected-attributes*
 
 --- @param maskMode ControlMaskMode
 --- @return void
@@ -2073,7 +2075,7 @@ function Control:SetMotionBlur(blurVectorXAsAPercentageOfControlWidth, blurVecto
 
 --- @param enabled boolean
 --- @return void
-function Control:SetMouseEnabled(enabled) end --*protected-attributes*
+function Control:SetMouseEnabled(enabled) end -- *protected-attributes*
 
 --- @param isMovable boolean
 --- @return void
@@ -2081,7 +2083,7 @@ function Control:SetMovable(isMovable) end
 
 --- @param newParent Control
 --- @return void
-function Control:SetParent(newParent) end --*protected-attributes*
+function Control:SetParent(newParent) end -- *protected-attributes*
 
 --- @param originX number
 --- @param originY number
@@ -2108,7 +2110,7 @@ function Control:SetResizeToFitConstrains(constrains) end
 
 --- @param resize boolean
 --- @return void
-function Control:SetResizeToFitDescendents(resize) end --*protected-attributes*
+function Control:SetResizeToFitDescendents(resize) end -- *protected-attributes*
 
 --- @param width layout_measurement
 --- @param height layout_measurement
@@ -2117,7 +2119,7 @@ function Control:SetResizeToFitPadding(width, height) end
 
 --- @param scale number
 --- @return void
-function Control:SetScale(scale) end --*protected-attributes*
+function Control:SetScale(scale) end -- *protected-attributes*
 
 --- @param shapeType integer
 --- @return void
@@ -2127,12 +2129,12 @@ function Control:SetShapeType(shapeType) end
 --- @param offsetX number
 --- @param offsetY number
 --- @return void
-function Control:SetSimpleAnchor(anchorTargetControl, offsetX, offsetY) end --*protected-attributes*
+function Control:SetSimpleAnchor(anchorTargetControl, offsetX, offsetY) end -- *protected-attributes*
 
 --- @param offsetX number
 --- @param offsetY number
 --- @return void
-function Control:SetSimpleAnchorParent(offsetX, offsetY) end --*protected-attributes*
+function Control:SetSimpleAnchorParent(offsetX, offsetY) end -- *protected-attributes*
 
 --- @param space Space|nil
 --- @return void
@@ -2258,29 +2260,29 @@ function Control:SetWaveSpeed(speed) end
 
 --- @param width layout_measurement
 --- @return void
-function Control:SetWidth(width) end --*protected-attributes*
+function Control:SetWidth(width) end -- *protected-attributes*
 
 --- @return boolean isMoving
-function Control:StartMoving() end --*protected-attributes*
+function Control:StartMoving() end -- *protected-attributes*
 
 --- @return void
-function Control:StopMovingOrResizing() end --*protected-attributes*
+function Control:StopMovingOrResizing() end -- *protected-attributes*
 
 --- @param width number
 --- @param height number
 --- @return void
-function Control:SuggestDimensions(width, height) end --*protected-attributes*
+function Control:SuggestDimensions(width, height) end -- *protected-attributes*
 
 --- @param height number
 --- @return void
-function Control:SuggestHeight(height) end --*protected-attributes*
+function Control:SuggestHeight(height) end -- *protected-attributes*
 
 --- @param width number
 --- @return void
-function Control:SuggestWidth(width) end --*protected-attributes*
+function Control:SuggestWidth(width) end -- *protected-attributes*
 
 --- @return void
-function Control:ToggleHidden() end --*protected-attributes*
+function Control:ToggleHidden() end -- *protected-attributes*
 
 --- @param event Event
 --- @return boolean success
@@ -2389,7 +2391,7 @@ function EditControl:Clear() end
 function EditControl:ClearSelection() end
 
 --- @return void
-function EditControl:CopyAllTextToClipboard() end --*private*
+function EditControl:CopyAllTextToClipboard() end -- *private*
 
 --- @return AllowMarkupType allowMarkupType
 function EditControl:GetAllowMarkupType() end
@@ -2857,7 +2859,9 @@ function MapDisplayControl:GetZoom() end
 --- @param removedAnimation string
 --- @param animationTarget MapPinAnimationTarget
 --- @return void
-function MapDisplayControl:SetBasePinData(pinType, arrowType, pinSize, pinXInset, pinYInset, arrowSize, textureFilename, arrowTextureFilename, areaTextureFilename, aboveTextureFilename, belowTextureFilename, linkTextureFilename, animation, addedAnimation, removedAnimation, animationTarget) end
+function MapDisplayControl:SetBasePinData(pinType, arrowType, pinSize, pinXInset, pinYInset, arrowSize, textureFilename, arrowTextureFilename,
+                                          areaTextureFilename, aboveTextureFilename, belowTextureFilename, linkTextureFilename, animation, addedAnimation,
+                                          removedAnimation, animationTarget) end
 
 --- @param offset number
 --- @param size number
@@ -3154,7 +3158,8 @@ function SliderControl:SetThumbTexture(filename, disabledFilename, highlightedFi
 --- @param texRight number
 --- @param flush boolean
 --- @return void
-function SliderControl:SetThumbTextureAndFlush(filename, disabledFilename, highlightedFilename, thumbWidth, thumbHeight, texTop, texLeft, texBottom, texRight, flush) end
+function SliderControl:SetThumbTextureAndFlush(filename, disabledFilename, highlightedFilename, thumbWidth, thumbHeight, texTop, texLeft, texBottom, texRight,
+                                               flush) end
 
 --- @param height layout_measurement
 --- @return void
@@ -3819,7 +3824,8 @@ function TooltipControl:SetAction(slotId, hotbarCategory) end
 --- @param overrideRank integer|nil
 --- @param overrideAbilityId integer|nil
 --- @return void
-function TooltipControl:SetActiveSkill(skillType, skillLineIndex, skillIndex, morphSlot, isPurchased, isAdvised, isBadMorph, numAvailableSkillPoints, showSkillPointCost, showUpgradeText, showAdvised, showBadMorph, overrideRank, overrideAbilityId) end
+function TooltipControl:SetActiveSkill(skillType, skillLineIndex, skillIndex, morphSlot, isPurchased, isAdvised, isBadMorph, numAvailableSkillPoints,
+                                       showSkillPointCost, showUpgradeText, showAdvised, showBadMorph, overrideRank, overrideAbilityId) end
 
 --- @param antiquityId integer
 --- @return void
@@ -4027,7 +4033,8 @@ function TooltipControl:SetPassiveSkill(skillType, skillLineIndex, skillIndex, r
 --- @param reagent3BagId Bag|nil
 --- @param reagent3SlotIndex integer|nil
 --- @return void
-function TooltipControl:SetPendingAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex) end
+function TooltipControl:SetPendingAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
+                                              reagent3SlotIndex) end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -4036,7 +4043,8 @@ function TooltipControl:SetPendingAlchemyItem(solventBagId, solventSlotIndex, re
 --- @param aspectRuneBagId Bag
 --- @param aspectRuneSlotIndex integer
 --- @return void
-function TooltipControl:SetPendingEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex) end
+function TooltipControl:SetPendingEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId,
+                                                 aspectRuneSlotIndex) end
 
 --- @param bagIndex Bag
 --- @param slotIndex integer
@@ -4233,15 +4241,15 @@ TopLevelWindow = {}
 function TopLevelWindow:AllowBringToTop() end
 
 --- @return void
-function TopLevelWindow:BringWindowToTop() end --*protected-attributes*
+function TopLevelWindow:BringWindowToTop() end -- *protected-attributes*
 
 --- @param allow boolean
 --- @return void
-function TopLevelWindow:SetAllowBringToTop(allow) end --*protected-attributes*
+function TopLevelWindow:SetAllowBringToTop(allow) end -- *protected-attributes*
 
 --- @param drawWhenHidden boolean
 --- @return void
-function TopLevelWindow:SetDrawWhenGuiHidden(drawWhenHidden) end --*private*
+function TopLevelWindow:SetDrawWhenGuiHidden(drawWhenHidden) end -- *private*
 
 --- @param isTopmost boolean
 --- @return void
@@ -4383,4 +4391,3 @@ function WindowManager:SetMouseFocusByName(name) end
 --- @param y layout_measurement
 --- @return void
 function WindowManager:UpdateCursorPosition(cursorId, x, y) end
-

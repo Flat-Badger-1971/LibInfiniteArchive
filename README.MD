@@ -38,6 +38,13 @@ local avatarVerse = lia.IsAvatar(202134)
         - `abilityId` - number
         - `name` - string
 
+- `EVENT_SWEETROLL_CONSUMED`
+    - **Description:**
+        - A player has consumed a sweetroll in Haefal's Butchery
+    - **Arguments:**
+        - `eventId` - number
+        - `unitName` - string
+
 - `EVENT_TOMESHELL_DESTROYED`
     -   **Description:**
         - A tomeshell has been destroyed in the Filer's Wing
@@ -83,15 +90,7 @@ UNKNOWN_PORTAL_STATE_SUCCEEDED
 UNKNOWN_PORTAL_STATE_UNKNOWN
 ```
 
-
 ## Functions
-
-### `GetActualGroupType()`
-
-Get the current group size, accounting for offline players and companions.
-
-- **Returns:**
-    - `integer|nil`: Actual/active group size.
 
 ### `GetArchiveQuestIndices(rebuild)`
 
@@ -101,6 +100,13 @@ Get the quest journal indices of any infinite archive quests that require you to
     - `rebuild` (boolean): Force a rebuild of the quest indices data.
 - **Returns:**
     - `table`: A table of quest journal indices.
+
+### `GetEffectiveGroupType()`
+
+Get the effective group size, accounting for offline players and companions. Allows for correct determination of unknown portal targets.
+
+- **Returns:**
+    - `integer|nil`: Effective group size.
 
 ### `IsAuditorActive()`
 
@@ -134,5 +140,3 @@ Determine if the player is inside a portal to the unknown.
     - `boolean`: `true` if the player is inside a portal to the unknown.
     - `number|nil`: The map ID of the current portal to the unknown area.
     - `string|nil`: The name of the current portal to the unknown area.
-
-

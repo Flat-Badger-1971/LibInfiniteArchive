@@ -495,45 +495,45 @@ function ShouldShowEULA(eulaType) end
 
 --- @param urlType ApprovedURLType
 --- @return void
-function OpenURLByType(urlType) end --*private*
+function OpenURLByType(urlType) end -- *private*
 
 --- @param urlType ApprovedURLType
 --- @return string urlText
-function GetURLTextByType(urlType) end --*private*
+function GetURLTextByType(urlType) end -- *private*
 
 --- @param urlType ApprovedURLType
 --- @return boolean urlOpensInOverlay
-function ShouldOpenURLTypeInOverlay(urlType) end --*private*
+function ShouldOpenURLTypeInOverlay(urlType) end -- *private*
 
 --- @param chapterId integer
 --- @param isCollectorsEdition boolean
 --- @param source ChapterUpgradeSource
 --- @return void
-function OpenChapterUpgradeURL(chapterId, isCollectorsEdition, source) end --*private*
+function OpenChapterUpgradeURL(chapterId, isCollectorsEdition, source) end -- *private*
 
 --- @return void
-function ShowPlatformStoreUI() end --*private*
+function ShowPlatformStoreUI() end -- *private*
 
 --- @return void
-function ShowPlatformESOCrownPacksUI() end --*private*
+function ShowPlatformESOCrownPacksUI() end -- *private*
 
 --- @return void
-function ShowPlatformESOPlusSubscriptionUI() end --*private*
+function ShowPlatformESOPlusSubscriptionUI() end -- *private*
 
 --- @param chapterId integer
 --- @param isCollectorsEdition boolean
 --- @param source ChapterUpgradeSource
 --- @return void
-function ShowPlatformESOChapterUpgradeUI(chapterId, isCollectorsEdition, source) end --*private*
+function ShowPlatformESOChapterUpgradeUI(chapterId, isCollectorsEdition, source) end -- *private*
 
 --- @return void
-function ShowPlatformESOVOAdditionalContentUI() end --*private*
+function ShowPlatformESOVOAdditionalContentUI() end -- *private*
 
 --- @return void
-function DisableShareFeatures() end --*private*
+function DisableShareFeatures() end -- *private*
 
 --- @return void
-function EnableShareFeatures() end --*private*
+function EnableShareFeatures() end -- *private*
 
 --- @return PlatformServiceType platformServiceType
 function GetPlatformServiceType() end
@@ -548,11 +548,11 @@ function DoesPlatformStoreUseExternalLinks() end
 --- @param flashCount integer
 --- @param flashRateMs integer
 --- @return void
-function FlashTaskbarWindow(reason, flashCount, flashRateMs) end --*private*
+function FlashTaskbarWindow(reason, flashCount, flashRateMs) end -- *private*
 
 --- @param reason string
 --- @return void
-function CancelTaskbarWindowFlash(reason) end --*private*
+function CancelTaskbarWindowFlash(reason) end -- *private*
 
 --- @param targetFramesPerSecond number
 --- @return number frameDeltaNormalizedForTargetFramerate
@@ -1322,7 +1322,7 @@ function IsKeyCodeHoldKey(key) end
 
 --- @param key KeyCode
 --- @return boolean isKeyDown
-function IsKeyDown(key) end --*private*
+function IsKeyDown(key) end -- *private*
 
 --- @param key KeyCode
 --- @return KeyCode holdKey
@@ -1376,10 +1376,10 @@ function AreUserAddOnsSupported() end
 function ShouldKeyCodeUseKeyMarkup(keyCode) end
 
 --- @return void
-function UpdatePlayerPresenceInformation() end --*private*
+function UpdatePlayerPresenceInformation() end -- *private*
 
 --- @return void
-function UpdatePlayerPresenceName() end --*private*
+function UpdatePlayerPresenceName() end -- *private*
 
 --- @param messageOrigin SceneManagerMessageOrigin
 --- @param requestType RemoteSceneRequestType
@@ -1465,7 +1465,7 @@ function GetTrialInfo() end
 function GetPlayerMarketCurrency(marketCurrencyType) end
 
 --- @return void
-function OnMarketPurchaseMoreCrowns() end --*private*
+function OnMarketPurchaseMoreCrowns() end -- *private*
 
 --- @return boolean systemAvailable
 function IsChromaSystemAvailable() end
@@ -1864,11 +1864,11 @@ function GetLatency() end
 
 --- @param tradeIndex luaindex|nil
 --- @return void
-function PlaceInTradeWindow(tradeIndex) end --*protected*
+function PlaceInTradeWindow(tradeIndex) end -- *protected*
 
 --- @param target string
 --- @return void
-function PlaceInUnitFrame(target) end --*protected*
+function PlaceInUnitFrame(target) end -- *protected*
 
 --- @param mouseButton MouseButtonIndex
 --- @return KeyCode key
@@ -2338,29 +2338,29 @@ function IsSlotUsable(actionSlotIndex, hotbarCategory) end
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function OnSlotDownAndUp(actionSlotIndex, hotbarCategory) end --*private*
+function OnSlotDownAndUp(actionSlotIndex, hotbarCategory) end -- *private*
 
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function OnSlotDown(actionSlotIndex, hotbarCategory) end --*private*
+function OnSlotDown(actionSlotIndex, hotbarCategory) end -- *private*
 
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function OnSlotUp(actionSlotIndex, hotbarCategory) end --*private*
+function OnSlotUp(actionSlotIndex, hotbarCategory) end -- *private*
 
 --- @param moveIndex SpecialMove
 --- @return void
-function OnSpecialMoveKeyPressed(moveIndex) end --*private*
+function OnSpecialMoveKeyPressed(moveIndex) end -- *private*
 
 --- @param moveIndex SpecialMove
 --- @return void
-function OnSpecialMoveKeyDown(moveIndex) end --*private*
+function OnSpecialMoveKeyDown(moveIndex) end -- *private*
 
 --- @param moveIndex SpecialMove
 --- @return void
-function OnSpecialMoveKeyUp(moveIndex) end --*private*
+function OnSpecialMoveKeyUp(moveIndex) end -- *private*
 
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory
@@ -2498,115 +2498,115 @@ function GetQuestToolCount(journalQuestIndex) end
 --- @param channelId ChannelType
 --- @param target string
 --- @return void
-function SendChatMessage(message, channelId, target) end --*private*
+function SendChatMessage(message, channelId, target) end -- *private*
 
 --- @return void
-function MoveForwardStart() end --*private*
+function MoveForwardStart() end -- *private*
 
 --- @return void
-function MoveForwardStop() end --*private*
+function MoveForwardStop() end -- *private*
 
 --- @return void
-function MoveBackwardStart() end --*private*
+function MoveBackwardStart() end -- *private*
 
 --- @return void
-function MoveBackwardStop() end --*private*
+function MoveBackwardStop() end -- *private*
 
 --- @return void
-function ToggleWalk() end --*private*
+function ToggleWalk() end -- *private*
 
 --- @return void
-function TurnLeftStart() end --*private*
+function TurnLeftStart() end -- *private*
 
 --- @return void
-function TurnLeftStop() end --*private*
+function TurnLeftStop() end -- *private*
 
 --- @return void
-function TurnRightStart() end --*private*
+function TurnRightStart() end -- *private*
 
 --- @return void
-function TurnRightStop() end --*private*
+function TurnRightStop() end -- *private*
 
 --- @return void
-function StrafeLeftStart() end --*private*
+function StrafeLeftStart() end -- *private*
 
 --- @return void
-function StrafeLeftStop() end --*private*
+function StrafeLeftStop() end -- *private*
 
 --- @return void
-function StrafeRightStart() end --*private*
+function StrafeRightStart() end -- *private*
 
 --- @return void
-function StrafeRightStop() end --*private*
+function StrafeRightStop() end -- *private*
 
 --- @return void
-function JumpAscendStart() end --*private*
+function JumpAscendStart() end -- *private*
 
 --- @return void
-function AscendStop() end --*private*
+function AscendStop() end -- *private*
 
 --- @return void
-function DescendStart() end --*private*
+function DescendStart() end -- *private*
 
 --- @return void
-function DescendStop() end --*private*
+function DescendStop() end -- *private*
 
 --- @return void
-function LeftMouseDownInWorld() end --*private*
+function LeftMouseDownInWorld() end -- *private*
 
 --- @return void
-function LeftMouseUpInWorld() end --*private*
+function LeftMouseUpInWorld() end -- *private*
 
 --- @return void
-function LeftAndRightMouseDownInWorld() end --*private*
+function LeftAndRightMouseDownInWorld() end -- *private*
 
 --- @return void
-function LeftAndRightMouseUpInWorld() end --*private*
+function LeftAndRightMouseUpInWorld() end -- *private*
 
 --- @return void
-function RightMouseDownInWorld() end --*private*
+function RightMouseDownInWorld() end -- *private*
 
 --- @return void
-function RightMouseUpInWorld() end --*private*
+function RightMouseUpInWorld() end -- *private*
 
 --- @return void
-function ToggleAutoRun() end --*private*
+function ToggleAutoRun() end -- *private*
 
 --- @return void
-function RollDodgeStart() end --*private*
+function RollDodgeStart() end -- *private*
 
 --- @return void
-function RollDodgeStop() end --*private*
+function RollDodgeStop() end -- *private*
 
 --- @return void
-function PrepareAttack() end --*private*
+function PrepareAttack() end -- *private*
 
 --- @return void
-function PerformAttack() end --*private*
+function PerformAttack() end -- *private*
 
 --- @return void
-function StartBlock() end --*private*
+function StartBlock() end -- *private*
 
 --- @return void
-function StopBlock() end --*private*
+function StopBlock() end -- *private*
 
 --- @return void
-function ToggleGameCameraPadlockTarget() end --*private*
+function ToggleGameCameraPadlockTarget() end -- *private*
 
 --- @return void
-function PerformInterrupt() end --*private*
+function PerformInterrupt() end -- *private*
 
 --- @return void
-function StartCommandPet() end --*private*
+function StartCommandPet() end -- *private*
 
 --- @return void
-function StopCommandPet() end --*private*
+function StopCommandPet() end -- *private*
 
 --- @return void
-function GameCameraGamepadZoomDown() end --*private*
+function GameCameraGamepadZoomDown() end -- *private*
 
 --- @return void
-function GameCameraGamepadZoomUp() end --*private*
+function GameCameraGamepadZoomUp() end -- *private*
 
 --- @param interactionType integer
 --- @return void
@@ -2895,19 +2895,19 @@ function SetMapPinAssisted(pinType, assisted, param1, param2, param3) end
 function SetMapPinContinuousPositionUpdate(pinType, continuousUpdate, param1, param2, param3) end
 
 --- @return void
-function StartMouseSiegeWeaponAim() end --*private*
+function StartMouseSiegeWeaponAim() end -- *private*
 
 --- @return void
-function StopMouseSiegeWeaponAim() end --*private*
+function StopMouseSiegeWeaponAim() end -- *private*
 
 --- @return void
-function SiegeWeaponPackUp() end --*private*
+function SiegeWeaponPackUp() end -- *private*
 
 --- @return void
-function SiegeWeaponRelease() end --*private*
+function SiegeWeaponRelease() end -- *private*
 
 --- @return void
-function SiegeWeaponFire() end --*private*
+function SiegeWeaponFire() end -- *private*
 
 --- @return boolean canPackup
 function CanSiegeWeaponPackUp() end
@@ -2983,7 +2983,7 @@ function IsInteractionCameraActive() end
 function IsSpectatorCameraActive() end
 
 --- @return void
-function GameCameraInteractStart() end --*private*
+function GameCameraInteractStart() end -- *private*
 
 --- @return boolean isHidden
 function IsReticleHidden() end
@@ -2992,19 +2992,19 @@ function IsReticleHidden() end
 function IsGameCameraUnitHighlightedAttackable() end
 
 --- @return void
-function GameCameraMouseFreeLookStart() end --*private*
+function GameCameraMouseFreeLookStart() end -- *private*
 
 --- @return void
-function GameCameraMouseFreeLookStop() end --*private*
+function GameCameraMouseFreeLookStop() end -- *private*
 
 --- @return void
-function CycleGameCameraPreferredEnemyTarget() end --*private*
+function CycleGameCameraPreferredEnemyTarget() end -- *private*
 
 --- @return boolean valid
 function IsGameCameraPreferredTargetValid() end
 
 --- @return void
-function ClearGameCameraPreferredTarget() end --*private*
+function ClearGameCameraPreferredTarget() end -- *private*
 
 --- @return string|nil action, string|nil name, boolean interactBlocked, boolean isOwned, integer additionalInfo, integer|nil contextualInfo, string|nil contextualLink, boolean isCriminalInteract
 function GetGameCameraInteractableActionInfo() end
@@ -3016,11 +3016,11 @@ function GetNameOfGameCameraQuestToolTarget() end
 function IsGameCameraSiegeControlled() end
 
 --- @return void
-function ReleaseGameCameraSiegeControlled() end --*private*
+function ReleaseGameCameraSiegeControlled() end -- *private*
 
 --- @param enable boolean
 --- @return void
-function SetSpectatorCameraEnabled(enable) end --*private*
+function SetSpectatorCameraEnabled(enable) end -- *private*
 
 --- @param index luaindex
 --- @return string name
@@ -3133,12 +3133,12 @@ function GetCursorCraftedAbilityScriptId() end
 --- @param actionSlot luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function PlaceInActionBar(actionSlot, hotbarCategory) end --*protected*
+function PlaceInActionBar(actionSlot, hotbarCategory) end -- *protected*
 
 --- @param bagId Bag
 --- @param slotIndex integer
 --- @return void
-function PlaceInInventory(bagId, slotIndex) end --*protected*
+function PlaceInInventory(bagId, slotIndex) end -- *protected*
 
 --- @param sourceBag Bag
 --- @param sourceSlot integer
@@ -3146,117 +3146,117 @@ function PlaceInInventory(bagId, slotIndex) end --*protected*
 --- @param destSlot integer
 --- @param stackCount integer
 --- @return void
-function RequestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount) end --*protected*
+function RequestMoveItem(sourceBag, sourceSlot, destBag, destSlot, stackCount) end -- *protected*
 
 --- @param slot integer
 --- @return void
-function PlaceInEquipSlot(slot) end --*protected*
+function PlaceInEquipSlot(slot) end -- *protected*
 
 --- @return void
-function PlaceInStoreWindow() end --*protected*
+function PlaceInStoreWindow() end -- *protected*
 
 --- @return void
-function PlaceInTransfer() end --*protected*
+function PlaceInTransfer() end -- *protected*
 
 --- @return void
-function PlaceInWorldLeftClick() end --*protected*
+function PlaceInWorldLeftClick() end -- *protected*
 
 --- @param attachmentSlot luaindex
 --- @return void
-function PlaceInAttachmentSlot(attachmentSlot) end --*protected*
+function PlaceInAttachmentSlot(attachmentSlot) end -- *protected*
 
 --- @param actionSlot luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function PickupAction(actionSlot, hotbarCategory) end --*protected*
+function PickupAction(actionSlot, hotbarCategory) end -- *protected*
 
 --- @param abilityIndex luaindex
 --- @return void
-function PickupAbility(abilityIndex) end --*protected*
+function PickupAbility(abilityIndex) end -- *protected*
 
 --- @param abilityId integer
 --- @return void
-function PickupCompanionAbilityById(abilityId) end --*protected*
+function PickupCompanionAbilityById(abilityId) end -- *protected*
 
 --- @param skillType SkillType
 --- @param skillLineIndex luaindex
 --- @param skillIndex luaindex
 --- @return void
-function PickupAbilityBySkillLine(skillType, skillLineIndex, skillIndex) end --*protected*
+function PickupAbilityBySkillLine(skillType, skillLineIndex, skillIndex) end -- *protected*
 
 --- @param championSkillId integer
 --- @return void
-function PickupChampionSkillById(championSkillId) end --*protected*
+function PickupChampionSkillById(championSkillId) end -- *protected*
 
 --- @param bagId Bag
 --- @param slotIndex integer
 --- @param count integer
 --- @return void
-function PickupInventoryItem(bagId, slotIndex, count) end --*protected*
+function PickupInventoryItem(bagId, slotIndex, count) end -- *protected*
 
 --- @param slotIndex integer
 --- @param bagId Bag
 --- @return void
-function PickupEquippedItem(slotIndex, bagId) end --*protected*
+function PickupEquippedItem(slotIndex, bagId) end -- *protected*
 
 --- @param tradeIndex luaindex
 --- @return void
-function PickupTradeItem(tradeIndex) end --*protected*
+function PickupTradeItem(tradeIndex) end -- *protected*
 
 --- @param journalQuestIndex luaindex
 --- @param toolIndex luaindex
 --- @return void
-function PickupQuestTool(journalQuestIndex, toolIndex) end --*protected*
+function PickupQuestTool(journalQuestIndex, toolIndex) end -- *protected*
 
 --- @param journalQuestIndex luaindex
 --- @param stepIndex luaindex
 --- @param conditionIndex luaindex
 --- @return void
-function PickupQuestItem(journalQuestIndex, stepIndex, conditionIndex) end --*protected*
+function PickupQuestItem(journalQuestIndex, stepIndex, conditionIndex) end -- *protected*
 
 --- @param entryIndex luaindex
 --- @return void
-function PickupStoreItem(entryIndex) end --*protected*
+function PickupStoreItem(entryIndex) end -- *protected*
 
 --- @param entryIndex luaindex
 --- @return void
-function PickupStoreBuybackItem(entryIndex) end --*protected*
+function PickupStoreBuybackItem(entryIndex) end -- *protected*
 
 --- @param collectibleId integer
 --- @return void
-function PickupCollectible(collectibleId) end --*protected*
+function PickupCollectible(collectibleId) end -- *protected*
 
 --- @param emoteId integer
 --- @return void
-function PickupEmoteById(emoteId) end --*protected*
+function PickupEmoteById(emoteId) end -- *protected*
 
 --- @param quickChatId integer
 --- @return void
-function PickupQuickChatById(quickChatId) end --*protected*
+function PickupQuickChatById(quickChatId) end -- *protected*
 
 --- @param craftedAbilityId integer
 --- @return void
-function PickupCraftedAbility(craftedAbilityId) end --*protected*
+function PickupCraftedAbility(craftedAbilityId) end -- *protected*
 
 --- @param craftedAbilityScriptId integer
 --- @return void
-function PickupCraftedAbilityScript(craftedAbilityScriptId) end --*protected*
+function PickupCraftedAbilityScript(craftedAbilityScriptId) end -- *protected*
 
 --- @param destroyItem boolean
 --- @return void
-function RespondToDestroyRequest(destroyItem) end --*private*
+function RespondToDestroyRequest(destroyItem) end -- *private*
 
 --- @return void
-function PlaceInTradingHouse() end --*protected*
+function PlaceInTradingHouse() end -- *protected*
 
 --- @param bag Bag
 --- @param slotIndex integer
 --- @return void
-function InitiateConfirmUseInventoryItem(bag, slotIndex) end --*protected*
+function InitiateConfirmUseInventoryItem(bag, slotIndex) end -- *protected*
 
 --- @param useItem boolean
 --- @return void
-function RespondToConfirmUseInventoryItemRequest(useItem) end --*private*
+function RespondToConfirmUseInventoryItemRequest(useItem) end -- *private*
 
 --- @return integer actionLayers
 function GetNumActionLayers() end
@@ -3322,20 +3322,20 @@ function CreateDefaultActionBind(actionName, key, modifier1, modifier2, modifier
 --- @param modifier3 KeyCode
 --- @param modifier4 KeyCode
 --- @return void
-function BindKeyToAction(layerIndex, categoryIndex, actionIndex, bindingIndex, key, modifier1, modifier2, modifier3, modifier4) end --*protected*
+function BindKeyToAction(layerIndex, categoryIndex, actionIndex, bindingIndex, key, modifier1, modifier2, modifier3, modifier4) end -- *protected*
 
 --- @param layerIndex luaindex
 --- @param categoryIndex luaindex
 --- @param actionIndex luaindex
 --- @param bindingIndex luaindex
 --- @return void
-function UnbindKeyFromAction(layerIndex, categoryIndex, actionIndex, bindingIndex) end --*protected*
+function UnbindKeyFromAction(layerIndex, categoryIndex, actionIndex, bindingIndex) end -- *protected*
 
 --- @param layerIndex luaindex
 --- @param categoryIndex luaindex
 --- @param actionIndex luaindex
 --- @return void
-function UnbindAllKeysFromAction(layerIndex, categoryIndex, actionIndex) end --*protected*
+function UnbindAllKeysFromAction(layerIndex, categoryIndex, actionIndex) end -- *protected*
 
 --- @param actionName string
 --- @return luaindex|nil layerIndex, luaindex|nil categoryIndex, luaindex|nil actionIndex
@@ -3936,32 +3936,32 @@ function GetActionBarLockedReason() end
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function ClearSlot(actionSlotIndex, hotbarCategory) end --*protected*
+function ClearSlot(actionSlotIndex, hotbarCategory) end -- *protected*
 
 --- @param abilityIndex luaindex
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function SelectSlotAbility(abilityIndex, actionSlotIndex, hotbarCategory) end --*protected*
+function SelectSlotAbility(abilityIndex, actionSlotIndex, hotbarCategory) end -- *protected*
 
 --- @param bagId Bag
 --- @param bagSlotIndex integer
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory
 --- @return void
-function SelectSlotItem(bagId, bagSlotIndex, actionSlotIndex, hotbarCategory) end --*protected*
+function SelectSlotItem(bagId, bagSlotIndex, actionSlotIndex, hotbarCategory) end -- *protected*
 
 --- @param actionType ActionBarSlotType
 --- @param actionId integer
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory|nil
 --- @return void
-function SelectSlotSimpleAction(actionType, actionId, actionSlotIndex, hotbarCategory) end --*protected*
+function SelectSlotSimpleAction(actionType, actionId, actionSlotIndex, hotbarCategory) end -- *protected*
 
 --- @param actionSlotIndex luaindex
 --- @param hotbarCategory HotBarCategory
 --- @return void
-function SelectLastSlottedItem(actionSlotIndex, hotbarCategory) end --*protected*
+function SelectLastSlottedItem(actionSlotIndex, hotbarCategory) end -- *protected*
 
 --- @return string itemLink
 function GetLastSlottedItemLink() end
@@ -4165,7 +4165,7 @@ function IsGroupMountPassenger() end
 function IsGroupMountPassengerForTarget(characterOrDisplayName) end
 
 --- @return void
-function ToggleMount() end --*private*
+function ToggleMount() end -- *private*
 
 --- @param characterOrDisplayName string
 --- @return void
@@ -4217,22 +4217,22 @@ function ShouldAbilityShowAsUsableWithDuration(abilityId) end
 function IsBlockActive() end
 
 --- @return void
-function StartSoulGemResurrection() end --*private*
+function StartSoulGemResurrection() end -- *private*
 
 --- @return void
-function CancelSoulGemResurrection() end --*private*
+function CancelSoulGemResurrection() end -- *private*
 
 --- @return void
-function OnWeaponSwap() end --*private*
+function OnWeaponSwap() end -- *private*
 
 --- @return void
-function OnWeaponSwapToSet1() end --*private*
+function OnWeaponSwapToSet1() end -- *private*
 
 --- @return void
-function OnWeaponSwapToSet2() end --*private*
+function OnWeaponSwapToSet2() end -- *private*
 
 --- @return void
-function ActivateSynergy() end --*private*
+function ActivateSynergy() end -- *private*
 
 --- @return string dialogue, string response
 function GetOfferedQuestInfo() end
@@ -4644,12 +4644,12 @@ function IsChatSystemAvailableForCurrentPlatform() end
 --- @param numRolls integer
 --- @param modifier integer
 --- @return RandomRollResult result
-function RandomDiceRoll(maxValue, numRolls, modifier) end --*private*
+function RandomDiceRoll(maxValue, numRolls, modifier) end -- *private*
 
 --- @param minValue integer
 --- @param maxValue integer
 --- @return RandomRollResult result
-function RandomRangeRoll(minValue, maxValue) end --*private*
+function RandomRangeRoll(minValue, maxValue) end -- *private*
 
 --- @param userName string
 --- @param isIgnoredThisSession boolean
@@ -7895,13 +7895,13 @@ function IsSubmitFeedbackSupported() end
 function GetHelpLink(helpCategoryIndex, helpIndex, linkStyle) end
 
 --- @return void
-function StopSettingChamber() end --*private*
+function StopSettingChamber() end -- *private*
 
 --- @return number stress
 function GetSettingChamberStress() end
 
 --- @return void
-function AttemptForceLock() end --*private*
+function AttemptForceLock() end -- *private*
 
 --- @return integer timeLeftMs
 function GetLockpickingTimeLeft() end
@@ -7925,7 +7925,7 @@ function IsChamberSolved(chamberIndex) end
 
 --- @param chamberIndex luaindex
 --- @return boolean succesfullyStarted
-function StartSettingChamber(chamberIndex) end --*private*
+function StartSettingChamber(chamberIndex) end -- *private*
 
 --- @return number defaultVibration
 function GetLockpickingDefaultGamepadVibration() end
@@ -8039,7 +8039,8 @@ function GetCostToCraftAlchemyItem(solventBagId, solventSlotIndex, numIterations
 --- @param reagent3BagId Bag|nil
 --- @param reagent3SlotIndex integer|nil
 --- @return integer numIterations, TradeskillResult limitReason
-function GetMaxIterationsPossibleForAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex) end
+function GetMaxIterationsPossibleForAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
+                                                reagent3SlotIndex) end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8051,7 +8052,8 @@ function GetMaxIterationsPossibleForAlchemyItem(solventBagId, solventSlotIndex, 
 --- @param reagent3SlotIndex integer|nil
 --- @param numIterations integer
 --- @return void
-function CraftAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex, numIterations) end
+function CraftAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex,
+                          numIterations) end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8062,7 +8064,8 @@ function CraftAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent
 --- @param reagent3BagId Bag|nil
 --- @param reagent3SlotIndex integer|nil
 --- @return string name, textureName icon, integer stack, integer sellPrice, boolean meetsUsageRequirement, EquipType equipType, integer itemStyleId, ItemDisplayQuality displayQuality, ProspectiveAlchemyResult prospectiveAlchemyResult
-function GetAlchemyResultingItemInfo(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex) end
+function GetAlchemyResultingItemInfo(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
+                                     reagent3SlotIndex) end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8074,7 +8077,8 @@ function GetAlchemyResultingItemInfo(solventBagId, solventSlotIndex, reagent1Bag
 --- @param reagent3SlotIndex integer|nil
 --- @param linkStyle LinkStyle
 --- @return string link, ProspectiveAlchemyResult prospectiveAlchemyResult
-function GetAlchemyResultingItemLink(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex, linkStyle) end
+function GetAlchemyResultingItemLink(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
+                                     reagent3SlotIndex, linkStyle) end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8085,7 +8089,8 @@ function GetAlchemyResultingItemLink(solventBagId, solventSlotIndex, reagent1Bag
 --- @param reagent3BagId Bag|nil
 --- @param reagent3SlotIndex integer|nil
 --- @return integer inspiration
-function GetAlchemyResultInspiration(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex) end
+function GetAlchemyResultInspiration(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
+                                     reagent3SlotIndex) end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8141,7 +8146,8 @@ function IsAlchemySolventForItemAndMaterialId(solventBagId, solventSlotIndex, ta
 --- @param reagent3SlotIndex integer|nil
 --- @param desiredEncodedTraits integer|nil
 --- @return integer|nil resultingItemId
-function GetAlchemyResultingItemIdIfKnown(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex, desiredEncodedTraits) end
+function GetAlchemyResultingItemIdIfKnown(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
+                                          reagent3SlotIndex, desiredEncodedTraits) end
 
 --- @return integer numRecipeLists
 function GetNumRecipeLists() end
@@ -8253,7 +8259,8 @@ function GetRecipeInfoFromItemId(itemId) end
 --- @param aspectRuneSlotIndex integer
 --- @param numIterations integer
 --- @return integer cost
-function GetCostToCraftEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex, numIterations) end
+function GetCostToCraftEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex,
+                                      numIterations) end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -8262,7 +8269,8 @@ function GetCostToCraftEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, es
 --- @param aspectRuneBagId Bag
 --- @param aspectRuneSlotIndex integer
 --- @return integer numIterations, TradeskillResult limitReason
-function GetMaxIterationsPossibleForEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex) end
+function GetMaxIterationsPossibleForEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId,
+                                                   aspectRuneSlotIndex) end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -8291,7 +8299,8 @@ function GetEnchantingResultingItemInfo(potencyRuneBagId, potencyRuneSlotIndex, 
 --- @param aspectRuneSlotIndex integer
 --- @param linkStyle LinkStyle
 --- @return string link
-function GetEnchantingResultingItemLink(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex, linkStyle) end
+function GetEnchantingResultingItemLink(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex,
+                                        linkStyle) end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -8367,7 +8376,8 @@ function GetCraftedAbilityScriptSelectionOverride() end
 --- @param selectedSecondaryScriptId integer
 --- @param selectedTertiaryScriptId integer
 --- @return boolean isCompatible
-function IsCraftedAbilityScriptCompatibleWithSelections(checkScriptId, craftedAbilityId, selectedPrimaryScriptId, selectedSecondaryScriptId, selectedTertiaryScriptId) end
+function IsCraftedAbilityScriptCompatibleWithSelections(checkScriptId, craftedAbilityId, selectedPrimaryScriptId, selectedSecondaryScriptId,
+                                                        selectedTertiaryScriptId) end
 
 --- @return boolean isScribingEnabled
 function IsScribingEnabled() end
@@ -9229,7 +9239,8 @@ function GetOutfitChangeFlatCost() end
 --- @param secondaryDyeId integer
 --- @param accentDyeId integer
 --- @return void
-function SendOutfitChangeRequest(useFlatCurrency, actorCategory, outfitIndex, outfitSlot, collectibleId, itemMaterialIndex, primaryDyeId, secondaryDyeId, accentDyeId) end
+function SendOutfitChangeRequest(useFlatCurrency, actorCategory, outfitIndex, outfitSlot, collectibleId, itemMaterialIndex, primaryDyeId, secondaryDyeId,
+                                 accentDyeId) end
 
 --- @param outfitSlot OutfitSlot
 --- @return integer collectibleCategoryId
@@ -9369,7 +9380,7 @@ function GetTimeUntilStuckAvailable() end
 function GetStuckCooldown() end
 
 --- @return void
-function SendPlayerStuck() end --*private*
+function SendPlayerStuck() end -- *private*
 
 --- @param guildIndex integer
 --- @return boolean allowed
@@ -9402,7 +9413,8 @@ function RevertToSavedHeraldry(hasActiveAppearance) end
 --- @param crestStyleIndex luaindex
 --- @param crestColorIndex luaindex
 --- @return void
-function SetPendingHeraldryIndices(backgroundCategoryIndex, backgroundStyleIndex, backgroundPrimaryColorIndex, backgroundSecondaryColorIndex, crestCategoryIndex, crestStyleIndex, crestColorIndex) end
+function SetPendingHeraldryIndices(backgroundCategoryIndex, backgroundStyleIndex, backgroundPrimaryColorIndex, backgroundSecondaryColorIndex, crestCategoryIndex,
+                                   crestStyleIndex, crestColorIndex) end
 
 --- @return luaindex backgroundCategoryIndex, luaindex backgroundStyleIndex, luaindex backgroundPrimaryColorIndex, luaindex backgroundSecondaryColorIndex, luaindex crestCategoryIndex, luaindex crestStyleIndex, luaindex crestColorIndex
 function GetPendingHeraldryIndices() end
@@ -9655,7 +9667,7 @@ function GetDefaultQuickChatMessage(index) end
 
 --- @param index luaindex
 --- @return void
-function PlayDefaultQuickChat(index) end --*private*
+function PlayDefaultQuickChat(index) end -- *private*
 
 --- @param string string
 --- @return integer length
@@ -10003,38 +10015,38 @@ function HasExpiringMarketCurrencyNotification() end
 
 --- @param particleEffectId integer
 --- @return void
-function StartWorldParticleEffect(particleEffectId) end --*private*
+function StartWorldParticleEffect(particleEffectId) end -- *private*
 
 --- @param particleEffectId integer
 --- @return void
-function StopWorldParticleEffect(particleEffectId) end --*private*
+function StopWorldParticleEffect(particleEffectId) end -- *private*
 
 --- @param particleEffectId integer
 --- @param worldX number
 --- @param worldY number
 --- @param worldZ number
 --- @return void
-function SetWorldParticleEffectPosition(particleEffectId, worldX, worldY, worldZ) end --*private*
+function SetWorldParticleEffectPosition(particleEffectId, worldX, worldY, worldZ) end -- *private*
 
 --- @param particleEffectId integer
 --- @param pitchRadians number
 --- @param yawRadians number
 --- @param rollRadians number
 --- @return void
-function SetWorldParticleEffectOrientation(particleEffectId, pitchRadians, yawRadians, rollRadians) end --*private*
+function SetWorldParticleEffectOrientation(particleEffectId, pitchRadians, yawRadians, rollRadians) end -- *private*
 
 --- @param particleEffectId integer
 --- @param scale number
 --- @return void
-function SetWorldParticleEffectScale(particleEffectId, scale) end --*private*
+function SetWorldParticleEffectScale(particleEffectId, scale) end -- *private*
 
 --- @param particleEffectId integer
 --- @return void
-function DeleteWorldParticleEffect(particleEffectId) end --*private*
+function DeleteWorldParticleEffect(particleEffectId) end -- *private*
 
 --- @param UIWorldEffect UIWorldEffect
 --- @return void
-function StartWorldEffectOnPlayer(UIWorldEffect) end --*private*
+function StartWorldEffectOnPlayer(UIWorldEffect) end -- *private*
 
 --- @return DungeonDifficulty isVeteranDifficulty
 function GetCurrentZoneDungeonDifficulty() end
@@ -10546,7 +10558,8 @@ function HousingEditorClipLineSegmentToViewFrustum(aWorldX1, aWorldY1, aWorldZ1,
 --- @param aWorldY3 integer
 --- @param aWorldZ3 integer
 --- @return integer aWorldX, integer aWorldY, integer aWorldZ
-function HousingEditorGetScreenPointWorldPlaneIntersection(aScreenX, aScreenY, aWorldX1, aWorldY1, aWorldZ1, aWorldX2, aWorldY2, aWorldZ2, aWorldX3, aWorldY3, aWorldZ3) end
+function HousingEditorGetScreenPointWorldPlaneIntersection(aScreenX, aScreenY, aWorldX1, aWorldY1, aWorldZ1, aWorldX2, aWorldY2, aWorldZ2, aWorldX3, aWorldY3,
+                                                           aWorldZ3) end
 
 --- @param aPushDistance number
 --- @return void
@@ -10930,20 +10943,20 @@ function HousingEditorIsLocalPlayerInPairedFurnitureInteraction() end
 function CanHousingEditorPlacementPreviewMarketProduct(marketProductId) end
 
 --- @return void
-function HousingEditorClearPreviewMarketProductTransform() end --*private*
+function HousingEditorClearPreviewMarketProductTransform() end -- *private*
 
 --- @return void
-function HousingEditorEndMarketProductPlacementPreview() end --*private*
+function HousingEditorEndMarketProductPlacementPreview() end -- *private*
 
 --- @return boolean isPreviewingMarketProductPlacement
 function IsHousingEditorPreviewingMarketProductPlacement() end
 
 --- @param marketProductId integer
 --- @return HousingRequestResult result
-function HousingEditorRequestMarketProductPlacementPreview(marketProductId) end --*private*
+function HousingEditorRequestMarketProductPlacementPreview(marketProductId) end -- *private*
 
 --- @return void
-function HousingEditorSavePreviewMarketProductTransform() end --*private*
+function HousingEditorSavePreviewMarketProductTransform() end -- *private*
 
 --- @param furnitureId id64
 --- @return id64 itemUniqueId
@@ -12911,7 +12924,7 @@ function GetCurrentCharacterSlotsUpgrade() end
 function GetMaxCharacterSlotsUpgrade() end
 
 --- @return void
-function Disconnect() end --*private*
+function Disconnect() end -- *private*
 
 --- @param rewardDefId integer
 --- @return boolean hasClaimedAccountReward
@@ -13034,7 +13047,7 @@ function DoesCurrencyAmountMeetConfirmationThreshold(currencyType, currencyQuant
 --- @param bagId Bag
 --- @param slotIndex integer
 --- @return void
-function UseItem(bagId, slotIndex) end --*protected*
+function UseItem(bagId, slotIndex) end -- *protected*
 
 --- @param bagId Bag
 --- @param slotIndex integer
@@ -14634,22 +14647,22 @@ function GetQuestName(questId) end
 
 --- @param displayGroup MarketDisplayGroup
 --- @return void
-function UpdateMarketDisplayGroup(displayGroup) end --*private*
+function UpdateMarketDisplayGroup(displayGroup) end -- *private*
 
 --- @param displayGroup MarketDisplayGroup
 --- @return integer numCategories
-function GetNumMarketProductCategories(displayGroup) end --*private*
+function GetNumMarketProductCategories(displayGroup) end -- *private*
 
 --- @param displayGroup MarketDisplayGroup
 --- @param topLevelIndex luaindex
 --- @return string name, integer numSubCatgories, integer numMarketProducts, textureName normalIcon, textureName pressedIcon, textureName mouseoverIcon
-function GetMarketProductCategoryInfo(displayGroup, topLevelIndex) end --*private*
+function GetMarketProductCategoryInfo(displayGroup, topLevelIndex) end -- *private*
 
 --- @param displayGroup MarketDisplayGroup
 --- @param topLevelIndex luaindex
 --- @param subCategoryIndex luaindex
 --- @return string name, integer numMarketProducts, boolean showGemIcon
-function GetMarketProductSubCategoryInfo(displayGroup, topLevelIndex, subCategoryIndex) end --*private*
+function GetMarketProductSubCategoryInfo(displayGroup, topLevelIndex, subCategoryIndex) end -- *private*
 
 --- @param displayGroup MarketDisplayGroup
 --- @param topLevelIndex luaindex
@@ -14684,12 +14697,12 @@ function DoesAnyMarketProductPresentationMatchFilter(marketProductId, filterType
 
 --- @param marketProductId integer
 --- @return string name, string description, textureName icon, boolean isNew, boolean isFeatured
-function GetMarketProductInfo(marketProductId) end --*private*
+function GetMarketProductInfo(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @param presentationIndex luaindex|nil
 --- @return MarketCurrencyType currencyType, integer|nil cost, integer|nil costAfterDiscount, integer discountPercent, integer|nil esoPlusCost
-function GetMarketProductPricingByPresentation(marketProductId, presentationIndex) end --*private*
+function GetMarketProductPricingByPresentation(marketProductId, presentationIndex) end -- *private*
 
 --- @param displayGroup MarketDisplayGroup
 --- @param topLevelIndex luaindex
@@ -14700,15 +14713,15 @@ function GetMarketProductPresentationIds(displayGroup, topLevelIndex, categoryIn
 
 --- @param marketProductId integer
 --- @return textureName icon
-function GetMarketProductIcon(marketProductId) end --*private*
+function GetMarketProductIcon(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer instantUnlockId
-function GetMarketProductInstantUnlockId(marketProductId) end --*private*
+function GetMarketProductInstantUnlockId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return InstantUnlockRewardType instantUnlock
-function GetMarketProductInstantUnlockType(marketProductId) end --*private*
+function GetMarketProductInstantUnlockType(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @param presentationIndex luaindex|nil
@@ -14719,46 +14732,46 @@ function GetCategoryIndicesFromMarketProductPresentation(marketProductId, presen
 --- @param presentationIndex luaindex|nil
 --- @param quantity integer
 --- @return MarketPurchasableResult expectedPurchaseResult
-function CouldPurchaseMarketProduct(marketProductId, presentationIndex, quantity) end --*private*
+function CouldPurchaseMarketProduct(marketProductId, presentationIndex, quantity) end -- *private*
 
 --- @param marketProductId integer
 --- @param presentationIndex luaindex|nil
 --- @param quantity integer
 --- @return MarketPurchasableResult expectedGiftResult
-function CouldGiftMarketProduct(marketProductId, presentationIndex, quantity) end --*private*
+function CouldGiftMarketProduct(marketProductId, presentationIndex, quantity) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean isPurchased
-function IsMarketProductPurchased(marketProductId) end --*private*
+function IsMarketProductPurchased(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean passesPurchaseReq, integer errorStringId
-function DoesMarketProductPassPurchasableReqList(marketProductId) end --*private*
+function DoesMarketProductPassPurchasableReqList(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean hasDLC
-function DoesMarketProductContainDLC(marketProductId) end --*private*
+function DoesMarketProductContainDLC(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer errorStringId, ...
-function GetMarketProductEligibilityErrorStringIds(marketProductId) end --*private*
+function GetMarketProductEligibilityErrorStringIds(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer errorStringId
-function GetMarketProductCompleteErrorStringId(marketProductId) end --*private*
+function GetMarketProductCompleteErrorStringId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer itemId, textureName iconFile, string name, ItemDisplayQuality itemDisplayQuality, integer requiredLevel, integer itemCount
-function GetMarketProductItemInfo(marketProductId) end --*private*
+function GetMarketProductItemInfo(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @param linkStyle LinkStyle
 --- @return string link
-function GetMarketProductItemLink(marketProductId, linkStyle) end --*private*
+function GetMarketProductItemLink(marketProductId, linkStyle) end -- *private*
 
 --- @param marketProductId integer
 --- @return MarketProductType productType
-function GetMarketProductType(marketProductId) end --*private*
+function GetMarketProductType(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return string displayName
@@ -14766,61 +14779,61 @@ function GetMarketProductDisplayName(marketProductId) end
 
 --- @param marketProductId integer
 --- @return string description
-function GetMarketProductDescription(marketProductId) end --*private*
+function GetMarketProductDescription(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer numChildren
-function GetMarketProductNumChildren(marketProductId) end --*private*
+function GetMarketProductNumChildren(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @param childIndex luaindex
 --- @return integer childId
-function GetMarketProductChildId(marketProductId, childIndex) end --*private*
+function GetMarketProductChildId(marketProductId, childIndex) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer numChildren
-function GetMarketProductNumFacadeChildren(marketProductId) end --*private*
+function GetMarketProductNumFacadeChildren(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @param childIndex luaindex
 --- @return integer childId
-function GetMarketProductFacadeChildId(marketProductId, childIndex) end --*private*
+function GetMarketProductFacadeChildId(marketProductId, childIndex) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer rewardListId
-function GetMarketProductItemRewardListId(marketProductId) end --*private*
+function GetMarketProductItemRewardListId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer numBundledProducts
-function GetMarketProductNumBundledProducts(marketProductId) end --*private*
+function GetMarketProductNumBundledProducts(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer stackCount
-function GetMarketProductStackCount(marketProductId) end --*private*
+function GetMarketProductStackCount(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer furnitureDataId
-function GetMarketProductFurnitureDataId(marketProductId) end --*private*
+function GetMarketProductFurnitureDataId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return ItemDisplayQuality itemDisplayQuality
-function GetMarketProductDisplayQuality(marketProductId) end --*private*
+function GetMarketProductDisplayQuality(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return OpenMarketBehavior openBehavior
-function GetMarketProductOpenMarketBehavior(marketProductId) end --*private*
+function GetMarketProductOpenMarketBehavior(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer openToMarketProductId
-function GetMarketProductOpenMarketBehaviorReferenceData(marketProductId) end --*private*
+function GetMarketProductOpenMarketBehaviorReferenceData(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean shouldShowNotice
-function ShouldMarketProductShowClaimGiftNotice(marketProductId) end --*private*
+function ShouldMarketProductShowClaimGiftNotice(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return string noticeText, luaindex|nil helpCategoryIndex, luaindex|nil helpIndex
-function GetMarketProductClaimGiftNoticeInfo(marketProductId) end --*private*
+function GetMarketProductClaimGiftNoticeInfo(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer achievementId, boolean hasCompletedAchievement, luaindex|nil helpCategoryIndex, luaindex|nil helpIndex
@@ -14828,60 +14841,60 @@ function GetMarketProductUnlockedByAchievementInfo(marketProductId) end
 
 --- @param marketProductId integer
 --- @return boolean isNew
-function IsMarketProductNew(marketProductId) end --*private*
+function IsMarketProductNew(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean isFeatured
-function IsMarketProductFeatured(marketProductId) end --*private*
+function IsMarketProductFeatured(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @param presentationIndex luaindex|nil
 --- @return boolean isGiftable
-function IsMarketProductGiftable(marketProductId, presentationIndex) end --*private*
+function IsMarketProductGiftable(marketProductId, presentationIndex) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer announceSortOrder
-function GetMarketProductAnnounceSortOrder(marketProductId) end --*private*
+function GetMarketProductAnnounceSortOrder(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer numCollectibles
-function GetMarketProductNumCollectibles(marketProductId) end --*private*
+function GetMarketProductNumCollectibles(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer collectibleId, textureName iconFile, string name, CollectibleCategoryType collectibleType, string description, boolean owned, boolean isPurchasable, string hint
-function GetMarketProductCollectibleInfo(marketProductId) end --*private*
+function GetMarketProductCollectibleInfo(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer collectibleId
-function GetMarketProductCollectibleId(marketProductId) end --*private*
+function GetMarketProductCollectibleId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean inspectAsList
-function GetMarketProductBundleInspectChildProductsAsList(marketProductId) end --*private*
+function GetMarketProductBundleInspectChildProductsAsList(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer crateId
-function GetMarketProductCrownCrateId(marketProductId) end --*private*
+function GetMarketProductCrownCrateId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer houseId
-function GetMarketProductHouseId(marketProductId) end --*private*
+function GetMarketProductHouseId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer houseTemplateId
-function GetMarketProductHouseTemplateId(marketProductId) end --*private*
+function GetMarketProductHouseTemplateId(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return number timeLeftSeconds
-function GetMarketProductLTOTimeLeftInSeconds(marketProductId) end --*private*
+function GetMarketProductLTOTimeLeftInSeconds(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return number timeLeftSeconds
-function GetMarketProductSaleTimeLeftInSeconds(marketProductId) end --*private*
+function GetMarketProductSaleTimeLeftInSeconds(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return string endTimeString
-function GetMarketProductEndTimeString(marketProductId) end --*private*
+function GetMarketProductEndTimeString(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return CurrencyType currencyType
@@ -14889,11 +14902,11 @@ function GetMarketProductCurrencyType(marketProductId) end
 
 --- @param marketProductId integer
 --- @return MarketPurchasableResult expectedPurchaseResult
-function CouldAcquireMarketProduct(marketProductId) end --*private*
+function CouldAcquireMarketProduct(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer openSlotsNeeded
-function GetSpaceNeededToAcquireMarketProduct(marketProductId) end --*private*
+function GetSpaceNeededToAcquireMarketProduct(marketProductId) end -- *private*
 
 --- @param marketProductId integer
 --- @return integer maxQuantity
@@ -14901,11 +14914,11 @@ function GetMarketProductMaxGiftQuantity(marketProductId) end
 
 --- @param displayGroup MarketDisplayGroup
 --- @return void
-function OpenMarket(displayGroup) end --*private*
+function OpenMarket(displayGroup) end -- *private*
 
 --- @param displayGroup MarketDisplayGroup
 --- @return MarketState marketState
-function GetMarketState(displayGroup) end --*private*
+function GetMarketState(displayGroup) end -- *private*
 
 --- @param itemId integer
 --- @param onlyActiveListings boolean
@@ -14926,7 +14939,7 @@ function GetActiveAnnouncementMarketProductListingsForHouseTemplate(houseTemplat
 function GetActiveChapterUpgradeMarketProductListings(displayGroup) end
 
 --- @return void
-function OnMarketClose() end --*private*
+function OnMarketClose() end -- *private*
 
 --- @return boolean hasShownAnnouncement
 function HasShownMarketAnnouncement() end
@@ -15059,7 +15072,7 @@ function GetCrownCrateNPCBoneWorldPosition(boneName) end
 --- @param worldY number
 --- @param worldZ number
 --- @return integer|nil particleEffectId
-function CreateCrownCrateSpecificParticleEffect(crownCrateId, crownCrateParticleEffects, worldX, worldY, worldZ) end --*private*
+function CreateCrownCrateSpecificParticleEffect(crownCrateId, crownCrateParticleEffects, worldX, worldY, worldZ) end -- *private*
 
 --- @param crownCrateTierId integer
 --- @param crownCrateTierParticleEffects CrownCrateTierParticleEffects
@@ -15067,7 +15080,7 @@ function CreateCrownCrateSpecificParticleEffect(crownCrateId, crownCrateParticle
 --- @param worldY number
 --- @param worldZ number
 --- @return integer|nil particleEffectId
-function CreateCrownCrateTierSpecificParticleEffect(crownCrateTierId, crownCrateTierParticleEffects, worldX, worldY, worldZ) end --*private*
+function CreateCrownCrateTierSpecificParticleEffect(crownCrateTierId, crownCrateTierParticleEffects, worldX, worldY, worldZ) end -- *private*
 
 --- @return string boneName
 function GetCrownCrateNPCCardThrowingBoneName() end
@@ -15293,7 +15306,7 @@ function ApplyChangesToPreviewCollectionShown(previewOption) end
 function EnablePreviewMode(forceDismount) end
 
 --- @return void
-function ForceCancelMounted() end --*private*
+function ForceCancelMounted() end -- *private*
 
 --- @return boolean previewModeEnabled
 function GetPreviewModeEnabled() end
@@ -15319,10 +15332,10 @@ function CanSpinPreviewCharacter() end
 
 --- @param showHiddenGear boolean
 --- @return void
-function SetShowHiddenGearOnActivePreviewRules(showHiddenGear) end --*private*
+function SetShowHiddenGearOnActivePreviewRules(showHiddenGear) end -- *private*
 
 --- @return boolean showHiddenGear
-function GetShowHiddenGearFromActivePreviewRules() end --*private*
+function GetShowHiddenGearFromActivePreviewRules() end -- *private*
 
 --- @param sunlightAzimuthRadians number
 --- @param sunlightAltitudeRadians number
@@ -15351,7 +15364,7 @@ function SetPreviewingUnequippedOutfitInPreviewCollection(actorCategory) end
 --- @param secondaryDyeDefId integer
 --- @param accentDyeDefId integer
 --- @return void
-function AddOutfitSlotPreviewElementToPreviewCollection(outfitSlot, collectibleDefId, itemMaterialIndex, primaryDyeDefId, secondaryDyeDefId, accentDyeDefId) end --*private*
+function AddOutfitSlotPreviewElementToPreviewCollection(outfitSlot, collectibleDefId, itemMaterialIndex, primaryDyeDefId, secondaryDyeDefId, accentDyeDefId) end -- *private*
 
 --- @param outfitSlot OutfitSlot
 --- @return void
@@ -15384,17 +15397,17 @@ function PreviewCraftItem(patternIndex, materialIndex, materialQuantity, styleIn
 --- @param variation luaindex
 --- @param dyeBrushId integer
 --- @return void
-function PreviewCollectible(collectibleDefId, variation, dyeBrushId) end --*private*
+function PreviewCollectible(collectibleDefId, variation, dyeBrushId) end -- *private*
 
 --- @param collectibleDefId integer
 --- @param variation luaindex
 --- @return void
-function PreviewCollectibleAsFurniture(collectibleDefId, variation) end --*private*
+function PreviewCollectibleAsFurniture(collectibleDefId, variation) end -- *private*
 
 --- @param collectibleDefId integer
 --- @param action luaindex
 --- @return void
-function PreviewCollectibleAction(collectibleDefId, action) end --*private*
+function PreviewCollectibleAction(collectibleDefId, action) end -- *private*
 
 --- @param bagId Bag
 --- @param slotIndex integer
@@ -15447,7 +15460,7 @@ function PreviewItemLink(itemLink, variation) end
 --- @param recipeIndex luaindex
 --- @param variation luaindex
 --- @return void
-function PreviewProvisionerItemAsFurniture(recipeListIndex, recipeIndex, variation) end --*private*
+function PreviewProvisionerItemAsFurniture(recipeListIndex, recipeIndex, variation) end -- *private*
 
 --- @param furnitureId id64
 --- @param variation luaindex
@@ -15600,12 +15613,12 @@ function GetPlacedFurniturePreviewVariationDisplayName(furnitureId, variation) e
 --- @param marketProductId integer
 --- @param variation luaindex
 --- @return void
-function PreviewMarketProduct(marketProductId, variation) end --*private*
+function PreviewMarketProduct(marketProductId, variation) end -- *private*
 
 --- @param marketProductId integer
 --- @param variation luaindex
 --- @return void
-function PreviewFurnitureMarketProduct(marketProductId, variation) end --*private*
+function PreviewFurnitureMarketProduct(marketProductId, variation) end -- *private*
 
 --- @param marketProductId integer
 --- @return boolean isBeingPreviewed
@@ -15631,7 +15644,7 @@ function GetMarketProductChapterUpgradeId(marketProductId) end
 --- @param marketProductId integer
 --- @param action luaindex
 --- @return void
-function PreviewMarketProductCollectibleAction(marketProductId, action) end --*private*
+function PreviewMarketProductCollectibleAction(marketProductId, action) end -- *private*
 
 --- @param marketProductId integer
 --- @param variation luaindex
@@ -17063,7 +17076,7 @@ function SetInterfaceVerticalFieldOfView(FoVYRadians) end
 
 --- @param text string
 --- @return void
-function CopyToClipboard(text) end --*private*
+function CopyToClipboard(text) end -- *private*
 
 --- @param red number
 --- @param green number
@@ -17076,4 +17089,3 @@ function ConvertRGBToHSV(red, green, blue) end
 --- @param blue number
 --- @return number hue, number saturation, number lightness
 function ConvertRGBToHSL(red, green, blue) end
-

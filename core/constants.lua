@@ -21,11 +21,13 @@ L.EVENT_MYSTERY_VERSE_USED = 53
 L.EVENT_TOMESHELL_DESTROYED = 54
 L.EVENT_UNIT_OR_ITEM_DETECTED = 55
 L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 56
+L.EVENT_SWEETROLL_CONSUMED = 57
 
 L.EVENTS = {
     [L.EVENT_BUFF_SELECTED] = { name = "EVENT_BUFF_SELECTED", fields = { [1] = { name = "abilityId", type = "number" }, [2] = { name = "name", type = "string" }, [3] = { name = "unitName", type = "string" } } },
     [L.EVENT_MARAUDER_SPAWNED] = { name = "EVENT_MARAUDER_SPAWNED", fields = { [1] = { name = "name", type = "string" } } },
     [L.EVENT_MYSTERY_VERSE_USED] = { name = "EVENT_MYSTERY_VERSE_USED", fields = { [1] = { name = "abilityId", type = "number" }, [2] = { name = "name", type = "string" } } },
+    [L.EVENT_SWEETROLL_CONSUMED] = { name = "EVENT_SWEETROLL_CONSUMED", fields = { [1] = { name = "unitname", type = "string" } } },
     [L.EVENT_TOMESHELL_DESTROYED] = { name = "EVENT_TOMESHELL_DESTROYED", fields = { [1] = { name = "destroyed", type = "number" }, [2] = { name = "remaining", type = "number" } } },
     [L.EVENT_UNIT_OR_ITEM_DETECTED] = { name = "EVENT_UNIT_OR_ITEM_DETECTED", fields = { [1] = { name = "type", type = "number" }, [2] = { name = "extraInfo", type = "string" } } },
     [L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED] = { name = "EVENT_UNKNOWN_PORTAL_STATE_CHANGED", fields = { [1] = { name = "mapId", type = "number" }, [2] = { name = "mapName", type = "string" }, [3] = { name = "state", type = "number" } } }

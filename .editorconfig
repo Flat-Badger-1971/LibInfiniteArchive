@@ -1,0 +1,5 @@
+[*.lua]
+
+max_line_length = 160
+space_after_comment_dash = true
+trailing_table_separator = never

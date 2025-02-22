@@ -176,7 +176,7 @@ ZO_SECOND_CONTRAST_TEXT = {
 	["a"] = 1,
 	["g"] = 0.7372549176
 }
-ZO_VALID_CURRENCY_TYPES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
+ZO_VALID_CURRENCY_TYPES = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }
 ZO_VALID_LINK_TYPES_CHAT = {
 	["item"] = true,
 	["ability"] = true,
@@ -24151,4 +24151,3 @@ ZONE_DISPLAY_TYPE_ZONE_STORY = 10
 ZO_SORT_ORDER_DOWN = false
 ZO_SORT_ORDER_UP = true
 --- @alias SortOrder boolean false|true
-

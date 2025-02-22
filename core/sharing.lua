@@ -53,15 +53,14 @@ function slib:RegisterProtocols()
         if (data.fields) then
             self.protocols[event] = self.handler:DeclareProtocol(event, data.name)
 
-            for field in 1, #data.fields do
+            for _, field in ipairs(data.fields) do
                 local fieldName = field.name
                 local fieldType = field.type
 
                 if (fieldType == "string") then
                     self.protocols[event]:AddField(L.LGB.CreateStringField(fieldName))
                 elseif (fieldType == "number") then
-                    self.protocols[event]:AddField(L.LGB.CreateNumericField(fieldName,
-                        { minValue = 0, maxValue = 999999 }))
+                    self.protocols[event]:AddField(L.LGB.CreateNumericField(fieldName, { minValue = 0, maxValue = 999999 }))
                 end
             end
 
@@ -69,7 +68,7 @@ function slib:RegisterProtocols()
 
             local finalised = self.protocols[event]:Finalize({
                 isRelevantInCombat = true,
-                replaceQueuedMessages = false,
+                replaceQueuedMessages = false
             })
 
             self:d("finalised:" .. (tostring(finalised) or "nil"))
@@ -105,12 +104,13 @@ function slib:Share(event, ...)
     self:d("Sharing event " .. L.EVENTS[event].name)
 
     if (L.EVENTS[event].fields) then
+        local args = { ... }
+
         if (event == L.EVENT_BUFF_SELECTED or event == L.EVENT_TOMESHELL_DESTROYED) then
-            self:SendProtocolMessage(event, ..., zo_strformat(GetUnitName("player")))
-        else
-            self:SendProtocolMessage(event, ...)
+            table.insert(args, zo_strformat(GetUnitName("player")))
         end
-        self:SendProtocolMessage(event, ...)
+
+        self:SendProtocolMessage(event, unpack(args))
     else
         self:FireEvent(event)
     end

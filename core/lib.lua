@@ -1,5 +1,6 @@
 local lib = ZO_InitializingObject:Subclass()
 local L = LibInfiniteArchiveConstants
+local buffchoice = GetEndlessDungeonBuffSelectorBucketTypeChoice
 
 local function onHiding(self)
     zo_callLater(function() self.showingBuffs = false end, 1500)
@@ -9,23 +10,20 @@ local function onChoiceCommitted(self)
     if (self.SelectedBuff) then
         local name = GetAbilityName(self.SelectedBuff, "player")
 
-        self.las:Share(L.EVENT_BUFF_SELECTED, self.SelectedBuff, name)
+        self.las:Share(L.EVENT_BUFF_SELECTED, self.SelectedBuff, name, self.player)
     end
 end
 
 local function onCompassUpdate(self)
-    if (self:IsInsideArchive() and self.InCombat) then
-        if (self.FoundQuestItem == false) then
-            local numPins = COMPASS.container:GetNumCenterOveredPins()
+    if (self:IsInsideArchive() and self.InCombat and not self.FoundQuestItem) then
+        local numPins = COMPASS.container:GetNumCenterOveredPins()
 
-            if (numPins > 0) then
-                for pin = 1, numPins do
-                    local pinType = COMPASS.container:GetCenterOveredPinType(pin)
-
-                    if (pinType == MAP_PIN_TYPE_QUEST_INTERACT) then
-                        self.FoundQuestItem = true
-                        self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_ITEM, "QuestItem")
-                    end
+        if (numPins > 0) then
+            for pin = 1, numPins do
+                if (COMPASS.container:GetCenterOveredPinType(pin) == MAP_PIN_TYPE_QUEST_INTERACT) then
+                    self.FoundQuestItem = true
+                    self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_ITEM, "QuestItem")
+                    break
                 end
             end
         end
@@ -33,67 +31,69 @@ local function onCompassUpdate(self)
 end
 
 local function onPlayerActivated(self)
+    if (not IsInstanceEndlessDungeon()) then return end
+
     local mapId = GetCurrentMapId()
-    local unknownportal
+
+    self.UnknownPortal = nil
 
     if (self.LastMapId ~= mapId) then
         self.LastMapId = mapId
+        self.UnknownPortal = L.MAPS[mapId]
 
-        if (mapId == L.MAPS.FILERS_WING.id) then
-            unknownportal = L.MAPS.FILERS_WING
-        elseif (mapId == L.MAPS.ECHOING_DEN.id) then
-            unknownportal = L.MAPS.ECHOING_DEN
-        elseif (mapId == L.MAPS.THEATRE_OF_WAR.id) then
-            unknownportal = L.MAPS.THEATRE_OF_WAR
-        elseif (mapId == L.MAPS.DESTOZUNOS_LIBRARY.id) then
-            unknownportal = L.MAPS.DESTOZUNOS_LIBRARY
-        elseif (mapId == L.MAPS.HAEFELS_BUTCHERY.id) then
-            unknownportal = L.MAPS.HAEFELS_BUTCHERY
-        elseif (mapId == L.MAPS.TREACHEROUS_CROSSING.id) then
-            unknownportal = L.MAPS.TREACHEROUS_CROSSING
-        end
-
-        if (unknownportal) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, unknownportal.name,
-                self.UNKNOWN_PORTAL_STATE_ENTERED)
+        if (self.UnknownPortal) then
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENTERED)
         end
     end
 
-    self:GetActualGroupType()
+    local groupType = self:GetEffectiveGroupType()
+
+    if (self.CurrentGroupType ~= groupType) then
+        self.CurrentGroupType = groupType
+    end
 end
 
 local function checkMessage(self, messageParams)
-    if (not self.DenStarted) then
+    if (not self.UnknownPortal) then
         onPlayerActivated(self)
     end
 
-    -- Herd the Ghost Lights
-    if (self.IsInEchoingDen) then
-        local message = zo_strlower(zo_strformat(messageParams:GetMainText()))
-        local secondaryMessage = zo_strlower(zo_strformat(messageParams:GetSecondaryText() or ""))
-        local start = zo_strlower(zo_strformat(_G[L.lia .. "HERD"]))
-        local fail = zo_strlower(zo_strformat(_G[L.lia .. "HERD_FAIL"]))
-        local success = zo_strlower(zo_strformat(_G[L.lia .. "HERD_SUCCESS"]))
+    if (not self.UnknownPortal) then
+        return
+    end
 
-        if (zo_strfind(message, start, 1, true)) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
-                self.UNKNOWN_PORTAL_STATE_STARTED)
-        elseif (zo_strfind(message, fail, 1, true)) or (zo_strfind(secondaryMessage, fail, 1, true)) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
-                self.UNKNOWN_PORTAL_STATE_FAILED)
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
-                self.UNKNOWN_PORTAL_STATE_ENDED)
-        elseif (zo_strfind(message, success, 1, true)) or zo_strfind(secondaryMessage, success, 1, true) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
-                self.UNKNOWN_PORTAL_STATE_SUCCEEDED)
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.ECHOING_DEN.id, L.MAPS.ECHOING_DEN.name,
-                self.UNKNOWN_PORTAL_STATE_ENDED)
-        end
+    local message = zo_strlower(zo_strformat(messageParams:GetMainText()))
+    local secondaryMessage = zo_strlower(zo_strformat(messageParams:GetSecondaryText() or ""))
+    local concat = message .. secondaryMessage
+    local start, fail, success
+
+    -- Herd the Ghost Lights
+    if (self.UnknownPortal.mapId == L.MAPS.ECHOING_DEN) then
+        start = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "HERD"])), 1, true)
+        fail = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "HERD_FAIL"])), 1, true)
+        success = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "HERD_SUCCESS"])), 1, true)
+    end
+
+    -- Destroy the Tomeshells
+    if (self.UnknownPortal.mapId == L.MAPS.FILERS_WING) then
+        start = zo_strfind(concat, zo_strlower(zo_strformat(L.MAPS.FILERS_WING.name)), 1, true)
+        fail = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "FILERS_WING_FAIL"])), 1, true)
+        success = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "FILERS_WING_SUCCESS"])), 1, true)
+    end
+
+    if (start) then
+        self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_STARTED)
+    elseif (fail) then
+        self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_FAILED)
+        self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENDED)
+    elseif (success) then
+        self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_SUCCEEDED)
+        self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENDED)
     end
 end
 
 local function onMessage(self, _, messageParams)
-    if ((not messageParams) or (not IsInstanceEndlessDungeon())) then
+    if (not messageParams or not IsInstanceEndlessDungeon()) then
         return
     end
 
@@ -123,7 +123,7 @@ local function isMarauder(name)
 end
 
 local function onNewBoss(self, _, unitTag)
-    if (not IsInstanceEndlessDungeon() or ((unitTag or "") == "")) then
+    if (not IsInstanceEndlessDungeon() or unitTag == "") then
         return
     end
 
@@ -150,24 +150,22 @@ end
 
 local function resetValues(self)
     ZO_ClearNumericallyIndexedTable(self.Bosses)
-
     self.FoundQuestItem = false
     self.FoundGw = false
 end
 
 local function onStunned(self, _, stunned)
+    if (not IsInstanceEndlessDungeon()) then return end
+
     if (stunned and not IsUnitInCombat("player")) then
         local now = GetTimeStamp()
 
         if ((now - (self.LastStun or 0)) > 2) then
-            zo_callLater(
-                function()
-                    if (not self.ShowingBuffs) then
-                        resetValues(self)
-                    end
-                end,
-                1000
-            )
+            zo_callLater(function()
+                if (not self.ShowingBuffs) then
+                    resetValues(self)
+                end
+            end, 1000)
 
             self.LastStun = now
         end
@@ -208,52 +206,52 @@ local function stopTomeCheck()
 end
 
 local function onHotBarChange(self, _, changed, shouldUpdate, category)
+    if (not IsInstanceEndlessDungeon()) then return end
+
     if (GetCurrentMapId() == L.MAPS.FILERS_WING.id) then
-        if ((category == HOTBAR_CATEGORY_TEMPORARY) and shouldUpdate and changed) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.FILERS_WING.id, L.MAPS.FILERS_WING.name,
-                self.UNKNOWN_PORTAL_STATE_STARTED)
+        if (category == HOTBAR_CATEGORY_TEMPORARY and shouldUpdate and changed) then
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.FILERS_WING.id, L.MAPS.FILERS_WING.name, self.UNKNOWN_PORTAL_STATE_STARTED)
             startTomeCheck(self)
         end
 
-        if ((category == HOTBAR_CATEGORY_PRIMARY) and changed and not shouldUpdate) then
-            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.FILERS_WING.id, L.MAPS.FILERS_WING.name,
-                self.UNKNOWN_PORTAL_STATE_ENDED)
+        if (category == HOTBAR_CATEGORY_PRIMARY and changed and not shouldUpdate) then
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.FILERS_WING.id, L.MAPS.FILERS_WING.name, self.UNKNOWN_PORTAL_STATE_ENDED)
             stopTomeCheck()
         end
     end
 end
 
 local function onReticleTargetChanged(self)
-    if (self:IsInsideArchive()) then
-        if (not self.FoundGw) then
-            local unit = GetUnitName("reticleover")
+    if (self:IsInsideArchive() and not self.FoundGw) then
+        local unit = GetUnitName("reticleover")
 
-            if (zo_strfind(unit, self.gw, 1, true)) then
-                self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_UNIT, "Gw")
-            end
+        if (zo_strfind(unit, self.gw, 1, true)) then
+            self.las:Share(L.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_UNIT, "Gw")
         end
     end
 end
 
 local function onCombatStateChanged(self, _, inCombat)
+    if (not IsInstanceEndlessDungeon()) then return end
+
     self.InCombat = inCombat
 
     if (inCombat) then
-        EVENT_MANAGER:RegisterForEvent(L.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED,
-            function() onReticleTargetChanged(self) end)
+        EVENT_MANAGER:RegisterForEvent(L.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED, function() onReticleTargetChanged(self) end)
     else
         EVENT_MANAGER:UnregisterForEvent(L.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED)
     end
 end
 
 local function onSingleSlotUpdate(self, _, _, previousSlotData)
+    if (not IsInstanceEndlessDungeon()) then return end
+
     if (previousSlotData) then
         local icon = previousSlotData.iconFile
 
         for _, iconname in pairs(L.MYSTERY) do
             if (icon:find(iconname)) then
                 self.MysteryVerse = true
-
                 return
             end
         end
@@ -263,21 +261,31 @@ local function onSingleSlotUpdate(self, _, _, previousSlotData)
 end
 
 local function onBuffStackCountChanged(self, _, abilityId)
-    zo_callLater(
-        function()
-            if (self.MysteryVerse) then
-                self.las:Share(L.EVENT_MYSTERY_VERSE_USED, abilityId, GetAbilityName(abilityId, "player"))
-                self.MysteryVerse = false
-            end
-        end,
-        1000
-    )
+    if (not IsInstanceEndlessDungeon()) then return end
+
+    zo_callLater(function()
+        if (self.MysteryVerse) then
+            self.las:Share(L.EVENT_MYSTERY_VERSE_USED, abilityId, GetAbilityName(abilityId, "player"))
+            self.MysteryVerse = false
+        end
+    end, 1000)
+end
+
+local function onPowerUpdate(self, _, unitTag, _, powerType, powerValue)
+    if (self:IsInsideArchive() and AreUnitsEqual(unitTag, "player") and powerType == POWERTYPE_ULTIMATE) then
+        local unk, mapId = self:IsInUnknown()
+
+        if (unk and mapId == L.MAPS.HAEFELS_BUTCHERY.id and powerValue > 0) then
+            self.las:Share(L.EVENT_SWEETROLL_CONSUMED, self.player)
+        end
+    end
 end
 
 function lib:Initialize()
     self.auditor = GetString(LIBINFINITEARCHIVE_AUDITOR_NAME)
     self.gw = zo_strlower(GetString(LIBINFINITEARCHIVE_GW))
     self.las = LibInfiniteArchiveSharing
+    self.player = zo_strformat(GetUnitName("player"))
     self.solo = ENDLESS_DUNGEON_GROUP_TYPE_SOLO
     self.tomeName = zo_strlower(GetString(LIBINFINITEARCHIVE_TOMESHELL))
 
@@ -321,37 +329,29 @@ function lib:Initialize()
     SecurePostHook(_G[self.SELECTOR], "OnShowing", function() self.ShowingBuffs = true end)
     SecurePostHook(COMPASS, "OnUpdate", function() onCompassUpdate(self) end)
     SecurePostHook(CENTER_SCREEN_ANNOUNCE, "AddMessageWithParams", function(...) onMessage(self, ...) end)
-    SecurePostHook(_G[self.SELECTOR], "SelectBuff",
-        function(_, buffControl)
-            self.SelectedBuff = GetEndlessDungeonBuffSelectorBucketTypeChoice(buffControl.bucketType)
-        end)
+    SecurePostHook(_G[self.SELECTOR], "SelectBuff", function(_, buffControl) self.SelectedBuff = buffchoice(buffControl.bucketType) end)
     ZO_PreHook(BOSS_BAR, "AddBoss", function(...) onNewBoss(self, ...) end)
 
     -- events
     EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_PLAYER_ACTIVATED, function() onPlayerActivated(self) end)
-    EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_QUEST_CONDITION_COUNTER_CHANGED,
-        function(...) onQuestCounterChanged(self, ...) end)
+    EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_QUEST_CONDITION_COUNTER_CHANGED, function(...) onQuestCounterChanged(self, ...) end)
     EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_PLAYER_STUNNED_STATE_CHANGED, function(...) onStunned(self, ...) end)
-    EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_ACTION_SLOTS_ACTIVE_HOTBAR_UPDATED,
-        function(...) onHotBarChange(self, ...) end)
+    EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_ACTION_SLOTS_ACTIVE_HOTBAR_UPDATED, function(...) onHotBarChange(self, ...) end)
     EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_PLAYER_COMBAT_STATE, function(...) onCombatStateChanged(self, ...) end)
+    EVENT_MANAGER:RegisterForEvent(L.Name, EVENT_POWER_UPDATE, function(...) onPowerUpdate(self, ...) end)
 
     -- callbacks
     SHARED_INVENTORY:RegisterCallback("SingleSlotInventoryUpdate", function(...) onSingleSlotUpdate(self, ...) end)
-    ENDLESS_DUNGEON_MANAGER:RegisterCallback("BuffStackCountChanged",
-        function(...) onBuffStackCountChanged(self, ...) end)
+    ENDLESS_DUNGEON_MANAGER:RegisterCallback("BuffStackCountChanged", function(...) onBuffStackCountChanged(self, ...) end)
 end
 
---- determine if the player inside the infinite archive, but not in the index/lobby area
---- @return boolean # true if the player is inside an infinite archive stage
 function lib:IsInsideArchive()
-    return IsInstanceEndlessDungeon() and (GetCurrentMapId() ~= L.ArchiveIndex)
+    return IsInstanceEndlessDungeon() and GetCurrentMapId() ~= L.ArchiveIndex
 end
 
---- get the current group size, accounting for offline players
---- @diagnostic disable-next-line: undefined-doc-name
---- @return EndlessDungeonGroupType|nil # actual/active group size
-function lib:GetActualGroupType()
+-- account for offline members and companions
+-- return the effective group type to get unknown portal target paramaters correctly
+function lib:GetEffectiveGroupType()
     if (IsInstanceEndlessDungeon()) then
         local groupType = GetEndlessDungeonGroupType()
         local groupSize = GetGroupSize()
@@ -370,10 +370,6 @@ function lib:GetActualGroupType()
             if (size == 1) then
                 groupType = self.Solo
             end
-
-            if (self.CurrentGroupType ~= groupType) then
-                self.CurrentGroupType = groupType
-            end
         end
 
         return groupType
@@ -382,15 +378,13 @@ function lib:GetActualGroupType()
     return nil
 end
 
---- get the quest journal indices of any infinite archive quests that require you to collect items
---- @param rebuild boolean force a rebuild of the quest indices data
---- @return table # a table of quest journal indices
 function lib:GetArchiveQuestIndices(rebuild)
-    if ((#self.ArchiveQuestIndices == 0) or rebuild) then
+    if (#self.ArchiveQuestIndices == 0 or rebuild) then
         ZO_ClearNumericallyIndexedTable(self.ArchiveQuestIndices)
 
         for index = 1, GetNumJournalQuests() do
             local name, _, _, _, _, complete = GetJournalQuestInfo(index)
+
             if (not complete and ZO_IsElementInNumericallyIndexedTable(L.ARCHIVE_QUESTS, name)) then
                 table.insert(self.ArchiveQuestIndices, index)
             end
@@ -400,22 +394,11 @@ function lib:GetArchiveQuestIndices(rebuild)
     return self.ArchiveQuestIndices
 end
 
---- Get the maximum number of Tomeshells required in the Filer's Wing accounting for group size
----@return number
 function lib:GetMaxTomes()
-    -- for the purposes of this check, players with companions count as solo
-    local tomeGroupType = self:GetActualGroupType()
-
-    if (tomeGroupType == ENDLESS_DUNGEON_GROUP_TYPE_SOLO) then
-        return L.TOMESHELLS.SOLO
-    else
-        return L.TOMESHELLS.DUO
-    end
+    local tomeGroupType = self:GetEffectiveGroupType()
+    return tomeGroupType == ENDLESS_DUNGEON_GROUP_TYPE_SOLO and L.TOMESHELLS.SOLO or L.TOMESHELLS.DUO
 end
 
---- determine if the supplied ability id is an avatar verse
---- @param abilityId number the ability id of a verse or vision
---- @return boolean # true if the ability id is an avatar verse
 function lib:IsAvatar(abilityId)
     for avatar, info in pairs(L.AVATAR) do
         if (ZO_IsElementInNumericallyIndexedTable(info.abilityIds, abilityId)) then
@@ -426,10 +409,6 @@ function lib:IsAvatar(abilityId)
     return false
 end
 
---- determine if the player is inside a portal to the unknown
---- @return boolean # true if the player is inside a portal to the unknown
---- @return number|nil # the map id of the current portal to the unknown area
---- @return string|nil # the name of the current portal to the unknown area
 function lib:IsInUnknown()
     local id = GetCurrentMapId()
 
@@ -442,16 +421,12 @@ function lib:IsInUnknown()
     return false
 end
 
---- determine if the Loyal Auditor is currently active
---- @return boolean # true if the Loyal Auditor is active
 function lib:IsAuditorActive()
     for pet = 1, MAX_PET_UNIT_TAGS do
         local name = zo_strformat(GetUnitName(string.format("playerpet%s", tostring(pet))))
 
-        if (name and (name ~= "")) then
-            if (name == self.auditor) then
-                return true
-            end
+        if (name and name ~= "" and name == self.auditor) then
+            return true
         end
     end
 
@@ -460,15 +435,13 @@ end
 
 function lib:RegisterForEvent(event, callback)
     assert(L.EVENTS[event], "Invalid event " .. (event or "nil"))
-    assert(callback ~= nil and type(callback) == "function", "Callback function is mandatory")
-
+    assert(callback and type(callback) == "function", "Callback function is mandatory")
     self.las:RegisterCallback(L.EVENTS[event].name, callback, event)
 end
 
 function lib:UnregisterForEvent(event, callback)
     assert(L.EVENTS[event], "Invalid event")
-    assert(callback ~= nil and type(callback) == "function", "Callback function is mandatory")
-
+    assert(callback and type(callback) == "function", "Callback function is mandatory")
     self.las:UnregisterCallback(L.EVENTS[event].name, callback, event)
 end
 
