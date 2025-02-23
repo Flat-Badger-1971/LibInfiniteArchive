@@ -1,6 +1,6 @@
 LibInfiniteArchiveConstants = { Name = "LibInfiniteArchive" }
 local L = LibInfiniteArchiveConstants
-L.lia = "LIBINFINITEARCHIVE_"
+local lia = "LIBINFINITEARCHIVE_"
 
 L.ENUMS = {
     UNKNOWN_PORTAL_STATE_UNKNOWN = 0,
@@ -37,12 +37,12 @@ L.EVENTS = {
 L.ARCHIVE_INDEX = 2407
 
 L.MAPS = {
-    TREACHEROUS_CROSSING = { id = 2420, name = GetString(_G[L.lia .. "MAP_TREACHEROUS_CROSSING"]) },
-    HAEFELS_BUTCHERY = { id = 2421, name = GetString(_G[L.lia .. "MAP_HAEFELS_BUTCHERY"]) },
-    FILERS_WING = { id = 2422, name = GetString(_G[L.lia .. "MAP_FILERS_WING"]) },
-    ECHOING_DEN = { id = 2423, name = GetString(_G[L.lia .. "MAP_ECHOING_DEN"]) },
-    THEATRE_OF_WAR = { id = 2424, name = GetString(_G[L.lia .. "MAP_THEATRE_OF_WAR"]) },
-    DESTOZUNOS_LIBRARY = { id = 2425, name = GetString(_G[L.lia .. "MAP_DESTOZUNOS_LIBRARY"]) }
+    TREACHEROUS_CROSSING = { id = 2420, name = GetString(_G[lia .. "MAP_TREACHEROUS_CROSSING"]) },
+    HAEFALS_BUTCHERY = { id = 2421, name = GetString(_G[lia .. "MAP_HAEFALS_BUTCHERY"]) },
+    FILERS_WING = { id = 2422, name = GetString(_G[lia .. "MAP_FILERS_WING"]) },
+    ECHOING_DEN = { id = 2423, name = GetString(_G[lia .. "MAP_ECHOING_DEN"]) },
+    THEATRE_OF_WAR = { id = 2424, name = GetString(_G[lia .. "MAP_THEATRE_OF_WAR"]) },
+    DESTOZUNOS_LIBRARY = { id = 2425, name = GetString(_G[lia .. "MAP_DESTOZUNOS_LIBRARY"]) }
 }
 
 L.CLASSES = {
@@ -60,11 +60,11 @@ L.AVATAR = {
 }
 
 L.MARAUDERS = {
-    GetString(_G[L.lia .. "MARAUDER_GOTHMAU"]),
-    GetString(_G[L.lia .. "MARAUDER_HILKARAX"]),
-    GetString(_G[L.lia .. "MARAUDER_ULMOR"]),
-    GetString(_G[L.lia .. "MARAUDER_BITTOG"]),
-    GetString(_G[L.lia .. "MARAUDER_ZULFIMBUL"])
+    GetString(_G[lia .. "MARAUDER_GOTHMAU"]),
+    GetString(_G[lia .. "MARAUDER_HILKARAX"]),
+    GetString(_G[lia .. "MARAUDER_ULMOR"]),
+    GetString(_G[lia .. "MARAUDER_BITTOG"]),
+    GetString(_G[lia .. "MARAUDER_ZULFIMBUL"])
 }
 
 -- quests that require you to collect objects in the infinite archive

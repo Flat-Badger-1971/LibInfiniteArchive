@@ -1,3 +1,5 @@
+-- TODO: account for achievement levels in portals
+
 local lib = ZO_InitializingObject:Subclass()
 local L = LibInfiniteArchiveConstants
 local buffchoice = GetEndlessDungeonBuffSelectorBucketTypeChoice
@@ -30,20 +32,33 @@ local function onCompassUpdate(self)
     end
 end
 
+local function getMap(mapId)
+    for map, data in pairs(L.MAPS) do
+        if (data.id == mapId) then
+            return map
+        end
+    end
+end
+
 local function onPlayerActivated(self)
     if (not IsInstanceEndlessDungeon()) then return end
 
     local mapId = GetCurrentMapId()
 
-    self.UnknownPortal = nil
-
     if (self.LastMapId ~= mapId) then
         self.LastMapId = mapId
-        self.UnknownPortal = L.MAPS[mapId]
+
+        local wasInPortal = self.UnknownPortal ~= nil
+
+        self.UnknownPortal = getMap(mapId)
 
         if (self.UnknownPortal) then
             self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENTERED)
+        elseif (wasInPortal) then
+            self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, -1, "", self.UNKNOWN_PORTAL_STATE_EXITED)
         end
+    else
+        self.UnknownPortal = nil
     end
 
     local groupType = self:GetEffectiveGroupType()
@@ -51,6 +66,12 @@ local function onPlayerActivated(self)
     if (self.CurrentGroupType ~= groupType) then
         self.CurrentGroupType = groupType
     end
+end
+
+local function hasText(msg, textid)
+    local text = zo_strformat(textid)
+
+    return zo_strfind(msg, zo_strlower(text), 1, true) ~= nil
 end
 
 local function checkMessage(self, messageParams)
@@ -62,23 +83,48 @@ local function checkMessage(self, messageParams)
         return
     end
 
-    local message = zo_strlower(zo_strformat(messageParams:GetMainText()))
-    local secondaryMessage = zo_strlower(zo_strformat(messageParams:GetSecondaryText() or ""))
-    local concat = message .. secondaryMessage
+    local message = zo_strformat(messageParams:GetMainText())
+    local secondaryMessage = zo_strformat(messageParams:GetSecondaryText() or "")
+    local concat = zo_strlower(message .. " " .. secondaryMessage)
     local start, fail, success
 
-    -- Herd the Ghost Lights
-    if (self.UnknownPortal.mapId == L.MAPS.ECHOING_DEN) then
-        start = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "HERD"])), 1, true)
-        fail = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "HERD_FAIL"])), 1, true)
-        success = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "HERD_SUCCESS"])), 1, true)
+    -- Echoing Den
+    if (self.UnknownPortal.mapId == L.MAPS.ECHOING_DEN.id) then
+        start = hasText(concat, LIBINFINITEARCHIVE_HERD)
+        fail = hasText(concat, LIBINFINITEARCHIVE_HERD_FAIL)
+        success = hasText(concat, LIBINFINITEARCHIVE_HERD_SUCCESS)
     end
 
-    -- Destroy the Tomeshells
-    if (self.UnknownPortal.mapId == L.MAPS.FILERS_WING) then
-        start = zo_strfind(concat, zo_strlower(zo_strformat(L.MAPS.FILERS_WING.name)), 1, true)
-        fail = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "FILERS_WING_FAIL"])), 1, true)
-        success = zo_strfind(concat, zo_strlower(zo_strformat(_G[L.lia .. "FILERS_WING_SUCCESS"])), 1, true)
+    -- Filer's Wing
+    if (self.UnknownPortal.mapId == L.MAPS.FILERS_WING.id) then
+        start = hasText(concat, L.MAPS.FILERS_WING.name)
+        fail = hasText(concat, LIBINFINITEARCHIVE_FILERS_WING_FAIL)
+        success = hasText(concat, LIBINFINITEARCHIVE_FILERS_WING_SUCCESS)
+    end
+
+    -- Treacherous crossing
+    if (self.UnknownPortal.mapId == L.MAPS.TREACHEROUS_CROSSING.id) then
+        start = hasText(concat, L.MAPS.TREACHEROUS_CROSSING.name)
+        fail = hasText(concat, LIBINFINITEARCHIVE_CROSSING_FAIL)
+        success = hasText(concat, LIBINFINITEARCHIVE_CROSSING_SUCCESS)
+    end
+
+    -- Haefal's Butchery
+    if (self.UnknownPortal.mapId == L.MAPS.HAEFALS_BUTCHERY.id) then
+        start = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_START)
+        fail = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_FAIL)
+        success = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_SUCCESS)
+    end
+
+    -- Theatre of War
+    if (self.UnknownPortal.mapId == L.MAPS.THEATRE_OF_WAR.id) then
+        fail = hasText(concat, LIBINFINITEARCHIVE_THEATRE_FAIL)
+        success = hasText(concat, LIBINFINITEARCHIVE_THEATRE_SUCCESS)
+    end
+
+    -- Destozuno's Library
+    if (self.UnknownPortal.mapId == L.MAPS.DESTOZUNOS_LIBRARY.id) then
+        -- no events
     end
 
     if (start) then
@@ -182,9 +228,8 @@ local function tomeCheck(self, ...)
 
         if (zo_strfind(targetName, self.tomeName, 1, true) or zo_strfind(sourceName, self.tomeName, 1, true)) then
             self.TomesFound = self.TomesFound + 1
-            self.TomesTotal = self.TomesTotal + 1
 
-            local tomesLeft = self.MaxTomes - self.TomesTotal
+            local tomesLeft = self.MaxTomes - self.TomesFound
 
             tomesLeft = (tomesLeft < 0) and 0 or tomesLeft
 
@@ -196,7 +241,6 @@ end
 local function startTomeCheck(self)
     self.MaxTomes = self:GetMaxTomes()
     self.TomesFound = 0
-    self.TomesTotal = 0
 
     EVENT_MANAGER:RegisterForEvent(L.Name .. "_Tome", EVENT_COMBAT_EVENT, function(...) tomeCheck(self, ...) end)
 end
@@ -235,6 +279,14 @@ local function onCombatStateChanged(self, _, inCombat)
     if (not IsInstanceEndlessDungeon()) then return end
 
     self.InCombat = inCombat
+
+    if (self.UnknownPortal) then
+        if (self.UnknownPortal.mapId == L.MAPS.THEATRE_OF_WAR.id) then
+            if (self.InCombat) then
+                self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.THEATRE_OF_WAR.id, L.MAPS.THEATRE_OF_WAR.name, self.UNKNOWN_PORTAL_STATE_STARTED)
+            end
+        end
+    end
 
     if (inCombat) then
         EVENT_MANAGER:RegisterForEvent(L.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED, function() onReticleTargetChanged(self) end)
@@ -323,6 +375,15 @@ function lib:Initialize()
         self[eventInfo.name] = id
     end
 
+    -- add lookups
+    self.ARCHIVE_QUESTS = ZO_ShallowNumericallyIndexedTableCopy(L.ARCHIVE_QUESTS)
+    self.AVATAR = ZO_ShallowTableCopy(L.AVATAR)
+    self.CLASSES = ZO_ShallowTableCopy(L.CLASSES)
+    self.MAPS = ZO_ShallowTableCopy(L.MAPS)
+    self.MARAUDERS = ZO_ShallowNumericallyIndexedTableCopy(L.MARAUDERS)
+    self.MYSTERY = ZO_ShallowTableCopy(L.MYSTERY)
+    self.TOMESHELLS = ZO_ShallowTableCopy(L.TOMESHELLS)
+
     -- hooks
     SecurePostHook(_G[self.SELECTOR], "OnHiding", function() onHiding(self) end)
     SecurePostHook(_G[self.SELECTOR], "CommitChoice", function() onChoiceCommitted(self) end)
@@ -396,6 +457,7 @@ end
 
 function lib:GetMaxTomes()
     local tomeGroupType = self:GetEffectiveGroupType()
+
     return tomeGroupType == ENDLESS_DUNGEON_GROUP_TYPE_SOLO and L.TOMESHELLS.SOLO or L.TOMESHELLS.DUO
 end
 
@@ -445,4 +507,4 @@ function lib:UnregisterForEvent(event, callback)
     self.las:UnregisterCallback(L.EVENTS[event].name, callback, event)
 end
 
-LibInfiniteArchive = lib:New()
+LibInfiniteArchive = lib
