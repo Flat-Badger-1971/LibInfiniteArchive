@@ -102,7 +102,6 @@ end
 
 function slib:Share(event, ...)
     self:d("Sharing event " .. L.EVENTS[event].name)
-
     if (L.EVENTS[event].fields) then
         local args = { ... }
 
@@ -110,6 +109,7 @@ function slib:Share(event, ...)
             table.insert(args, zo_strformat(GetUnitName("player")))
         end
 
+        self:d(args)
         self:SendProtocolMessage(event, unpack(args))
     else
         self:FireEvent(event)
@@ -117,4 +117,4 @@ function slib:Share(event, ...)
 end
 
 --- @diagnostic disable-next-line: undefined-field
-LibInfiniteArchiveSharing = slib:New()
+LibInfiniteArchiveSharing = slib

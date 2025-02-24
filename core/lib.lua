@@ -35,7 +35,7 @@ end
 local function getMap(mapId)
     for map, data in pairs(L.MAPS) do
         if (data.id == mapId) then
-            return map
+            return data
         end
     end
 end
@@ -89,41 +89,41 @@ local function checkMessage(self, messageParams)
     local start, fail, success
 
     -- Echoing Den
-    if (self.UnknownPortal.mapId == L.MAPS.ECHOING_DEN.id) then
+    if (self.UnknownPortal.id == L.MAPS.ECHOING_DEN.id) then
         start = hasText(concat, LIBINFINITEARCHIVE_HERD)
         fail = hasText(concat, LIBINFINITEARCHIVE_HERD_FAIL)
         success = hasText(concat, LIBINFINITEARCHIVE_HERD_SUCCESS)
     end
 
     -- Filer's Wing
-    if (self.UnknownPortal.mapId == L.MAPS.FILERS_WING.id) then
+    if (self.UnknownPortal.id == L.MAPS.FILERS_WING.id) then
         start = hasText(concat, L.MAPS.FILERS_WING.name)
         fail = hasText(concat, LIBINFINITEARCHIVE_FILERS_WING_FAIL)
         success = hasText(concat, LIBINFINITEARCHIVE_FILERS_WING_SUCCESS)
     end
 
     -- Treacherous crossing
-    if (self.UnknownPortal.mapId == L.MAPS.TREACHEROUS_CROSSING.id) then
+    if (self.UnknownPortal.id == L.MAPS.TREACHEROUS_CROSSING.id) then
         start = hasText(concat, L.MAPS.TREACHEROUS_CROSSING.name)
         fail = hasText(concat, LIBINFINITEARCHIVE_CROSSING_FAIL)
         success = hasText(concat, LIBINFINITEARCHIVE_CROSSING_SUCCESS)
     end
 
     -- Haefal's Butchery
-    if (self.UnknownPortal.mapId == L.MAPS.HAEFALS_BUTCHERY.id) then
+    if (self.UnknownPortal.id == L.MAPS.HAEFALS_BUTCHERY.id) then
         start = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_START)
         fail = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_FAIL)
         success = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_SUCCESS)
     end
 
     -- Theatre of War
-    if (self.UnknownPortal.mapId == L.MAPS.THEATRE_OF_WAR.id) then
+    if (self.UnknownPortal.id == L.MAPS.THEATRE_OF_WAR.id) then
         fail = hasText(concat, LIBINFINITEARCHIVE_THEATRE_FAIL)
         success = hasText(concat, LIBINFINITEARCHIVE_THEATRE_SUCCESS)
     end
 
     -- Destozuno's Library
-    if (self.UnknownPortal.mapId == L.MAPS.DESTOZUNOS_LIBRARY.id) then
+    if (self.UnknownPortal.id == L.MAPS.DESTOZUNOS_LIBRARY.id) then
         -- no events
     end
 
@@ -281,7 +281,7 @@ local function onCombatStateChanged(self, _, inCombat)
     self.InCombat = inCombat
 
     if (self.UnknownPortal) then
-        if (self.UnknownPortal.mapId == L.MAPS.THEATRE_OF_WAR.id) then
+        if (self.UnknownPortal.id == L.MAPS.THEATRE_OF_WAR.id) then
             if (self.InCombat) then
                 self.las:Share(L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, L.MAPS.THEATRE_OF_WAR.id, L.MAPS.THEATRE_OF_WAR.name, self.UNKNOWN_PORTAL_STATE_STARTED)
             end
@@ -327,8 +327,8 @@ local function onPowerUpdate(self, _, unitTag, _, powerType, powerValue)
     if (self:IsInsideArchive() and AreUnitsEqual(unitTag, "player") and powerType == POWERTYPE_ULTIMATE) then
         local unk, mapId = self:IsInUnknown()
 
-        if (unk and mapId == L.MAPS.HAEFELS_BUTCHERY.id and powerValue > 0) then
-            self.las:Share(L.EVENT_SWEETROLL_CONSUMED, self.player)
+        if (unk and mapId == self.MAPS.HAEFALS_BUTCHERY.id and powerValue > 0) then
+            self.las:Share(self.EVENT_SWEETROLL_CONSUMED, self.player)
         end
     end
 end
@@ -336,7 +336,8 @@ end
 function lib:Initialize()
     self.auditor = GetString(LIBINFINITEARCHIVE_AUDITOR_NAME)
     self.gw = zo_strlower(GetString(LIBINFINITEARCHIVE_GW))
-    self.las = LibInfiniteArchiveSharing
+    --- @diagnostic disable-next-line undefined-field
+    self.las = LibInfiniteArchiveSharing:New()
     self.player = zo_strformat(GetUnitName("player"))
     self.solo = ENDLESS_DUNGEON_GROUP_TYPE_SOLO
     self.tomeName = zo_strlower(GetString(LIBINFINITEARCHIVE_TOMESHELL))
@@ -376,6 +377,7 @@ function lib:Initialize()
     end
 
     -- add lookups
+    self.ARCHIVE_INDEX = L.ARCHIVE_INDEX
     self.ARCHIVE_QUESTS = ZO_ShallowNumericallyIndexedTableCopy(L.ARCHIVE_QUESTS)
     self.AVATAR = ZO_ShallowTableCopy(L.AVATAR)
     self.CLASSES = ZO_ShallowTableCopy(L.CLASSES)
