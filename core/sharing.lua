@@ -9,7 +9,7 @@ function slib:Initialize()
 
     xpcall(function() error("internal use only") end,
         function(err)
-            if (zo_strfind(err, "LibInfiniteArchive/core/lib.lua", 1, false)) then
+            if (zo_strfind(err, "AddOns/LibInfiniteArchive/core/lib.lua", 1, false)) then
                 internal = true
             end
         end)
