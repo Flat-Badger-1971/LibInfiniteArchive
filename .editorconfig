@@ -1,5 +1,5 @@
 [*.lua]
 
-max_line_length = 160
+max_line_length = 180
 space_after_comment_dash = true
 trailing_table_separator = never

@@ -5,6 +5,17 @@ local L = LibInfiniteArchiveConstants
 local slib = ZO_InitializingCallbackObject:Subclass()
 
 function slib:Initialize()
+    local internal
+
+    xpcall(function() error("internal use only") end,
+        function(err)
+            if (zo_strfind(err, "LibInfiniteArchive/core/lib.lua", 1, false)) then
+                internal = true
+            end
+        end)
+
+    assert(internal, "This class is for internal use only")
+
     EVENT_MANAGER:RegisterForEvent(L.NAME, EVENT_GROUP_UPDATE, function() self.grouped = IsUnitGrouped("player") end)
 
     self.grouped = IsUnitGrouped("player")
@@ -116,5 +127,4 @@ function slib:Share(event, ...)
     end
 end
 
---- @diagnostic disable-next-line: undefined-field
 LibInfiniteArchiveSharing = slib
