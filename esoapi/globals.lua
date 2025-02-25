@@ -1,4 +1,5 @@
 --- @meta
+--- @diagnostic disable
 
 -- Global constants
 ACCOUNT_NAME_MAX_LENGTH = 20

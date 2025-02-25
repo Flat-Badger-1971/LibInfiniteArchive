@@ -1,4 +1,6 @@
 --- @meta
+--- @diagnostic disable
+
 -- Compatibility aliases and constants
 ITEMSTYLE_NONE                   = 0
 ITEMSTYLE_RACIAL_BRETON          = 1
@@ -916,7 +918,8 @@ function ZO_FadingStationaryControlBuffer:New(...) end
 
 --- @param control Control
 function ZO_FadingStationaryControlBuffer:Initialize(control, maxDisplayedEntries, fadeAnimationName, iconAnimationName, containerAnimationName, anchor,
-                                                     controllerType) end
+                                                     controllerType)
+end
 
 function ZO_FadingStationaryControlBuffer:OnUpdateBuffer(timeMs) end
 
@@ -1016,7 +1019,8 @@ function ZO_PreHookHandler(control, handlerName, hookFunction) end
 function ZO_PostHookHandler(control, handlerName, hookFunction) end
 
 function ZO_PropagateHandler(propagateToControl, handlerName, handlerArg1, handlerArg2, handlerArg3, handlerArg4, handlerArg5, handlerArg6, handlerArg7,
-                             handlerArg8, handlerArg9) end
+                             handlerArg8, handlerArg9)
+end
 
 function ZO_PropagateHandlerToParent(handlerName, propagateFrom, ...) end
 
@@ -1559,7 +1563,7 @@ function ZO_Debug_EventNotification(eventCode, register, allEvents) end
 
 function ZO_Debug_MultiEventRegister(...) end
 
-function m() end                                -- same like ZO_Debug_MultiEventRegister
+function m() end -- same like ZO_Debug_MultiEventRegister
 
 function ExecutePatternedChatCommand(commandBase, startId, endId) end
 
@@ -1616,19 +1620,19 @@ function ZO_SetIconAttributes(textureControl, attributes) end
 -------------------------------------------------------------------------------
 -- [GlobalAPI]
 -- String patterns in lua: https://www.lua.org/manual/5.3/manual.html#6.4.1
-function zo_strlower(subject) end                              -- LocaleAwareToLower
+function zo_strlower(subject) end                      -- LocaleAwareToLower
 
-function zo_strupper(subject) end                              -- LocaleAwareToUpper
+function zo_strupper(subject) end                      -- LocaleAwareToUpper
 
-function zo_strsub(subject, startIndex, endIndex) end          -- string.sub
+function zo_strsub(subject, startIndex, endIndex) end  -- string.sub
 
-function zo_strgsub(subject, pattern, replacement) end         -- string.gsub
+function zo_strgsub(subject, pattern, replacement) end -- string.gsub
 
-function zo_strlen(subject) end                                -- string.len
+function zo_strlen(subject) end                        -- string.len
 
-function zo_strmatch(subject, pattern) end                     -- string.match
+function zo_strmatch(subject, pattern) end             -- string.match
 
-function zo_strgmatch(subject, pattern) end                    -- string.gmatch
+function zo_strgmatch(subject, pattern) end            -- string.gmatch
 
 --- @param subject string
 --- @param searchString string
@@ -1636,52 +1640,52 @@ function zo_strgmatch(subject, pattern) end                    -- string.gmatch
 --- @param pattern boolean|nil
 --- @return integer
 --- @return integer
-function zo_strfind(subject, searchString, init, pattern) end           -- string.find
+function zo_strfind(subject, searchString, init, pattern) end -- string.find
 
-function zo_plainstrfind(subject, searchString) end                     -- PlainStringFind
+function zo_plainstrfind(subject, searchString) end           -- PlainStringFind
 
 --- @param charToSplitAt string
 --- @param subject string
 --- @return string ...
-function zo_strsplit(charToSplitAt, subject) end          -- SplitString
+function zo_strsplit(charToSplitAt, subject) end -- SplitString
 
-function zo_loadstring(subject) end                       -- LoadString
+function zo_loadstring(subject) end              -- LoadString
 
-function zo_floor(number) end                             -- math.floor
+function zo_floor(number) end                    -- math.floor
 
-function zo_ceil(number) end                              -- math.ceil
+function zo_ceil(number) end                     -- math.ceil
 
-function zo_mod(number, divisor) end                      -- math.fmod
+function zo_mod(number, divisor) end             -- math.fmod
 
-function zo_decimalsplit(number) end                      -- math.modf
+function zo_decimalsplit(number) end             -- math.modf
 
 --- @type fun(n: number): number
-function zo_abs(number) end                               -- math.abs
+function zo_abs(number) end -- math.abs
 
 --- @type fun(a: number, b: number): number
-function zo_max(number1, number2) end                     -- math.max
+function zo_max(number1, number2) end    -- math.max
 
-function zo_min(number1, number2) end                     -- math.min
+function zo_min(number1, number2) end    -- math.min
 
-function zo_sqrt(number) end                              -- math.sqrt
+function zo_sqrt(number) end             -- math.sqrt
 
-function zo_pow(number, power) end                        -- math.pow
+function zo_pow(number, power) end       -- math.pow
 
-function zo_cos(number) end                               -- math.cos
+function zo_cos(number) end              -- math.cos
 
-function zo_sin(number) end                               -- math.sin
+function zo_sin(number) end              -- math.sin
 
-function zo_tan(number) end                               -- math.tan
+function zo_tan(number) end              -- math.tan
 
-function zo_atan2(number) end                             -- math.atan2
+function zo_atan2(number) end            -- math.atan2
 
-function zo_randomseed(seed) end                          -- math.randomseed
+function zo_randomseed(seed) end         -- math.randomseed
 
-function zo_random(number, maxValue) end                  -- math.random
+function zo_random(number, maxValue) end -- math.random
 
 function zo_randomDecimalRange(min, max) end
 
-function zo_insecureNext() end                            -- InsecureNext
+function zo_insecureNext() end -- InsecureNext
 
 function zo_insecurePairs(t) end
 
@@ -3164,7 +3168,8 @@ function ZO_HorizontalScrollList:New(...) end
 
 --- @param control Control
 function ZO_HorizontalScrollList:Initialize(control, templateName, numVisibleEntries, setupFunction, equalityFunction, onCommitWithItemsFunction,
-                                            onClearedFunction) end
+                                            onClearedFunction)
+end
 
 function ZO_HorizontalScrollList:SetAllowWrapping(allowWrapping) end
 
@@ -3271,7 +3276,8 @@ function ZO_HorizontalScrollList_Gamepad:New(...) end
 
 --- @param control Control
 function ZO_HorizontalScrollList_Gamepad:Initialize(control, templateName, numVisibleEntries, setupFunction, equalityFunction, onCommitWithItemsFunction,
-                                                    onClearedFunction) end
+                                                    onClearedFunction)
+end
 
 function ZO_HorizontalScrollList_Gamepad:SetOnActivatedChangedFunction(onActivatedChangedFunction) end
 
@@ -3866,7 +3872,8 @@ function ZO_AbstractSingleTemplateGridScrollList:Initialize(control, autofillRow
 function ZO_AbstractSingleTemplateGridScrollList:SetHeaderTemplate(templateName, height, setupFunc, onHideFunc, resetControlFunc) end
 
 function ZO_AbstractSingleTemplateGridScrollList:SetGridEntryTemplate(templateName, width, height, setupFunc, onHideFunc, resetControlFunc, spacingX, spacingY,
-                                                                      centerEntries) end
+                                                                      centerEntries)
+end
 
 function ZO_AbstractSingleTemplateGridScrollList:SetGridEntryVisibilityFunction(visiblityFunction) end
 
@@ -4083,17 +4090,20 @@ function ZO_ParametricScrollList:SetDataTemplateReleaseFunction(templateName, re
 function ZO_ParametricScrollList:SetDataTemplateWithHeaderReleaseFunction(templateName, releaseFunction) end
 
 function ZO_ParametricScrollList:AddDataTemplateWithHeader(templateName, setupFunction, parametricFunction, equalityFunction, headerTemplateName,
-                                                           optionalHeaderSetupFunction, controlPoolPrefix, controlPoolResetFunction) end
+                                                           optionalHeaderSetupFunction, controlPoolPrefix, controlPoolResetFunction)
+end
 
 function ZO_ParametricScrollList:SetEqualityFunction(templateName, equalityFunction) end
 
 function ZO_ParametricScrollList:SetReselectBehavior(reselectBehavior) end
 
 function ZO_ParametricScrollList:AddEntryAtIndex(index, templateName, data, prePadding, postPadding, preSelectedOffsetAdditionalPadding,
-                                                 postSelectedOffsetAdditionalPadding, selectedCenterOffset) end
+                                                 postSelectedOffsetAdditionalPadding, selectedCenterOffset)
+end
 
 function ZO_ParametricScrollList:AddEntry(templateName, data, prePadding, postPadding, preSelectedOffsetAdditionalPadding, postSelectedOffsetAdditionalPadding,
-                                          selectedCenterOffset) end
+                                          selectedCenterOffset)
+end
 
 function ZO_ParametricScrollList:RemoveEntry(templateName, data) end
 
@@ -4265,7 +4275,8 @@ function ZO_ParametricScrollList:UpdateAnchors(continousTargetOffset, initialUpd
 function ZO_ParametricScrollList:RefreshNoItemLabelPosition() end
 
 function ZO_ParametricScrollList:CalculateParametricOffset(startAdditionalPadding, endAdditionalPadding, distanceFromCenter, continuousParametricOffset,
-                                                           additionalPaddingEasingFunc) end
+                                                           additionalPaddingEasingFunc)
+end
 
 function ZO_ParametricScrollList:CalculateAdditionalBottomParametricOffset(distanceFromCenter, continuousParametricOffset, additionalPaddingEasingFunc) end
 
@@ -4797,7 +4808,8 @@ function ZO_RadialMenu.ForceActiveMenuClosed() end
 
 --- @param control Control
 function ZO_RadialMenu:Initialize(control, entryTemplate, animationTemplate, entryAnimationTemplate, actionLayerName, directionInputs, enableMouse,
-                                  selectIfCentered) end
+                                  selectIfCentered)
+end
 
 function ZO_RadialMenu:SetActivateOnShow(activateOnShow) end
 
@@ -7311,7 +7323,7 @@ function ZO_Group_IsGroupUnitTag(unitTag) end
 -- esoui/libraries/zo_tile/*
 
 -- Scene Manager
-SCENE_MANAGER = {}       -- ZO_PregameSceneManager: /esoui/esoui/pregame/scenes/pregamescenemanager.lua
+SCENE_MANAGER = {} -- ZO_PregameSceneManager: /esoui/esoui/pregame/scenes/pregamescenemanager.lua
 -- -> zo_scenemanager_leader: esoui/esoui/libraries/zo_scene/zo_scenemanager_leader.lua
 function SCENE_MANAGER:OnScenesLoaded() end
 

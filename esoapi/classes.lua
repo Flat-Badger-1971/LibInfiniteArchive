@@ -1,4 +1,5 @@
 --- @meta
+--- @diagnostic disable
 
 --- @class AddOnManager: ZO_Object
 AddOnManager = {}
@@ -1333,7 +1334,8 @@ function CompassDisplayControl:SetCardinalDirection(directionName, font, cardina
 --- @return void
 function CompassDisplayControl:SetPinInfo(pinType, pinSize, pinTexture, areaTexture, aboveTexture, belowTexture, linkTexture, clamped, allowUpdatesWhenAnimating,
                                           maxDistanceM, closeScale, farScale, closeScaleDistanceM, farScaleDistanceM, closeAlpha, farAlpha, closeAlphaDistanceM,
-                                          farAlphaDistanceM, animation, addedAnimation, removedAnimation, layer, drawLevelOffsetBase) end
+                                          farAlphaDistanceM, animation, addedAnimation, removedAnimation, layer, drawLevelOffsetBase)
+end
 
 --- @param pinType MapDisplayPinType
 --- @param closeScale number
@@ -2861,7 +2863,8 @@ function MapDisplayControl:GetZoom() end
 --- @return void
 function MapDisplayControl:SetBasePinData(pinType, arrowType, pinSize, pinXInset, pinYInset, arrowSize, textureFilename, arrowTextureFilename,
                                           areaTextureFilename, aboveTextureFilename, belowTextureFilename, linkTextureFilename, animation, addedAnimation,
-                                          removedAnimation, animationTarget) end
+                                          removedAnimation, animationTarget)
+end
 
 --- @param offset number
 --- @param size number
@@ -3159,7 +3162,8 @@ function SliderControl:SetThumbTexture(filename, disabledFilename, highlightedFi
 --- @param flush boolean
 --- @return void
 function SliderControl:SetThumbTextureAndFlush(filename, disabledFilename, highlightedFilename, thumbWidth, thumbHeight, texTop, texLeft, texBottom, texRight,
-                                               flush) end
+                                               flush)
+end
 
 --- @param height layout_measurement
 --- @return void
@@ -3825,7 +3829,8 @@ function TooltipControl:SetAction(slotId, hotbarCategory) end
 --- @param overrideAbilityId integer|nil
 --- @return void
 function TooltipControl:SetActiveSkill(skillType, skillLineIndex, skillIndex, morphSlot, isPurchased, isAdvised, isBadMorph, numAvailableSkillPoints,
-                                       showSkillPointCost, showUpgradeText, showAdvised, showBadMorph, overrideRank, overrideAbilityId) end
+                                       showSkillPointCost, showUpgradeText, showAdvised, showBadMorph, overrideRank, overrideAbilityId)
+end
 
 --- @param antiquityId integer
 --- @return void
@@ -4034,7 +4039,8 @@ function TooltipControl:SetPassiveSkill(skillType, skillLineIndex, skillIndex, r
 --- @param reagent3SlotIndex integer|nil
 --- @return void
 function TooltipControl:SetPendingAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
-                                              reagent3SlotIndex) end
+                                              reagent3SlotIndex)
+end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -4044,7 +4050,8 @@ function TooltipControl:SetPendingAlchemyItem(solventBagId, solventSlotIndex, re
 --- @param aspectRuneSlotIndex integer
 --- @return void
 function TooltipControl:SetPendingEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId,
-                                                 aspectRuneSlotIndex) end
+                                                 aspectRuneSlotIndex)
+end
 
 --- @param bagIndex Bag
 --- @param slotIndex integer

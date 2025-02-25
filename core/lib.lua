@@ -43,22 +43,19 @@ end
 local function onPlayerActivated(self)
     if (not IsInstanceEndlessDungeon()) then return end
 
-    local mapId = GetCurrentMapId()
+    local wasInPortal = self.UnknownPortal ~= nil
+    local inUnknown, mapId = self:IsInUnknown()
 
-    if (self.LastMapId ~= mapId) then
-        self.LastMapId = mapId
-
-        local wasInPortal = self.UnknownPortal ~= nil
-
+    if (inUnknown) then
         self.UnknownPortal = getMap(self, mapId)
-
-        if (self.UnknownPortal) then
-            self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, self.UnknownPortaself.Name, self.UNKNOWN_PORTAL_STATE_ENTERED)
-        elseif (wasInPortal) then
-            self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, -1, "", self.UNKNOWN_PORTAL_STATE_EXITED)
-        end
     else
         self.UnknownPortal = nil
+    end
+
+    if (wasInPortal and not inUnknown) then
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, -1, "", self.UNKNOWN_PORTAL_STATE_EXITED)
+    elseif (inUnknown) then
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENTERED)
     end
 
     local groupType = self:GetEffectiveGroupType()
@@ -70,8 +67,9 @@ end
 
 local function hasText(msg, textid)
     local text = zo_strformat(textid)
+    local found = zo_strfind(msg, zo_strlower(text), 1, true) ~= nil
 
-    return zo_strfind(msg, zo_strlower(text), 1, true) ~= nil
+    return found
 end
 
 local function checkMessage(self, messageParams)
@@ -85,41 +83,41 @@ local function checkMessage(self, messageParams)
 
     local message = zo_strformat(messageParams:GetMainText())
     local secondaryMessage = zo_strformat(messageParams:GetSecondaryText() or "")
-    local concat = zo_strlower(message .. " " .. secondaryMessage)
+    local both = zo_strlower(message .. " " .. secondaryMessage)
     local start, fail, success
 
     -- Echoing Den
     if (self.UnknownPortal.id == self.MAPS.ECHOING_DEN.id) then
-        start = hasText(concat, LIBINFINITEARCHIVE_HERD)
-        fail = hasText(concat, LIBINFINITEARCHIVE_HERD_FAIL)
-        success = hasText(concat, LIBINFINITEARCHIVE_HERD_SUCCESS)
+        start = hasText(both, LIBINFINITEARCHIVE_HERD)
+        fail = hasText(both, LIBINFINITEARCHIVE_HERD_FAIL)
+        success = hasText(both, LIBINFINITEARCHIVE_HERD_SUCCESS)
     end
 
     -- Filer's Wing
     if (self.UnknownPortal.id == self.MAPS.FILERS_WING.id) then
-        start = hasText(concat, self.MAPS.FILERS_WING.name)
-        fail = hasText(concat, LIBINFINITEARCHIVE_FILERS_WING_FAIL)
-        success = hasText(concat, LIBINFINITEARCHIVE_FILERS_WING_SUCCESS)
+        start = hasText(both, self.MAPS.FILERS_WING.name)
+        fail = hasText(both, LIBINFINITEARCHIVE_FILERS_WING_FAIL)
+        success = hasText(both, LIBINFINITEARCHIVE_FILERS_WING_SUCCESS)
     end
 
     -- Treacherous crossing
     if (self.UnknownPortal.id == self.MAPS.TREACHEROUS_CROSSING.id) then
-        start = hasText(concat, self.MAPS.TREACHEROUS_CROSSING.name)
-        fail = hasText(concat, LIBINFINITEARCHIVE_CROSSING_FAIL)
-        success = hasText(concat, LIBINFINITEARCHIVE_CROSSING_SUCCESS)
+        start = hasText(both, self.MAPS.TREACHEROUS_CROSSING.name)
+        fail = hasText(both, LIBINFINITEARCHIVE_CROSSING_FAIL)
+        success = hasText(both, LIBINFINITEARCHIVE_CROSSING_SUCCESS)
     end
 
     -- Haefal's Butchery
     if (self.UnknownPortal.id == self.MAPS.HAEFALS_BUTCHERY.id) then
-        start = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_START)
-        fail = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_FAIL)
-        success = hasText(concat, LIBINFINITEARCHIVE_HAEFAL_SUCCESS)
+        start = hasText(both, LIBINFINITEARCHIVE_HAEFAL_START)
+        fail = hasText(both, LIBINFINITEARCHIVE_HAEFAL_FAIL)
+        success = hasText(both, LIBINFINITEARCHIVE_HAEFAL_SUCCESS)
     end
 
     -- Theatre of War
     if (self.UnknownPortal.id == self.MAPS.THEATRE_OF_WAR.id) then
-        fail = hasText(concat, LIBINFINITEARCHIVE_THEATRE_FAIL)
-        success = hasText(concat, LIBINFINITEARCHIVE_THEATRE_SUCCESS)
+        fail = hasText(both, LIBINFINITEARCHIVE_THEATRE_FAIL)
+        success = hasText(both, LIBINFINITEARCHIVE_THEATRE_SUCCESS)
     end
 
     -- Destozuno's Library
@@ -127,14 +125,20 @@ local function checkMessage(self, messageParams)
         -- no events
     end
 
+    self.started = false
+
     if (start) then
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortaself.Name, self.UNKNOWN_PORTAL_STATE_STARTED)
+        d("start")
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_STARTED)
+        self.started = true
     elseif (fail) then
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortaself.Name, self.UNKNOWN_PORTAL_STATE_FAILED)
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortaself.Name, self.UNKNOWN_PORTAL_STATE_ENDED)
+        d("fail")
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_FAILED)
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENDED)
     elseif (success) then
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortaself.Name, self.UNKNOWN_PORTAL_STATE_SUCCEEDED)
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortaself.Name, self.UNKNOWN_PORTAL_STATE_ENDED)
+        d("success")
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_SUCCEEDED)
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENDED)
     end
 end
 
@@ -198,6 +202,7 @@ local function resetValues(self)
     ZO_ClearNumericallyIndexedTable(self.Bosses)
     self.FoundQuestItem = false
     self.FoundGw = false
+    self.started = false
 end
 
 local function onStunned(self, _, stunned)
@@ -327,7 +332,7 @@ local function onPowerUpdate(self, _, unitTag, _, powerType, powerValue)
     if (self:IsInsideArchive() and AreUnitsEqual(unitTag, "player") and powerType == POWERTYPE_ULTIMATE) then
         local unk, mapId = self:IsInUnknown()
 
-        if (unk and mapId == self.MAPS.HAEFALS_BUTCHERY.id and powerValue > 0) then
+        if (unk and mapId == self.MAPS.HAEFALS_BUTCHERY.id and powerValue > 0 and self.started) then
             self.las:Share(self.EVENT_SWEETROLL_CONSUMED, self.player)
         end
     end

@@ -1,4 +1,5 @@
 --- @meta
+--- @diagnostic disable
 
 --- @return table buildInfo
 function ScriptBuildInfo() end
@@ -8040,7 +8041,8 @@ function GetCostToCraftAlchemyItem(solventBagId, solventSlotIndex, numIterations
 --- @param reagent3SlotIndex integer|nil
 --- @return integer numIterations, TradeskillResult limitReason
 function GetMaxIterationsPossibleForAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
-                                                reagent3SlotIndex) end
+                                                reagent3SlotIndex)
+end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8053,7 +8055,8 @@ function GetMaxIterationsPossibleForAlchemyItem(solventBagId, solventSlotIndex, 
 --- @param numIterations integer
 --- @return void
 function CraftAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId, reagent3SlotIndex,
-                          numIterations) end
+                          numIterations)
+end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8065,7 +8068,8 @@ function CraftAlchemyItem(solventBagId, solventSlotIndex, reagent1BagId, reagent
 --- @param reagent3SlotIndex integer|nil
 --- @return string name, textureName icon, integer stack, integer sellPrice, boolean meetsUsageRequirement, EquipType equipType, integer itemStyleId, ItemDisplayQuality displayQuality, ProspectiveAlchemyResult prospectiveAlchemyResult
 function GetAlchemyResultingItemInfo(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
-                                     reagent3SlotIndex) end
+                                     reagent3SlotIndex)
+end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8078,7 +8082,8 @@ function GetAlchemyResultingItemInfo(solventBagId, solventSlotIndex, reagent1Bag
 --- @param linkStyle LinkStyle
 --- @return string link, ProspectiveAlchemyResult prospectiveAlchemyResult
 function GetAlchemyResultingItemLink(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
-                                     reagent3SlotIndex, linkStyle) end
+                                     reagent3SlotIndex, linkStyle)
+end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8090,7 +8095,8 @@ function GetAlchemyResultingItemLink(solventBagId, solventSlotIndex, reagent1Bag
 --- @param reagent3SlotIndex integer|nil
 --- @return integer inspiration
 function GetAlchemyResultInspiration(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
-                                     reagent3SlotIndex) end
+                                     reagent3SlotIndex)
+end
 
 --- @param solventBagId Bag
 --- @param solventSlotIndex integer
@@ -8147,7 +8153,8 @@ function IsAlchemySolventForItemAndMaterialId(solventBagId, solventSlotIndex, ta
 --- @param desiredEncodedTraits integer|nil
 --- @return integer|nil resultingItemId
 function GetAlchemyResultingItemIdIfKnown(solventBagId, solventSlotIndex, reagent1BagId, reagent1SlotIndex, reagent2BagId, reagent2SlotIndex, reagent3BagId,
-                                          reagent3SlotIndex, desiredEncodedTraits) end
+                                          reagent3SlotIndex, desiredEncodedTraits)
+end
 
 --- @return integer numRecipeLists
 function GetNumRecipeLists() end
@@ -8260,7 +8267,8 @@ function GetRecipeInfoFromItemId(itemId) end
 --- @param numIterations integer
 --- @return integer cost
 function GetCostToCraftEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex,
-                                      numIterations) end
+                                      numIterations)
+end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -8270,7 +8278,8 @@ function GetCostToCraftEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, es
 --- @param aspectRuneSlotIndex integer
 --- @return integer numIterations, TradeskillResult limitReason
 function GetMaxIterationsPossibleForEnchantingItem(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId,
-                                                   aspectRuneSlotIndex) end
+                                                   aspectRuneSlotIndex)
+end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -8300,7 +8309,8 @@ function GetEnchantingResultingItemInfo(potencyRuneBagId, potencyRuneSlotIndex, 
 --- @param linkStyle LinkStyle
 --- @return string link
 function GetEnchantingResultingItemLink(potencyRuneBagId, potencyRuneSlotIndex, essenceRuneBagId, essenceRuneSlotIndex, aspectRuneBagId, aspectRuneSlotIndex,
-                                        linkStyle) end
+                                        linkStyle)
+end
 
 --- @param potencyRuneBagId Bag
 --- @param potencyRuneSlotIndex integer
@@ -8377,7 +8387,8 @@ function GetCraftedAbilityScriptSelectionOverride() end
 --- @param selectedTertiaryScriptId integer
 --- @return boolean isCompatible
 function IsCraftedAbilityScriptCompatibleWithSelections(checkScriptId, craftedAbilityId, selectedPrimaryScriptId, selectedSecondaryScriptId,
-                                                        selectedTertiaryScriptId) end
+                                                        selectedTertiaryScriptId)
+end
 
 --- @return boolean isScribingEnabled
 function IsScribingEnabled() end
@@ -9240,7 +9251,8 @@ function GetOutfitChangeFlatCost() end
 --- @param accentDyeId integer
 --- @return void
 function SendOutfitChangeRequest(useFlatCurrency, actorCategory, outfitIndex, outfitSlot, collectibleId, itemMaterialIndex, primaryDyeId, secondaryDyeId,
-                                 accentDyeId) end
+                                 accentDyeId)
+end
 
 --- @param outfitSlot OutfitSlot
 --- @return integer collectibleCategoryId
@@ -9414,7 +9426,8 @@ function RevertToSavedHeraldry(hasActiveAppearance) end
 --- @param crestColorIndex luaindex
 --- @return void
 function SetPendingHeraldryIndices(backgroundCategoryIndex, backgroundStyleIndex, backgroundPrimaryColorIndex, backgroundSecondaryColorIndex, crestCategoryIndex,
-                                   crestStyleIndex, crestColorIndex) end
+                                   crestStyleIndex, crestColorIndex)
+end
 
 --- @return luaindex backgroundCategoryIndex, luaindex backgroundStyleIndex, luaindex backgroundPrimaryColorIndex, luaindex backgroundSecondaryColorIndex, luaindex crestCategoryIndex, luaindex crestStyleIndex, luaindex crestColorIndex
 function GetPendingHeraldryIndices() end
@@ -10559,7 +10572,8 @@ function HousingEditorClipLineSegmentToViewFrustum(aWorldX1, aWorldY1, aWorldZ1,
 --- @param aWorldZ3 integer
 --- @return integer aWorldX, integer aWorldY, integer aWorldZ
 function HousingEditorGetScreenPointWorldPlaneIntersection(aScreenX, aScreenY, aWorldX1, aWorldY1, aWorldZ1, aWorldX2, aWorldY2, aWorldZ2, aWorldX3, aWorldY3,
-                                                           aWorldZ3) end
+                                                           aWorldZ3)
+end
 
 --- @param aPushDistance number
 --- @return void
