@@ -24,7 +24,6 @@ L("CROSSING_SUCCESS", "solved")
 L("CROSSING_FAIL", "locked")
 L("FILERS_WING_FAIL", "escaped")
 L("FILERS_WING_SUCCESS", "stopped")
-L("GW", "Gw the Pilferer")
 L("HAEFAL_START", "strength")
 L("HAEFAL_SUCCESS", "defeated")
 L("HAEFAL_FAIL", "failed")    --  need to validate

@@ -24,7 +24,6 @@ L("CROSSING_SUCCESS", "решили головоломку")
 L("CROSSING_FAIL", "заклинил")
 L("FILERS_WING_FAIL", "сбежали")
 L("FILERS_WING_SUCCESS", "остановился")
-L("GW", "гв воришка")
 L("HAEFAL_START", "strength")
 L("HERD", "соберите призрачные огни") -- Herd the Ghost Lights
 L("HERD_SUCCESS", "удалось вернуть") -- you Successfully Returned the Ghostlights / Вам удалось вернуть призрачные огни

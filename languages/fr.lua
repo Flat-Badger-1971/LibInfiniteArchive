@@ -24,7 +24,6 @@ L("CROSSING_SUCCESS", "résolu")
 L("CROSSING_FAIL", "verrouillés")
 L("FILERS_WING_FAIL", "échappés")
 L("FILERS_WING_SUCCESS", "arrêté")
-L("GW", "Gw le pillard")
 L("HAEFAL_START", "strength")
 L("HERD", "Rassemblez les lueurs fantômes")
 L("HERD_FAIL", "assez")     -- Vous n'avez pas assez rassemblé de lueurs fantômes

@@ -105,7 +105,7 @@ function slib:SendProtocolMessage(event, ...)
     self:d(...)
 
     if (self.grouped) then
-        self.protocols[event]:Send(...)
+        -- self.protocols[event]:Send(...)
     end
 
     self:FireCallbacks(L.EVENTS[event].name, ...)

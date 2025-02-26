@@ -46,7 +46,7 @@ local avatarVerse = lia.IsAvatar(202134)
         - `unitName` - string
 
 - `EVENT_TOMESHELL_DESTROYED`
-    -   **Description:**
+    - **Description:**
         - A tomeshell has been destroyed in the Filer's Wing
     - **Arguments:**
         - `eventId` - number
@@ -54,13 +54,12 @@ local avatarVerse = lia.IsAvatar(202134)
         - `remaining` - number
         - `unitName` - string
 
-- `EVENT_UNIT_OR_ITEM_DETECTED`
+- `EVENT_ITEM_DETECTED`
     - **Description:**
-        - A quest marker or unit type (currenly only [Gw the Pilferer](https://en.uesp.net/wiki/Online:Gw_the_Pilferer)) has been detected
+        - A quest marker has been detected
     - **Arguments:**
         - `eventId` - number
-        - `type` - [DETECTED](#detected)
-        - `extraInfo` - string|nil
+        - `itemInfo` - string
 
 - `EVENT_UNKNOWN_PORTAL_STATE_CHANGED`
     - **Description:**
@@ -72,12 +71,6 @@ local avatarVerse = lia.IsAvatar(202134)
         - `state` - [UNKNOWN_PORTAL_STATE](#unknown_portal_state)
 
 ## Enums
-
-## DETECTED
-```
-DETECTED_ITEM
-DETECTED_UNIT
-```
 
 ## UNKNOWN_PORTAL_STATE
 ```
@@ -117,12 +110,12 @@ Determine if the Loyal Auditor is currently active.
 
 ### `IsAvatar(abilityId)`
 
-Determine if the supplied ability ID is an avatar verse.
+Determine if the supplied ability id is an avatar verse.
 
 - **Parameters:**
-    - `abilityId` (number): The ability ID of a verse or vision.
+    - `abilityId` (number): The ability id of a verse or vision.
 - **Returns:**
-    - `boolean`: `true` if the ability ID is an avatar verse.
+    - `boolean`: `true` if the ability id is an avatar verse.
 
 ### `IsInsideArchive()`
 
@@ -138,5 +131,5 @@ Determine if the player is inside a portal to the unknown.
 
 - **Returns:**
     - `boolean`: `true` if the player is inside a portal to the unknown.
-    - `number|nil`: The map ID of the current portal to the unknown area.
+    - `number|nil`: The map id of the current portal to the unknown area.
     - `string|nil`: The name of the current portal to the unknown area.

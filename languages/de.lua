@@ -24,7 +24,6 @@ L("CROSSING_SUCCESS", "gelöst")
 L("CROSSING_FAIL", "gesperrt")
 L("FILERS_WING_FAIL", "entkamen")
 L("FILERS_WING_SUCCESS", "aufgehalten")
-L("GW", "Gw Langfinger")
 L("HAEFAL_START", "strength")
 L("HERD", "Hütet die Geisterlichter")
 L("HERD_FAIL", "ausreichend")    -- Ihr habt nicht ausreichend Geisterlichter gehütet
