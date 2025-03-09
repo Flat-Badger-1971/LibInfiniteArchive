@@ -40,11 +40,11 @@ function slib:d(message)
     end
 end
 
-function slib:OnData(event, unitTag, data)
+function slib:OnData(event, unitTag, ...)
     if (AreUnitsEqual(unitTag, "player")) then return end
 
-    self:d("received data from " .. unitTag .. " " .. data)
-    self:FireCallbacks(event, unitTag, data)
+    self:d("received data from " .. unitTag .. " " .. ...)
+    self:FireCallbacks(event, unitTag, ...)
 end
 
 function slib:RegisterEvents()
@@ -95,7 +95,7 @@ function slib:FireEvent(event)
         self.events[event]()
     end
 
-    self:FireCallbacks(L.EVENTS[event].name)
+    self:FireCallbacks(L.EVENTS[event].name, "player")
 end
 
 function slib:SendProtocolMessage(event, ...)
@@ -108,20 +108,14 @@ function slib:SendProtocolMessage(event, ...)
         -- self.protocols[event]:Send(...)
     end
 
-    self:FireCallbacks(L.EVENTS[event].name, ...)
+    self:FireCallbacks(L.EVENTS[event].name, "player", ...)
 end
 
 function slib:Share(event, ...)
-    self:d("Sharing event " .. L.EVENTS[event].name)
     if (L.EVENTS[event].fields) then
-        local args = { ... }
-
-        if (event == L.EVENT_BUFF_SELECTED or event == L.EVENT_TOMESHELL_DESTROYED) then
-            table.insert(args, zo_strformat(GetUnitName("player")))
-        end
-
-        self:d(args)
-        self:SendProtocolMessage(event, unpack(args))
+        self:d("Sharing event " .. L.EVENTS[event].name)
+        self:d(...)
+        self:SendProtocolMessage(event, ...)
     else
         self:FireEvent(event)
     end

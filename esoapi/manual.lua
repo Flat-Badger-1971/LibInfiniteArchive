@@ -487,7 +487,9 @@ function ZO_Anchor:Set(control) end
 function ZO_Anchor:AddToControl(control) end
 
 --- @param control Control
-function ZO_Anchor_BoxLayout(currentAnchor, control, controlIndex, containerStride, padX, padY, controlWidth, controlHeight, initialX, initialY, growDirection) end
+function ZO_Anchor_BoxLayout(currentAnchor, control, controlIndex, containerStride, padX, padY, controlWidth,
+                             controlHeight, initialX, initialY, growDirection)
+end
 
 --- @param control Control
 function ZO_Anchor_DynamicAnchorTo(control, anchorTo, offsetX, offsetY) end
@@ -515,7 +517,9 @@ function ZO_AutoComplete.AddFlag(handler) end
 --- @return ZO_AutoComplete
 function ZO_AutoComplete:New(...) end
 
-function ZO_AutoComplete:Initialize(editControl, includeFlags, excludeFlags, onlineOnly, maxResults, mode, allowArrows, dontCallHookedHandlers) end
+function ZO_AutoComplete:Initialize(editControl, includeFlags, excludeFlags, onlineOnly, maxResults, mode, allowArrows,
+                                    dontCallHookedHandlers)
+end
 
 function ZO_AutoComplete:SetEnabled(enabled) end
 
@@ -568,7 +572,7 @@ function ZO_AutoComplete:OnCommit(commitBehavior, commitMethod) end
 ZO_CallbackObjectMixin = {}
 function ZO_CallbackObjectMixin:RegisterCallback(eventName, callback, arg, priority) end
 
-function ZO_CallbackObjectMixin:UnregisterCallback(eventName, callback, arg) end
+function ZO_CallbackObjectMixin:UnregisterCallback(eventName, callback) end
 
 function ZO_CallbackObjectMixin:UnregisterAllCallbacks(eventName) end
 
@@ -831,7 +835,9 @@ function ZO_FadingControlBuffer_GetLineControl(line) end
 function ZO_FadingControlBuffer:New(...) end
 
 --- @param control Control
-function ZO_FadingControlBuffer:Initialize(control, maxDisplayedEntries, maxHeight, maxLinesPerEntry, fadeAnimationName, translateAnimationName, anchor) end
+function ZO_FadingControlBuffer:Initialize(control, maxDisplayedEntries, maxHeight, maxLinesPerEntry, fadeAnimationName,
+                                           translateAnimationName, anchor)
+end
 
 function ZO_FadingControlBuffer:SetTranslateDuration(translateDuration) end
 
@@ -895,7 +901,9 @@ function ZO_FadingControlBuffer:AcquireItemObject(name, templateName, pools, par
 
 function ZO_FadingControlBuffer:CalculateItemHeight(templateName, pools, parent, offsetY, isHeader) end
 
-function ZO_FadingControlBuffer:SetupItem(hasHeader, item, templateName, setupFn, pools, parent, offsetY, isHeader, shouldAppend) end
+function ZO_FadingControlBuffer:SetupItem(hasHeader, item, templateName, setupFn, pools, parent, offsetY, isHeader,
+                                          shouldAppend)
+end
 
 function ZO_FadingControlBuffer:AddLinesToExistingEntry(entryControl, newLines, shouldAppend) end
 
@@ -917,8 +925,8 @@ ZO_FadingStationaryControlBuffer = {}
 function ZO_FadingStationaryControlBuffer:New(...) end
 
 --- @param control Control
-function ZO_FadingStationaryControlBuffer:Initialize(control, maxDisplayedEntries, fadeAnimationName, iconAnimationName, containerAnimationName, anchor,
-                                                     controllerType)
+function ZO_FadingStationaryControlBuffer:Initialize(control, maxDisplayedEntries, fadeAnimationName, iconAnimationName,
+                                                     containerAnimationName, anchor, controllerType)
 end
 
 function ZO_FadingStationaryControlBuffer:OnUpdateBuffer(timeMs) end
@@ -959,7 +967,9 @@ function ZO_FadingStationaryControlBuffer:AcquireEntryObject(templateName) end
 
 function ZO_FadingStationaryControlBuffer:AcquireItemObject(name, templateName, pools, parent, offsetY) end
 
-function ZO_FadingStationaryControlBuffer:SetupItem(hasHeader, item, templateName, setupFn, pools, parent, offsetY, isHeader) end
+function ZO_FadingStationaryControlBuffer:SetupItem(hasHeader, item, templateName, setupFn, pools, parent, offsetY,
+                                                    isHeader)
+end
 
 function ZO_FadingStationaryControlBuffer:UpdateFadeInDelay(entryControl, fadeInDelayFactor) end
 
@@ -985,9 +995,13 @@ function ZO_Gamepad_CreateListTriggerKeybindDescriptors(list, optionalHeaderComp
 
 function ZO_Gamepad_AddListTriggerKeybindDescriptors(descriptor, list, optionalHeaderComparator) end
 
-function ZO_Gamepad_AddForwardNavigationKeybindDescriptors(descriptor, navigationType, callback, name, visible, enabled, sound) end
+function ZO_Gamepad_AddForwardNavigationKeybindDescriptors(descriptor, navigationType, callback, name, visible, enabled,
+                                                           sound)
+end
 
-function ZO_Gamepad_AddForwardNavigationKeybindDescriptorsWithSound(descriptor, navigationType, callback, name, visible, enabled) end
+function ZO_Gamepad_AddForwardNavigationKeybindDescriptorsWithSound(descriptor, navigationType, callback, name, visible,
+                                                                    enabled)
+end
 
 function ZO_Gamepad_AddBackNavigationKeybindDescriptors(descriptor, navigationType, callback, name, sound) end
 
@@ -1018,8 +1032,8 @@ function ZO_PreHookHandler(control, handlerName, hookFunction) end
 --- @param control Control
 function ZO_PostHookHandler(control, handlerName, hookFunction) end
 
-function ZO_PropagateHandler(propagateToControl, handlerName, handlerArg1, handlerArg2, handlerArg3, handlerArg4, handlerArg5, handlerArg6, handlerArg7,
-                             handlerArg8, handlerArg9)
+function ZO_PropagateHandler(propagateToControl, handlerName, handlerArg1, handlerArg2, handlerArg3, handlerArg4,
+                             handlerArg5, handlerArg6, handlerArg7, handlerArg8, handlerArg9)
 end
 
 function ZO_PropagateHandlerToParent(handlerName, propagateFrom, ...) end
@@ -1046,6 +1060,8 @@ function ZO_LinkHandler_ParseLink(link) end
 
 function ZO_LinkHandler_CreatePlayerLink(displayOrCharacterName) end
 
+--- @param displayName string
+--- @return string
 function ZO_LinkHandler_CreateDisplayNameLink(displayName) end
 
 function ZO_LinkHandler_CreateCharacterLink(characterName) end
@@ -1062,7 +1078,9 @@ function ZO_ExtractLinksFromText(text, validLinkTypes, linksTable) end
 --- @class ZO_ListBox
 ZO_ListBox = {}
 --- @return ZO_ListBox
-function ZO_ListBox:New(rowTemplate, container, displayedRowCount, maxRowCount, rowPopulationFunction, scrollUpdateFunction, rowPadding) end
+function ZO_ListBox:New(rowTemplate, container, displayedRowCount, maxRowCount, rowPopulationFunction,
+                        scrollUpdateFunction, rowPadding)
+end
 
 function ZO_ListBox:SetScrollUpdateFunction(updateFunction) end
 
@@ -1302,7 +1320,9 @@ function ZO_RadioButtonGroup:IterateButtons() end
 --- @class ZO_SavedVars
 ZO_SavedVars = {}
 --- @return ZO_SavedVars
-function ZO_SavedVars:New(savedVariableTable, version, namespace, defaults, profile, displayName, characterName, characterId, characterKeyType) end
+function ZO_SavedVars:New(savedVariableTable, version, namespace, defaults, profile, displayName, characterName,
+                          characterId, characterKeyType)
+end
 
 function ZO_SavedVars:NewCharacterNameSettings(savedVariableTable, version, namespace, defaults, profile) end
 
@@ -1351,13 +1371,17 @@ function ZO_TabButton_Unselect(self, callbackOptions) end
 
 function ZO_TabButton_Text_SetFont(self, font) end
 
-function ZO_TabButton_Text_Initialize(self, tabType, initialText, pressedCallback, unpressedCallback, tabSizeChangedCallback) end
+function ZO_TabButton_Text_Initialize(self, tabType, initialText, pressedCallback, unpressedCallback,
+                                      tabSizeChangedCallback)
+end
 
 function ZO_TabButtonOverrideIconSizeConstant(overrideValue) end
 
 function ZO_TabButtonResetIconSizeConstant() end
 
-function ZO_CreateUniformIconTabData(sharedDataTable, icon, width, height, pressedIcon, unpressedIcon, mouseoverIcon, disabledIcon) end
+function ZO_CreateUniformIconTabData(sharedDataTable, icon, width, height, pressedIcon, unpressedIcon, mouseoverIcon,
+                                     disabledIcon)
+end
 
 function ZO_TabButton_Icon_Initialize(self, tabType, visualData, pressedCallback, unpressedCallback) end
 
@@ -1858,7 +1882,9 @@ function ZO_FastFormatDecimalNumber(decimalNumberString) end
 
 function ZO_CountDigitsInNumber(amount) end
 
-function ZO_GenerateDelimiterSeparatedListWithCustomFinalDelimiter(argumentTable, delimiter, finalDelimiter, finalDelimiterIfListLengthIsTwo) end
+function ZO_GenerateDelimiterSeparatedListWithCustomFinalDelimiter(argumentTable, delimiter, finalDelimiter,
+                                                                   finalDelimiterIfListLengthIsTwo)
+end
 
 function ZO_GenerateCommaSeparatedListWithAnd(argumentTable) end
 
@@ -1892,7 +1918,10 @@ function ZO_FormatRelativeTimeStamp(timestamp, precisionType) end
 
 function ZO_FormatTimeAsDecimalWhenBelowThreshold(seconds, secondsThreshold) end
 
-function ZO_FormatTimeShowUnitOverThresholdShowDecimalUnderThreshold(seconds, showUnitOverThresholdS, showDecimalUnderThresholdS, overThresholdTimeFormatOverride) end
+function ZO_FormatTimeShowUnitOverThresholdShowDecimalUnderThreshold(seconds, showUnitOverThresholdS,
+                                                                     showDecimalUnderThresholdS,
+                                                                     overThresholdTimeFormatOverride)
+end
 
 function ZO_FormatClockTime() end
 
@@ -2593,7 +2622,9 @@ function SetAddMenuItemCallback(itemAddedCallback) end
 
 function GetMenuPadding() end
 
-function AddMenuItem(mytext, myfunction, itemType, myFont, normalColor, highlightColor, itemYPad, horizontalAlignment, isHighlighted) end
+function AddMenuItem(mytext, myfunction, itemType, myFont, normalColor, highlightColor, itemYPad, horizontalAlignment,
+                     isHighlighted)
+end
 
 function UpdateMenuItemState(item, state) end
 
@@ -3147,7 +3178,9 @@ function ZO_Horizontal_Menu:Initialize(control, anchorStyle) end
 
 function ZO_Horizontal_Menu:AddTemplate(templateName, setupFunction, spacing) end
 
-function ZO_Horizontal_Menu:AddMenuItem(controlName, name, onSelectedCallback, onUnselectedCallback, onMouseEnterCallback, onMouseExitCallback) end
+function ZO_Horizontal_Menu:AddMenuItem(controlName, name, onSelectedCallback, onUnselectedCallback, onMouseEnterCallback,
+                                        onMouseExitCallback)
+end
 
 function ZO_Horizontal_Menu:SetSelectedByIndex(index) end
 
@@ -3167,8 +3200,8 @@ function ZO_HorizontalScrollListPlaySound(type) end
 function ZO_HorizontalScrollList:New(...) end
 
 --- @param control Control
-function ZO_HorizontalScrollList:Initialize(control, templateName, numVisibleEntries, setupFunction, equalityFunction, onCommitWithItemsFunction,
-                                            onClearedFunction)
+function ZO_HorizontalScrollList:Initialize(control, templateName, numVisibleEntries, setupFunction, equalityFunction,
+                                            onCommitWithItemsFunction, onClearedFunction)
 end
 
 function ZO_HorizontalScrollList:SetAllowWrapping(allowWrapping) end
@@ -3199,7 +3232,9 @@ function ZO_HorizontalScrollList:MoveLeft(isAutoScrollEvent) end
 
 function ZO_HorizontalScrollList:MoveRight(isAutoScrollEvent) end
 
-function ZO_HorizontalScrollList:SetSelectedIndex(selectedIndex, allowEvenIfDisabled, withoutAnimation, reselectingDuringRebuild, isAutoScrollEvent) end
+function ZO_HorizontalScrollList:SetSelectedIndex(selectedIndex, allowEvenIfDisabled, withoutAnimation,
+                                                  reselectingDuringRebuild, isAutoScrollEvent)
+end
 
 function ZO_HorizontalScrollList:SetSelectedDataIndex(dataIndex, allowEvenIfDisabled, withoutAnimation) end
 
@@ -3275,8 +3310,8 @@ ZO_HorizontalScrollList_Gamepad = {}
 function ZO_HorizontalScrollList_Gamepad:New(...) end
 
 --- @param control Control
-function ZO_HorizontalScrollList_Gamepad:Initialize(control, templateName, numVisibleEntries, setupFunction, equalityFunction, onCommitWithItemsFunction,
-                                                    onClearedFunction)
+function ZO_HorizontalScrollList_Gamepad:Initialize(control, templateName, numVisibleEntries, setupFunction,
+                                                    equalityFunction, onCommitWithItemsFunction, onClearedFunction)
 end
 
 function ZO_HorizontalScrollList_Gamepad:SetOnActivatedChangedFunction(onActivatedChangedFunction) end
@@ -3463,7 +3498,9 @@ function ZO_KeybindStrip.RemoveKeybindButtonGroupStack(keybindButtonGroupDescrip
 
 function ZO_KeybindStrip.RemoveAllKeyButtonGroupsStack(state) end
 
-function ZO_KeybindStrip:HandleDuplicateAddKeybind(existingButtonOrEtherealDescriptor, keybindButtonDescriptor, state, stateIndex, currentSceneName) end
+function ZO_KeybindStrip:HandleDuplicateAddKeybind(existingButtonOrEtherealDescriptor, keybindButtonDescriptor, state,
+                                                   stateIndex, currentSceneName)
+end
 
 function ZO_KeybindStrip:AddKeybindButtonStack(keybindButtonDescriptor, state, stateIndex, currentSceneName) end
 
@@ -3587,7 +3624,9 @@ function ZO_MenuBar_SetData(self, data) end
 
 function ZO_MenuBar_AddButton(self, buttonData) end
 
-function ZO_MenuBar_GenerateButtonTabData(name, descriptor, normal, pressed, highlight, disabled, customTooltipFunction, alwaysShowTooltip, playerDrivenCallback) end
+function ZO_MenuBar_GenerateButtonTabData(name, descriptor, normal, pressed, highlight, disabled, customTooltipFunction,
+                                          alwaysShowTooltip, playerDrivenCallback)
+end
 
 function ZO_MenuBar_GetButtonControl(self, descriptor) end
 
@@ -3869,10 +3908,12 @@ function ZO_AbstractSingleTemplateGridScrollList:New(...) end
 --- @param control Control
 function ZO_AbstractSingleTemplateGridScrollList:Initialize(control, autofillRows) end
 
-function ZO_AbstractSingleTemplateGridScrollList:SetHeaderTemplate(templateName, height, setupFunc, onHideFunc, resetControlFunc) end
+function ZO_AbstractSingleTemplateGridScrollList:SetHeaderTemplate(templateName, height, setupFunc, onHideFunc,
+                                                                   resetControlFunc)
+end
 
-function ZO_AbstractSingleTemplateGridScrollList:SetGridEntryTemplate(templateName, width, height, setupFunc, onHideFunc, resetControlFunc, spacingX, spacingY,
-                                                                      centerEntries)
+function ZO_AbstractSingleTemplateGridScrollList:SetGridEntryTemplate(templateName, width, height, setupFunc, onHideFunc,
+                                                                      resetControlFunc, spacingX, spacingY, centerEntries)
 end
 
 function ZO_AbstractSingleTemplateGridScrollList:SetGridEntryVisibilityFunction(visiblityFunction) end
@@ -3893,11 +3934,15 @@ function ZO_AbstractGridScrollList:SetHeaderPostPadding(postPadding) end
 
 function ZO_AbstractGridScrollList:SetIndentAmount(indentAmount) end
 
-function ZO_AbstractGridScrollList:SetYDistanceFromEdgeWhereSelectionCausesScroll(yDistanceFromEdgeWhereSelectionCausesScroll) end
+function ZO_AbstractGridScrollList:SetYDistanceFromEdgeWhereSelectionCausesScroll(
+    yDistanceFromEdgeWhereSelectionCausesScroll)
+end
 
 function ZO_AbstractGridScrollList:AddHeaderTemplate(templateName, height, setupFunc, onHideFunc, resetControlFunc) end
 
-function ZO_AbstractGridScrollList:AddEntryTemplate(templateName, width, height, setupFunc, onHideFunc, resetControlFunc, spacingX, spacingY, centerEntries) end
+function ZO_AbstractGridScrollList:AddEntryTemplate(templateName, width, height, setupFunc, onHideFunc, resetControlFunc,
+                                                    spacingX, spacingY, centerEntries)
+end
 
 function ZO_AbstractGridScrollList:SetEntryTemplateVisibilityFunction(templateName, visiblityFunction) end
 
@@ -4071,17 +4116,23 @@ function ZO_GridScrollList_Gamepad:Initialize(control, selectionTemplate) end
 --- @class ZO_ParametricScrollList
 ZO_ParametricScrollList = {}
 --- @param control Control
-function ZO_ParametricScrollList_DefaultMenuEntryWithHeaderSetup(control, data, selected, selectedDuringRebuild, enabled, activated) end
+function ZO_ParametricScrollList_DefaultMenuEntryWithHeaderSetup(control, data, selected, selectedDuringRebuild, enabled,
+                                                                 activated)
+end
 
 --- @return ZO_ParametricScrollList
 function ZO_ParametricScrollList:New(...) end
 
 --- @param control Control
-function ZO_ParametricScrollList:Initialize(control, mode, onActivatedChangedFunction, onCommitWithItemsFunction, onClearedFunction) end
+function ZO_ParametricScrollList:Initialize(control, mode, onActivatedChangedFunction, onCommitWithItemsFunction,
+                                            onClearedFunction)
+end
 
 function ZO_ParametricScrollList:HasDataTemplate(templateName) end
 
-function ZO_ParametricScrollList:AddDataTemplate(templateName, setupFunction, parametricFunction, equalityFunction, controlPoolPrefix, controlPoolResetFunction) end
+function ZO_ParametricScrollList:AddDataTemplate(templateName, setupFunction, parametricFunction, equalityFunction,
+                                                 controlPoolPrefix, controlPoolResetFunction)
+end
 
 function ZO_ParametricScrollList:SetDataTemplateSetupFunction(templateName, setupFunction) end
 
@@ -4089,20 +4140,23 @@ function ZO_ParametricScrollList:SetDataTemplateReleaseFunction(templateName, re
 
 function ZO_ParametricScrollList:SetDataTemplateWithHeaderReleaseFunction(templateName, releaseFunction) end
 
-function ZO_ParametricScrollList:AddDataTemplateWithHeader(templateName, setupFunction, parametricFunction, equalityFunction, headerTemplateName,
-                                                           optionalHeaderSetupFunction, controlPoolPrefix, controlPoolResetFunction)
+function ZO_ParametricScrollList:AddDataTemplateWithHeader(templateName, setupFunction, parametricFunction,
+                                                           equalityFunction, headerTemplateName,
+                                                           optionalHeaderSetupFunction, controlPoolPrefix,
+                                                           controlPoolResetFunction)
 end
 
 function ZO_ParametricScrollList:SetEqualityFunction(templateName, equalityFunction) end
 
 function ZO_ParametricScrollList:SetReselectBehavior(reselectBehavior) end
 
-function ZO_ParametricScrollList:AddEntryAtIndex(index, templateName, data, prePadding, postPadding, preSelectedOffsetAdditionalPadding,
-                                                 postSelectedOffsetAdditionalPadding, selectedCenterOffset)
+function ZO_ParametricScrollList:AddEntryAtIndex(index, templateName, data, prePadding, postPadding,
+                                                 preSelectedOffsetAdditionalPadding, postSelectedOffsetAdditionalPadding,
+                                                 selectedCenterOffset)
 end
 
-function ZO_ParametricScrollList:AddEntry(templateName, data, prePadding, postPadding, preSelectedOffsetAdditionalPadding, postSelectedOffsetAdditionalPadding,
-                                          selectedCenterOffset)
+function ZO_ParametricScrollList:AddEntry(templateName, data, prePadding, postPadding, preSelectedOffsetAdditionalPadding,
+                                          postSelectedOffsetAdditionalPadding, selectedCenterOffset)
 end
 
 function ZO_ParametricScrollList:RemoveEntry(templateName, data) end
@@ -4169,7 +4223,9 @@ function ZO_ParametricScrollList:SetEnabled(enabled) end
 
 function ZO_ParametricScrollList:SetSelectedItemOffsets(minOffset, maxOffset) end
 
-function ZO_ParametricScrollList:SetAdditionalBottomSelectedItemOffsets(additonalMinBottomOffset, additonalMaxBottomOffset) end
+function ZO_ParametricScrollList:SetAdditionalBottomSelectedItemOffsets(additonalMinBottomOffset,
+                                                                        additonalMaxBottomOffset)
+end
 
 function ZO_ParametricScrollList:SetUniversalPrePadding(universalPrePadding) end
 
@@ -4195,7 +4251,9 @@ function ZO_ParametricScrollList:GetSelectedIndex() end
 
 function ZO_ParametricScrollList:SetSelectedIndexWithoutAnimation(selectedIndex, allowEvenIfDisabled, forceAnimation) end
 
-function ZO_ParametricScrollList:SetSelectedIndex(selectedIndex, allowEvenIfDisabled, forceAnimation, jumpType, blockSelectionChangedCallback) end
+function ZO_ParametricScrollList:SetSelectedIndex(selectedIndex, allowEvenIfDisabled, forceAnimation, jumpType,
+                                                  blockSelectionChangedCallback)
+end
 
 function ZO_ParametricScrollList:SetLastIndexSelected(jumpType) end
 
@@ -4270,20 +4328,27 @@ function ZO_ParametricScrollList:GetDesiredEntryAnchors() end
 
 function ZO_ParametricScrollList:GetEntryFixedCenterOffset() end
 
-function ZO_ParametricScrollList:UpdateAnchors(continousTargetOffset, initialUpdate, reselectingDuringRebuild, blockSelectionChangedCallback) end
+function ZO_ParametricScrollList:UpdateAnchors(continousTargetOffset, initialUpdate, reselectingDuringRebuild,
+                                               blockSelectionChangedCallback)
+end
 
 function ZO_ParametricScrollList:RefreshNoItemLabelPosition() end
 
-function ZO_ParametricScrollList:CalculateParametricOffset(startAdditionalPadding, endAdditionalPadding, distanceFromCenter, continuousParametricOffset,
+function ZO_ParametricScrollList:CalculateParametricOffset(startAdditionalPadding, endAdditionalPadding,
+                                                           distanceFromCenter, continuousParametricOffset,
                                                            additionalPaddingEasingFunc)
 end
 
-function ZO_ParametricScrollList:CalculateAdditionalBottomParametricOffset(distanceFromCenter, continuousParametricOffset, additionalPaddingEasingFunc) end
+function ZO_ParametricScrollList:CalculateAdditionalBottomParametricOffset(distanceFromCenter, continuousParametricOffset,
+                                                                           additionalPaddingEasingFunc)
+end
 
 function ZO_ParametricScrollList:GetSetupFunctionForDataIndex(dataIndex) end
 
 --- @param control Control
-function ZO_ParametricScrollList:RunSetupOnControl(control, dataIndex, selected, reselectingDuringRebuild, enabled, active) end
+function ZO_ParametricScrollList:RunSetupOnControl(control, dataIndex, selected, reselectingDuringRebuild, enabled,
+                                                   active)
+end
 
 function ZO_ParametricScrollList:GetParametricFunctionForDataIndex(dataIndex) end
 
@@ -4305,7 +4370,9 @@ function ZO_ParametricScrollList:AcquireControlAtDataIndex(dataIndex) end
 
 function ZO_ParametricScrollList:ReleaseControl(control) end
 
-function ZO_ParametricScrollList:AcquireAndSetupControl(dataIndex, selectedDataChanged, initialUpdate, oldSelectedData, selected, reselectingDuringRebuild) end
+function ZO_ParametricScrollList:AcquireAndSetupControl(dataIndex, selectedDataChanged, initialUpdate, oldSelectedData,
+                                                        selected, reselectingDuringRebuild)
+end
 
 function ZO_ParametricScrollList:SetMoving(isMoving) end
 
@@ -4807,8 +4874,8 @@ function ZO_RadialMenu:New(...) end
 function ZO_RadialMenu.ForceActiveMenuClosed() end
 
 --- @param control Control
-function ZO_RadialMenu:Initialize(control, entryTemplate, animationTemplate, entryAnimationTemplate, actionLayerName, directionInputs, enableMouse,
-                                  selectIfCentered)
+function ZO_RadialMenu:Initialize(control, entryTemplate, animationTemplate, entryAnimationTemplate, actionLayerName,
+                                  directionInputs, enableMouse, selectIfCentered)
 end
 
 function ZO_RadialMenu:SetActivateOnShow(activateOnShow) end
@@ -4977,7 +5044,9 @@ function ZO_Scene:SetHideSceneConfirmationCallback(callback) end
 
 function ZO_Scene:HasHideSceneConfirmation() end
 
-function ZO_Scene:ConfirmHideScene(nextSceneName, push, nextSceneClearsSceneStack, numScenesNextScenePops, bypassHideSceneConfirmationReason) end
+function ZO_Scene:ConfirmHideScene(nextSceneName, push, nextSceneClearsSceneStack, numScenesNextScenePops,
+                                   bypassHideSceneConfirmationReason)
+end
 
 function ZO_Scene:AcceptHideScene() end
 
@@ -5406,7 +5475,9 @@ function ZO_SceneManager_Follower:New(...) end
 
 function ZO_SceneManager_Follower:Initialize(...) end
 
-function ZO_SceneManager_Follower:OnLeaderToFollowerSync(messageOrigin, syncType, currentSceneName, nextSceneName, sequenceNumber, currentSceneFragmentsComplete) end
+function ZO_SceneManager_Follower:OnLeaderToFollowerSync(messageOrigin, syncType, currentSceneName, nextSceneName,
+                                                         sequenceNumber, currentSceneFragmentsComplete)
+end
 
 function ZO_SceneManager_Follower:OnSceneStateHidden(scene) end
 
@@ -5474,7 +5545,9 @@ function ZO_SceneManager_Leader:Push(sceneName) end
 
 function ZO_SceneManager_Leader:ShowWithFollowup(sceneName, resultCallback) end
 
-function ZO_SceneManager_Leader:Show(sceneName, push, nextSceneClearsSceneStack, numScenesNextScenePops, bypassHideSceneConfirmationReason) end
+function ZO_SceneManager_Leader:Show(sceneName, push, nextSceneClearsSceneStack, numScenesNextScenePops,
+                                     bypassHideSceneConfirmationReason)
+end
 
 function ZO_SceneManager_Leader:Hide(sceneName) end
 
@@ -5703,7 +5776,9 @@ function ZO_Scroll_Initialize(self) end
 --- @param setupCallback fun(control: Control, data, self: ZO_ScrollList) The function that will be called when a control of this type becomes visible.
 --- @param dataTypeSelectSound string|nil An optional sound to play when a row of this data type is selected.
 --- @param resetControlCallback fun(control: ZO_ScrollList)|nil An optional callback when the datatype control gets reset.
-function ZO_ScrollList_AddDataType(self, typeId, templateName, height, setupCallback, hideCallback, dataTypeSelectSound, resetControlCallback) end
+function ZO_ScrollList_AddDataType(self, typeId, templateName, height, setupCallback, hideCallback, dataTypeSelectSound,
+                                   resetControlCallback)
+end
 
 --- @param self ZO_ScrollList
 function ZO_ScrollList_Clear(self) end
@@ -6223,7 +6298,9 @@ ZO_Spinner_Gamepad = {}
 function ZO_Spinner_Gamepad:New(...) end
 
 --- @param control Control
-function ZO_Spinner_Gamepad:Initialize(control, min, max, stickDirection, spinnerMode, accelerationTime, magnitudeQueryFunction) end
+function ZO_Spinner_Gamepad:Initialize(control, min, max, stickDirection, spinnerMode, accelerationTime,
+                                       magnitudeQueryFunction)
+end
 
 function ZO_Spinner_Gamepad:SetActive(active) end
 
@@ -7009,7 +7086,9 @@ function ZO_ScrollTooltip_Gamepad:LayoutBagItem(bagId, slotIndex) end
 function ZO_ScrollTooltip_Gamepad:LayoutTradeItem(tradeType, tradeIndex) end
 
 --- @param control Control
-function ZO_ResizingFloatingScrollTooltip_Gamepad_OnInitialized(control, tooltipStyles, screenResizeHandler, scrollIndicatorSide, scrollIndicatorOffsetX) end
+function ZO_ResizingFloatingScrollTooltip_Gamepad_OnInitialized(control, tooltipStyles, screenResizeHandler,
+                                                                scrollIndicatorSide, scrollIndicatorOffsetX)
+end
 
 -------------------------------------------------------------------------------
 --- @class ZO_Tree
@@ -7363,9 +7442,13 @@ function SCENE_MANAGER:SwapCurrentScene(newCurrentScene) end
 
 function SCENE_MANAGER:Push(sceneName) end
 
-function SCENE_MANAGER:ShowWithFollowup(sceneName, resultCallback, push, nextSceneClearsSceneStack, numScenesNextScenePops, bypassHideSceneConfirmationReason) end
+function SCENE_MANAGER:ShowWithFollowup(sceneName, resultCallback, push, nextSceneClearsSceneStack,
+                                        numScenesNextScenePops, bypassHideSceneConfirmationReason)
+end
 
-function SCENE_MANAGER:Show(sceneName, push, nextSceneClearsSceneStack, numScenesNextScenePops, bypassHideSceneConfirmationReason) end
+function SCENE_MANAGER:Show(sceneName, push, nextSceneClearsSceneStack, numScenesNextScenePops,
+                            bypassHideSceneConfirmationReason)
+end
 
 function SCENE_MANAGER:Hide(sceneName) end
 

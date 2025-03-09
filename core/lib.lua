@@ -24,7 +24,7 @@ local function onCompassUpdate(self)
             for pin = 1, numPins do
                 if (COMPASS.container:GetCenterOveredPinType(pin) == MAP_PIN_TYPE_QUEST_INTERACT) then
                     self.FoundQuestItem = true
-                    self.las:Share(self.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_ITEM, "QuestItem")
+                    self.las:Share(self.EVENT_ITEM_DETECTED, "QuestItem")
                     break
                 end
             end
@@ -127,18 +127,16 @@ local function checkMessage(self, messageParams)
 
     self.started = false
 
-    if (start) then
-        d("start")
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_STARTED)
-        self.started = true
-    elseif (fail) then
+    if (fail) then
         d("fail")
         self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_FAILED)
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENDED)
     elseif (success) then
         d("success")
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_SUCCEEDED)
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENDED)
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_SUCCESS)
+    elseif (start) then
+        d("start")
+        self.started = true
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_STARTED)
     end
 end
 
@@ -264,18 +262,7 @@ local function onHotBarChange(self, _, changed, shouldUpdate, category)
         end
 
         if (category == HOTBAR_CATEGORY_PRIMARY and changed and not shouldUpdate) then
-            self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.MAPS.FILERS_WING.id, self.MAPS.FILERS_WING.name, self.UNKNOWN_PORTAL_STATE_ENDED)
             stopTomeCheck(self)
-        end
-    end
-end
-
-local function onReticleTargetChanged(self)
-    if (self:IsInsideArchive() and not self.FoundGw) then
-        local unit = GetUnitName("reticleover")
-
-        if (zo_strfind(unit, self.gw, 1, true)) then
-            self.las:Share(self.EVENT_UNIT_OR_ITEM_DETECTED, self.DETECTED_UNIT, "Gw")
         end
     end
 end
@@ -291,12 +278,6 @@ local function onCombatStateChanged(self, _, inCombat)
                 self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.MAPS.THEATRE_OF_WAR.id, self.MAPS.THEATRE_OF_WAR.name, self.UNKNOWN_PORTAL_STATE_STARTED)
             end
         end
-    end
-
-    if (inCombat) then
-        EVENT_MANAGER:RegisterForEvent(self.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED, function() onReticleTargetChanged(self) end)
-    else
-        EVENT_MANAGER:UnregisterForEvent(self.Name .. "_Reticle", EVENT_RETICLE_TARGET_CHANGED)
     end
 end
 
@@ -425,8 +406,8 @@ function lib:GetEffectiveGroupType()
         local groupType = GetEndlessDungeonGroupType()
         local groupSize = GetGroupSize()
 
-        if (groupSize == 0 or groupType == self.Solo) then
-            groupType = self.Solo
+        if (groupSize == 0 or groupType == self.solo) then
+            groupType = self.solo
         else
             local size = 0
 
@@ -437,7 +418,7 @@ function lib:GetEffectiveGroupType()
             end
 
             if (size == 1) then
-                groupType = self.Solo
+                groupType = self.solo
             end
         end
 
@@ -466,7 +447,7 @@ end
 function lib:GetMaxTomes()
     local tomeGroupType = self:GetEffectiveGroupType()
 
-    return tomeGroupType == ENDLESS_DUNGEON_GROUP_TYPE_SOLO and self.TOMESHELLS.SOLO or self.TOMESHELLS.DUO
+    return tomeGroupType == self.solo and self.TOMESHELLS.SOLO or self.TOMESHELLS.DUO
 end
 
 function lib:IsAvatar(abilityId)
@@ -504,15 +485,15 @@ function lib:IsAuditorActive()
 end
 
 function lib:RegisterForEvent(event, callback)
-    assert(self.EVENTS[event], "Invalid event " .. (event or "nil"))
+    assert(L.EVENTS[event], "Invalid event " .. (event or "nil"))
     assert(callback and type(callback) == "function", "Callback function is mandatory")
-    self.las:RegisterCallback(self.EVENTS[event].name, callback, event)
+    self.las:RegisterCallback(L.EVENTS[event].name, callback, event)
 end
 
 function lib:UnregisterForEvent(event, callback)
-    assert(self.EVENTS[event], "Invalid event")
+    assert(L.EVENTS[event], "Invalid event")
     assert(callback and type(callback) == "function", "Callback function is mandatory")
-    self.las:UnregisterCallback(self.EVENTS[event].name, callback, event)
+    self.las:UnregisterCallback(L.EVENTS[event].name, callback, event)
 end
 
 LibInfiniteArchive = lib
