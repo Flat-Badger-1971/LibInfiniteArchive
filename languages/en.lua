@@ -26,7 +26,7 @@ L("FILERS_WING_FAIL", "escaped")
 L("FILERS_WING_SUCCESS", "stopped")
 L("HAEFAL_START", "strength")
 L("HAEFAL_SUCCESS", "defeated")
-L("HAEFAL_FAIL", "failed")    --  need to validate
+L("HAEFAL_FAIL", "caught")
 L("HERD", "Herd the Ghost Lights")
 L("HERD_FAIL", "Enough")      -- You Did Not Herd Enough Ghostlights
 L("HERD_SUCCESS", "Returned") -- You Successfully Returned the Ghostlights

@@ -1,5 +1,4 @@
 -- TODO: account for achievement levels in portals
-
 local lib = ZO_InitializingObject:Subclass()
 local L = LibInfiniteArchiveConstants
 local buffchoice = GetEndlessDungeonBuffSelectorBucketTypeChoice
@@ -12,7 +11,7 @@ local function onChoiceCommitted(self)
     if (self.SelectedBuff) then
         local name = GetAbilityName(self.SelectedBuff, "player")
 
-        self.las:Share(L.EVENT_BUFF_SELECTED, self.SelectedBuff, name, self.player)
+        self.las:Share(L.EVENT_BUFF_SELECTED, { abilityId = self.SelectedBuff, name = name, unitName = self.player })
     end
 end
 
@@ -24,7 +23,7 @@ local function onCompassUpdate(self)
             for pin = 1, numPins do
                 if (COMPASS.container:GetCenterOveredPinType(pin) == MAP_PIN_TYPE_QUEST_INTERACT) then
                     self.FoundQuestItem = true
-                    self.las:Share(self.EVENT_ITEM_DETECTED, "QuestItem")
+                    self.las:Share(self.EVENT_ITEM_DETECTED, { itemInfo = "QuestItem" })
                     break
                 end
             end
@@ -40,6 +39,14 @@ local function getMap(self, mapId)
     end
 end
 
+local function resetValues(self)
+    self:d("reset")
+    ZO_ClearNumericallyIndexedTable(self.Bosses)
+    self.FoundQuestItem = false
+    self.FoundGw = false
+    self.started = false
+end
+
 local function onPlayerActivated(self)
     if (not IsInstanceEndlessDungeon()) then return end
 
@@ -53,9 +60,9 @@ local function onPlayerActivated(self)
     end
 
     if (wasInPortal and not inUnknown) then
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, -1, "", self.UNKNOWN_PORTAL_STATE_EXITED)
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, { mapId = 0, mapName = "", state = self.UNKNOWN_PORTAL_STATE_EXITED })
     elseif (inUnknown) then
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, mapId, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_ENTERED)
+        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, { mapId = mapId, mapName = self.UnknownPortal.name, state = self.UNKNOWN_PORTAL_STATE_ENTERED })
     end
 
     local groupType = self:GetEffectiveGroupType()
@@ -67,9 +74,21 @@ end
 
 local function hasText(msg, textid)
     local text = zo_strformat(textid)
-    local found = zo_strfind(msg, zo_strlower(text), 1, true) ~= nil
+    local found = zo_strfind(zo_strlower(msg), zo_strlower(text), 1, true) ~= nil
 
     return found
+end
+
+local function sendStateChange(self, state)
+    self:d("State change")
+    d(state)
+    d(self.UnknownPortal)
+
+    self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
+        { mapId = self.UnknownPortal.id or 0, mapName = self.UnknownPortal.name, state = state or self.UNKOWN_PORTAL_STATE_UNKNOWN })
+
+    local debugState = state == self.UNKNOWN_PORTAL_STATE_FAILED and "FAILED" or state == self.UNKNOWN_PORTAL_STATE_SUCCESS and "SUCCESS" or "STARTED"
+    self:d(debugState, self.UnknownPortal.name)
 end
 
 local function checkMessage(self, messageParams)
@@ -128,15 +147,12 @@ local function checkMessage(self, messageParams)
     self.started = false
 
     if (fail) then
-        d("fail")
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_FAILED)
+        sendStateChange(self, self.UNKNOWN_PORTAL_STATE_FAILED)
     elseif (success) then
-        d("success")
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_SUCCESS)
+        sendStateChange(self, self.UNKNOWN_PORTAL_STATE_SUCCESS)
     elseif (start) then
-        d("start")
         self.started = true
-        self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.UnknownPortal.id, self.UnknownPortal.name, self.UNKNOWN_PORTAL_STATE_STARTED)
+        sendStateChange(self, self.UNKNOWN_PORTAL_STATE_STARTED)
     end
 end
 
@@ -182,7 +198,7 @@ local function onNewBoss(self, _, unitTag)
     end
 
     if (isMarauder(self, bossName)) then
-        self.las:Share(self.EVENT_MARAUDER_SPAWNED, bossName)
+        self.las:Share(self.EVENT_MARAUDER_SPAWNED, { name = bossName })
     end
 end
 
@@ -194,13 +210,6 @@ local function onQuestCounterChanged(self, _, journalIndex)
             self.FoundQuestItem = false
         end
     end
-end
-
-local function resetValues(self)
-    ZO_ClearNumericallyIndexedTable(self.Bosses)
-    self.FoundQuestItem = false
-    self.FoundGw = false
-    self.started = false
 end
 
 local function onStunned(self, _, stunned)
@@ -236,7 +245,7 @@ local function tomeCheck(self, ...)
 
             tomesLeft = (tomesLeft < 0) and 0 or tomesLeft
 
-            self.las:Share(self.EVENT_TOMESHELL_DESTROYED, self.TomesFound, tomesLeft)
+            self.las:Share(self.EVENT_TOMESHELL_DESTROYED, { destroyed = self.TomesFound, remaining = tomesLeft })
         end
     end
 end
@@ -257,7 +266,8 @@ local function onHotBarChange(self, _, changed, shouldUpdate, category)
 
     if (GetCurrentMapId() == self.MAPS.FILERS_WING.id) then
         if (category == HOTBAR_CATEGORY_TEMPORARY and shouldUpdate and changed) then
-            self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.MAPS.FILERS_WING.id, self.MAPS.FILERS_WING.name, self.UNKNOWN_PORTAL_STATE_STARTED)
+            self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
+                { mapId = self.MAPS.FILERS_WING.id, mapName = self.MAPS.FILERS_WING.name, state = self.UNKNOWN_PORTAL_STATE_STARTED })
             startTomeCheck(self)
         end
 
@@ -275,7 +285,8 @@ local function onCombatStateChanged(self, _, inCombat)
     if (self.UnknownPortal) then
         if (self.UnknownPortal.id == self.MAPS.THEATRE_OF_WAR.id) then
             if (self.InCombat) then
-                self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED, self.MAPS.THEATRE_OF_WAR.id, self.MAPS.THEATRE_OF_WAR.name, self.UNKNOWN_PORTAL_STATE_STARTED)
+                self.las:Share(self.EVENT_UNKNOWN_PORTAL_STATE_CHANGED,
+                    { mapId = self.MAPS.THEATRE_OF_WAR.id, mapName = self.MAPS.THEATRE_OF_WAR.name, state = self.UNKNOWN_PORTAL_STATE_STARTED })
             end
         end
     end
@@ -303,7 +314,7 @@ local function onBuffStackCountChanged(self, _, abilityId)
 
     zo_callLater(function()
         if (self.MysteryVerse) then
-            self.las:Share(self.EVENT_MYSTERY_VERSE_USED, abilityId, GetAbilityName(abilityId, "player"))
+            self.las:Share(self.EVENT_MYSTERY_VERSE_USED, { abilityId = abilityId, name = GetAbilityName(abilityId, "player") })
             self.MysteryVerse = false
         end
     end, 1000)
@@ -314,8 +325,14 @@ local function onPowerUpdate(self, _, unitTag, _, powerType, powerValue)
         local unk, mapId = self:IsInUnknown()
 
         if (unk and mapId == self.MAPS.HAEFALS_BUTCHERY.id and powerValue > 0 and self.started) then
-            self.las:Share(self.EVENT_SWEETROLL_CONSUMED, self.player)
+            self.las:Share(self.EVENT_SWEETROLL_CONSUMED, { unitName = self.player })
         end
+    end
+end
+
+function lib:d(message)
+    if (self.debug) then
+        d("LIA: " .. tostring(message))
     end
 end
 
@@ -360,7 +377,7 @@ function lib:Initialize()
 
     -- add event ids
     for id, eventInfo in pairs(L.EVENTS) do
-        self[eventInfo.name] = id
+        self[eventInfo] = id
     end
 
     -- add lookups
@@ -393,6 +410,8 @@ function lib:Initialize()
     -- callbacks
     SHARED_INVENTORY:RegisterCallback("SingleSlotInventoryUpdate", function(...) onSingleSlotUpdate(self, ...) end)
     ENDLESS_DUNGEON_MANAGER:RegisterCallback("BuffStackCountChanged", function(...) onBuffStackCountChanged(self, ...) end)
+
+    self.debug = (GetDisplayName() == "@Flat-Badger") and L.DEBUG
 end
 
 function lib:IsInsideArchive()
@@ -487,13 +506,13 @@ end
 function lib:RegisterForEvent(event, callback)
     assert(L.EVENTS[event], "Invalid event " .. (event or "nil"))
     assert(callback and type(callback) == "function", "Callback function is mandatory")
-    self.las:RegisterCallback(L.EVENTS[event].name, callback, event)
+    self.las:RegisterCallback(L.EVENTS[event], callback, event)
 end
 
 function lib:UnregisterForEvent(event, callback)
     assert(L.EVENTS[event], "Invalid event")
     assert(callback and type(callback) == "function", "Callback function is mandatory")
-    self.las:UnregisterCallback(L.EVENTS[event].name, callback, event)
+    self.las:UnregisterCallback(L.EVENTS[event], callback, event)
 end
 
-LibInfiniteArchive = lib
+LibInfiniteArchive = lib:New()

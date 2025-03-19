@@ -2,6 +2,8 @@ LibInfiniteArchiveConstants = { Name = "LibInfiniteArchive" }
 local L = LibInfiniteArchiveConstants
 local lia = "LIBINFINITEARCHIVE_"
 
+L.DEBUG = true
+
 L.ENUMS = {
     UNKNOWN_PORTAL_STATE_UNKNOWN = 0,
     UNKNOWN_PORTAL_STATE_EXITED = 1,
@@ -11,22 +13,24 @@ L.ENUMS = {
     UNKNOWN_PORTAL_STATE_SUCCEEDED = 5
 }
 
-L.EVENT_BUFF_SELECTED = 51
-L.EVENT_MARAUDER_SPAWNED = 52
-L.EVENT_MYSTERY_VERSE_USED = 53
-L.EVENT_TOMESHELL_DESTROYED = 54
-L.EVENT_ITEM_DETECTED = 55
-L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 56
-L.EVENT_SWEETROLL_CONSUMED = 57
+L.PROTOCOL_ID_EVENTS = 51
+
+L.EVENT_BUFF_SELECTED = 1
+L.EVENT_ITEM_DETECTED = 2
+L.EVENT_MARAUDER_SPAWNED = 3
+L.EVENT_MYSTERY_VERSE_USED = 4
+L.EVENT_SWEETROLL_CONSUMED = 5
+L.EVENT_TOMESHELL_DESTROYED = 6
+L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 7
 
 L.EVENTS = {
-    [L.EVENT_BUFF_SELECTED] = { name = "EVENT_BUFF_SELECTED", fields = { [1] = { name = "abilityId", type = "number" }, [2] = { name = "name", type = "string" }, [3] = { name = "unitName", type = "string" } } },
-    [L.EVENT_MARAUDER_SPAWNED] = { name = "EVENT_MARAUDER_SPAWNED", fields = { [1] = { name = "name", type = "string" } } },
-    [L.EVENT_MYSTERY_VERSE_USED] = { name = "EVENT_MYSTERY_VERSE_USED", fields = { [1] = { name = "abilityId", type = "number" }, [2] = { name = "name", type = "string" } } },
-    [L.EVENT_SWEETROLL_CONSUMED] = { name = "EVENT_SWEETROLL_CONSUMED", fields = { [1] = { name = "unitname", type = "string" } } },
-    [L.EVENT_TOMESHELL_DESTROYED] = { name = "EVENT_TOMESHELL_DESTROYED", fields = { [1] = { name = "destroyed", type = "number" }, [2] = { name = "remaining", type = "number" } } },
-    [L.EVENT_ITEM_DETECTED] = { name = "EVENT_ITEM_DETECTED", fields = { [1] = { name = "itemInfo", type = "string" } } },
-    [L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED] = { name = "EVENT_UNKNOWN_PORTAL_STATE_CHANGED", fields = { [1] = { name = "mapId", type = "number" }, [2] = { name = "mapName", type = "string" }, [3] = { name = "state", type = "number" } } }
+    [L.EVENT_BUFF_SELECTED] = "EVENT_BUFF_SELECTED",
+    [L.EVENT_MARAUDER_SPAWNED] = "EVENT_MARAUDER_SPAWNED",
+    [L.EVENT_MYSTERY_VERSE_USED] = "EVENT_MYSTERY_VERSE_USED",
+    [L.EVENT_SWEETROLL_CONSUMED] = "EVENT_SWEETROLL_CONSUMED",
+    [L.EVENT_TOMESHELL_DESTROYED] = "EVENT_TOMESHELL_DESTROYED",
+    [L.EVENT_ITEM_DETECTED] = "EVENT_ITEM_DETECTED",
+    [L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED] = "EVENT_UNKNOWN_PORTAL_STATE_CHANGED"
 }
 
 -- map id of the archive index/lobby
@@ -74,3 +78,4 @@ L.MYSTERY = {
 }
 
 L.TOMESHELLS = { SOLO = 4, DUO = 8 }
+L.LGB = LibGroupBroadcast
