@@ -341,6 +341,23 @@ local function onAchievementUpdated(_, id)
 end
 
 --- @class LibInfiniteArchive:ZO_InitializingObject
+--- @field auditor string The localised name of the Loyal Auditor pet
+--- @field gw string The localised name of Gw the Pilferer
+--- @field player string The current player's formatted unit name
+--- @field tomeName string The localised name of the Tomeshell
+--- @field EVENT_BUFF_SELECTED number
+--- @field EVENT_ITEM_DETECTED number
+--- @field EVENT_MARAUDER_SPAWNED number
+--- @field EVENT_MYSTERY_VERSE_USED number
+--- @field EVENT_SWEETROLL_CONSUMED number
+--- @field EVENT_TOMESHELL_DESTROYED number
+--- @field EVENT_UNKNOWN_PORTAL_STATE_CHANGED number
+--- @field UNKNOWN_PORTAL_STATE_ENTERED number
+--- @field UNKNOWN_PORTAL_STATE_EXITED number
+--- @field UNKNOWN_PORTAL_STATE_FAILED number
+--- @field UNKNOWN_PORTAL_STATE_STARTED number
+--- @field UNKNOWN_PORTAL_STATE_SUCCESS number
+--- @field UNKNOWN_PORTAL_STATE_UNKNOWN number
 local lib = ZO_InitializingObject:Subclass()
 
 --- @private
@@ -470,7 +487,7 @@ function lib:GetPortalAchievementStatus(mapId)
 end
 
 --- Get a table of each index corresponding to an Infinite Archive quest position in the player's quest journal
---- @param rebuild boolean Force a rebuild of the cached data
+--- @param rebuild boolean|nil Force a rebuild of the cached data
 --- @return table indices A numerically indexed table of quest indices
 function lib:GetArchiveQuestIndices(rebuild)
     if (#self.ArchiveQuestIndices == 0 or rebuild) then

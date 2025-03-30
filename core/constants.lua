@@ -1,5 +1,6 @@
 --- @type table
 LibInfiniteArchiveConstants = { Name = "LibInfiniteArchive" }
+
 local L = LibInfiniteArchiveConstants
 local lia = "LIBINFINITEARCHIVE_"
 

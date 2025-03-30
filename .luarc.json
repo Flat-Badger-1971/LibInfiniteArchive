@@ -16,7 +16,7 @@
     "workspace.library": [
         "C:/Users/antho/Documents/Elder Scrolls Online/live/AddOns/LLS_Addons/eso-api/library",
         "esoapi/local.lua",
-        "../LibGroupBroadcast",
-        "../LibGroupBroadcast/protocol"
+        "../LibGroupBroadcast/ProtocolManager.lua",
+        "../LibGroupBroadcast/StartUp.lua"
     ]
 }

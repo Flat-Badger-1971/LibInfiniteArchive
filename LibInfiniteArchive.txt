@@ -5,7 +5,7 @@
 ## AddOnVersion: 1000
 ## Version: 1.0.0
 ## IsLibrary: true
-## OptionalDependsOn: LibGroupBroadcast>=71
+## DependsOn: LibGroupBroadcast>=88
 
 # DISCLAIMER:
 #
