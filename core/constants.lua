@@ -1,3 +1,4 @@
+--- @type table
 LibInfiniteArchiveConstants = { Name = "LibInfiniteArchive" }
 local L = LibInfiniteArchiveConstants
 local lia = "LIBINFINITEARCHIVE_"
@@ -22,6 +23,14 @@ L.EVENT_MYSTERY_VERSE_USED = 4
 L.EVENT_SWEETROLL_CONSUMED = 5
 L.EVENT_TOMESHELL_DESTROYED = 6
 L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED = 7
+--- @alias LibInfiniteArchiveEventType
+--- | '"EVENT_BUFF_SELECTED"'
+--- | '"EVENT_ITEM_DETECTED"'
+--- | '"EVENT_MARAUDER_SPAWNED"'
+--- | '"EVENT_MYSTERY_VERSE_USED"'
+--- | '"EVENT_SWEETROLL_CONSUMED"'
+--- | '"EVENT_TOMESHELL_DESTROYED"'
+--- | '"EVENT_UNKNOWN_PORTAL_STATE_CHANGED"'
 
 L.EVENTS = {
     [L.EVENT_BUFF_SELECTED] = "EVENT_BUFF_SELECTED",
@@ -75,6 +84,15 @@ L.MYSTERY = {
     [203611] = "u40_verse_item_offense", -- offensive
     [203612] = "u40_verse_item_defense", -- defensive
     [203613] = "u40_verse_item_utility"  -- utility
+}
+
+L.PORTAL_ACHIEVEMENTS = {
+    [3792] = { info = L.MAPS.TREACHEROUS_CROSSING, currentLevel = select(2, GetAchievementCriterion(3792, 1)), complete = select(5, GetAchievementInfo(3792)) },
+    [3791] = { info = L.MAPS.HAEFALS_BUTCHERY, currentLevel = select(2, GetAchievementCriterion(3791, 1)), complete = select(5, GetAchievementInfo(3791)) },
+    [3793] = { info = L.MAPS.FILERS_WING, currentLevel = select(2, GetAchievementCriterion(3793, 1)), complete = select(5, GetAchievementInfo(3793)) },
+    [3790] = { info = L.MAPS.ECHOING_DEN, currentLevel = select(2, GetAchievementCriterion(3790, 1)), complete = select(5, GetAchievementInfo(3790)) },
+    [3789] = { info = L.MAPS.THEATRE_OF_WAR, currentLevel = select(2, GetAchievementCriterion(3789, 1)), complete = select(5, GetAchievementInfo(3789)) },
+    [3787] = { info = L.MAPS.DESTOZUNOS_LIBRARY, currentLevel = select(2, GetAchievementCriterion(3787, 1)), complete = select(5, GetAchievementInfo(3787)) }
 }
 
 L.TOMESHELLS = { SOLO = 4, DUO = 8 }

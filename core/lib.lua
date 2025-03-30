@@ -1,10 +1,10 @@
--- TODO: account for achievement levels in portals
-local lib = ZO_InitializingObject:Subclass()
 local L = LibInfiniteArchiveConstants
 local buffchoice = GetEndlessDungeonBuffSelectorBucketTypeChoice
 
 local function onHiding(self)
-    zo_callLater(function() self.showingBuffs = false end, 1500)
+    zo_callLater(function()
+        self.showingBuffs = false
+    end, 800)
 end
 
 local function onChoiceCommitted(self)
@@ -17,10 +17,12 @@ end
 
 local function onCompassUpdate(self)
     if (self:IsInsideArchive() and self.InCombat and not self.FoundQuestItem) then
+        --- @diagnostic disable-next-line undefined-field
         local numPins = COMPASS.container:GetNumCenterOveredPins()
 
         if (numPins > 0) then
             for pin = 1, numPins do
+                --- @diagnostic disable-next-line undefined-field
                 if (COMPASS.container:GetCenterOveredPinType(pin) == MAP_PIN_TYPE_QUEST_INTERACT) then
                     self.FoundQuestItem = true
                     self.las:Share(self.EVENT_ITEM_DETECTED, { itemInfo = "QuestItem" })
@@ -214,11 +216,10 @@ end
 
 local function onStunned(self, _, stunned)
     if (not IsInstanceEndlessDungeon()) then return end
-
     if (stunned and not IsUnitInCombat("player")) then
         local now = GetTimeStamp()
 
-        if ((now - (self.LastStun or 0)) > 2) then
+        if ((now - (self.LastStun or 0)) > 1) then
             zo_callLater(function()
                 if (not self.ShowingBuffs) then
                     resetValues(self)
@@ -330,19 +331,26 @@ local function onPowerUpdate(self, _, unitTag, _, powerType, powerValue)
     end
 end
 
-function lib:d(message)
-    if (self.debug) then
-        d("LIA: " .. tostring(message))
+local function onAchievementUpdated(_, id)
+    local iaAchievement = L.PORTAL_ACHIEVEMENTS[id]
+
+    if (iaAchievement) then
+        iaAchievement.complete = select(5, GetAchievementInfo(id))
+        iaAchievement.currentLevel = select(2, GetAchievementCriterion(id, 1))
     end
 end
 
+--- @class LibInfiniteArchive:ZO_InitializingObject
+local lib = ZO_InitializingObject:Subclass()
+
+--- @private
 function lib:Initialize()
     self.auditor = GetString(LIBINFINITEARCHIVE_AUDITOR_NAME)
     self.gw = zo_strlower(GetString(LIBINFINITEARCHIVE_GW))
     --- @diagnostic disable-next-line undefined-field
     self.las = LibInfiniteArchiveSharing:New()
     self.player = zo_strformat(GetUnitName("player"))
-    self.solo = ENDLESS_DUNGEON_GROUP_TYPE_SOLO
+    self.solo = ENDLESS_DUNGEON_GROUP_TYPE_SOLO --[[@as EndlessDungeonGroupType]]
     self.tomeName = zo_strlower(GetString(LIBINFINITEARCHIVE_TOMESHELL))
 
     self.ArchiveQuestIndices = {}
@@ -406,6 +414,7 @@ function lib:Initialize()
     EVENT_MANAGER:RegisterForEvent(self.Name, EVENT_PLAYER_STUNNED_STATE_CHANGED, function(...) onStunned(self, ...) end)
     EVENT_MANAGER:RegisterForEvent(self.Name, EVENT_POWER_UPDATE, function(...) onPowerUpdate(self, ...) end)
     EVENT_MANAGER:RegisterForEvent(self.Name, EVENT_QUEST_CONDITION_COUNTER_CHANGED, function(...) onQuestCounterChanged(self, ...) end)
+    EVENT_MANAGER:RegisterForEvent(self.Name, EVENT_ACHIEVEMENT_UPDATED, onAchievementUpdated)
 
     -- callbacks
     SHARED_INVENTORY:RegisterCallback("SingleSlotInventoryUpdate", function(...) onSingleSlotUpdate(self, ...) end)
@@ -414,12 +423,14 @@ function lib:Initialize()
     self.debug = (GetDisplayName() == "@Flat-Badger") and L.DEBUG
 end
 
+--- Is the player currently inside the Infinite Archive and not just in the Index?
+--- @return boolean isInsideArchive
 function lib:IsInsideArchive()
     return IsInstanceEndlessDungeon() and GetCurrentMapId() ~= self.ARCHIVE_INDEX
 end
 
--- account for offline members and companions
--- return the effective group type to get unknown portal target paramaters correctly
+--- Get the effective group size accounting for offline members and companions
+--- @return EndlessDungeonGroupType|nil groupSize
 function lib:GetEffectiveGroupType()
     if (IsInstanceEndlessDungeon()) then
         local groupType = GetEndlessDungeonGroupType()
@@ -447,6 +458,20 @@ function lib:GetEffectiveGroupType()
     return nil
 end
 
+--- Get the status of the achievement associated with an Unknown Porta;l
+--- @param mapId number The mapId of the Unknown Portal
+--- @return boolean|nil complete, number|nil currentLevel
+function lib:GetPortalAchievementStatus(mapId)
+    for _, data in pairs(L.PORTAL_ACHIEVEMENTS) do
+        if (data.info.id == mapId) then
+            return data.complete, data.currentLevel
+        end
+    end
+end
+
+--- Get a table of each index corresponding to an Infinite Archive quest position in the player's quest journal
+--- @param rebuild boolean Force a rebuild of the cached data
+--- @return table indices A numerically indexed table of quest indices
 function lib:GetArchiveQuestIndices(rebuild)
     if (#self.ArchiveQuestIndices == 0 or rebuild) then
         ZO_ClearNumericallyIndexedTable(self.ArchiveQuestIndices)
@@ -463,12 +488,17 @@ function lib:GetArchiveQuestIndices(rebuild)
     return self.ArchiveQuestIndices
 end
 
+--- Get the number of tomeshells required for the current group type
+--- @return integer maxTomes
 function lib:GetMaxTomes()
     local tomeGroupType = self:GetEffectiveGroupType()
 
     return tomeGroupType == self.solo and self.TOMESHELLS.SOLO or self.TOMESHELLS.DUO
 end
 
+--- Determine if the supplied abillity id is related to an Avatar
+--- @param abilityId number
+--- @return boolean isAvatar
 function lib:IsAvatar(abilityId)
     for avatar, info in pairs(self.AVATAR) do
         if (ZO_IsElementInNumericallyIndexedTable(info.abilityIds, abilityId)) then
@@ -479,6 +509,8 @@ function lib:IsAvatar(abilityId)
     return false
 end
 
+--- Determine if the player is currently inside an Unknown Portal
+--- @return boolean isInUnknown, number|nil mapId, string|nil mapName
 function lib:IsInUnknown()
     local id = GetCurrentMapId()
 
@@ -491,6 +523,8 @@ function lib:IsInUnknown()
     return false
 end
 
+--- Determine if the Loyal Auditor is currently active
+--- @return boolean isAuditorActive
 function lib:IsAuditorActive()
     for pet = 1, MAX_PET_UNIT_TAGS do
         local name = zo_strformat(GetUnitName(string.format("playerpet%s", tostring(pet))))
@@ -503,16 +537,39 @@ function lib:IsAuditorActive()
     return false
 end
 
+--- Register for a LibInfiniteArchive event
+--- @param event LibInfiniteArchiveEventType|number|string
+--- @param callback function
 function lib:RegisterForEvent(event, callback)
+    if (type(event) == "string") then
+        event = L[event]
+    end
+
     assert(L.EVENTS[event], "Invalid event " .. (event or "nil"))
     assert(callback and type(callback) == "function", "Callback function is mandatory")
+    --- @diagnostic disable-next-line undefined-field
     self.las:RegisterCallback(L.EVENTS[event], callback, event)
 end
 
+--- Unregister for a LibInfiniteArchive event
+--- @param event LibInfiniteArchiveEventType|number|string
+--- @param callback function
 function lib:UnregisterForEvent(event, callback)
+    if (type(event) == "string") then
+        event = L[event]
+    end
+
     assert(L.EVENTS[event], "Invalid event")
     assert(callback and type(callback) == "function", "Callback function is mandatory")
+    --- @diagnostic disable-next-line undefined-field
     self.las:UnregisterCallback(L.EVENTS[event], callback, event)
+end
+
+--- @private
+function lib:d(message)
+    if (self.debug) then
+        d("LIA: " .. tostring(message))
+    end
 end
 
 LibInfiniteArchive = lib:New()

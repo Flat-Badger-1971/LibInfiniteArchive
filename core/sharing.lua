@@ -1,9 +1,10 @@
 -- *** FOR INTERNAL USE ONLY ***
 local L = LibInfiniteArchiveConstants
 
---- @class Sharing : ZO_InitializingCallbackObject
+--- @class LibInfiniteArchiveSharing:ZO_InitializingCallbackObject
 local slib = ZO_InitializingCallbackObject:Subclass()
 
+--- @protected
 function slib:Initialize()
     local internal
 
@@ -33,12 +34,14 @@ function slib:Initialize()
     self.debug = (GetDisplayName() == "@Flat-Badger") and L.DEBUG
 end
 
+--- @protected
 function slib:d(message)
     if (self.debug) then
         d("LIAs: " .. tostring(message))
     end
 end
 
+--- @protected
 function slib:OnData(event, unitTag, data)
     if (AreUnitsEqual(unitTag, "player")) then return end
 
@@ -46,6 +49,7 @@ function slib:OnData(event, unitTag, data)
     self:Fire(event, unitTag, data)
 end
 
+--- @protected
 function slib:RegisterProtocols()
     if (not L.LGB) then return end
 
@@ -75,41 +79,7 @@ function slib:RegisterProtocols()
     assert(finalised, "Protocol finalisation failed")
 end
 
-local function EmitMessage(text)
-    if text == "" then
-        text = "[Empty String]"
-    end
-
-    if CHAT_ROUTER then
-        CHAT_ROUTER:AddDebugMessage(text)
-    elseif RequestDebugPrintText then
-        RequestDebugPrintText(text)
-    end
-end
-
-local function EmitTable(t, indent, tableHistory)
-    indent       = indent or "."
-    tableHistory = tableHistory or {}
-
-    for k, v in pairs(t)
-    do
-        local vType = type(v)
-
-        EmitMessage(indent .. "(" .. vType .. "): " .. tostring(k) .. " = " .. tostring(v))
-
-        if (vType == "table")
-        then
-            if (tableHistory[v])
-            then
-                EmitMessage(indent .. "Avoiding cycle on table...")
-            else
-                tableHistory[v] = true
-                EmitTable(v, indent .. "  ", tableHistory)
-            end
-        end
-    end
-end
-
+--- @protected
 function slib:Fire(event, unitTag, data)
     local eventName = L.EVENTS[event]
 
@@ -132,6 +102,7 @@ function slib:Fire(event, unitTag, data)
     end
 end
 
+--- @protected
 function slib:SendProtocolMessage(event, data)
     local eventName = L.EVENTS[event]
 
@@ -143,7 +114,6 @@ function slib:SendProtocolMessage(event, data)
         self:d("Sending to group")
         self.eventProtocol:Send({ event = data })
     end
-    EmitTable(data)
 
     self:Fire(event, nil, data)
 end
@@ -165,9 +135,9 @@ local function formatProtocolData(data)
     return protocolData
 end
 
+--- @protected
 function slib:Share(event, data)
     self:d("Sharing event " .. L.EVENTS[event])
-    EmitTable(data)
     self:SendProtocolMessage(event, formatProtocolData(data))
 end
 
