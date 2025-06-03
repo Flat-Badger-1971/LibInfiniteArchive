@@ -41,11 +41,37 @@ function slib:d(message)
     end
 end
 
+local function tprint(tbl, indent)
+    if not indent then indent = 0 end
+    local toprint = string.rep(" ", indent) .. "{\r\n"
+    indent = indent + 2
+    for k, v in pairs(tbl) do
+        toprint = toprint .. string.rep(" ", indent)
+        if (type(k) == "number") then
+            toprint = toprint .. "[" .. k .. "] = "
+        elseif (type(k) == "string") then
+            toprint = toprint .. k .. "= "
+        end
+        if (type(v) == "number") then
+            toprint = toprint .. v .. ",\r\n"
+        elseif (type(v) == "string") then
+            toprint = toprint .. "\"" .. v .. "\",\r\n"
+        elseif (type(v) == "table") then
+            toprint = toprint .. tprint(v, indent + 2) .. ",\r\n"
+        else
+            toprint = toprint .. "\"" .. tostring(v) .. "\",\r\n"
+        end
+    end
+    toprint = toprint .. string.rep(" ", indent - 2) .. "}"
+    return toprint
+end
+
 --- @protected
 function slib:OnData(event, unitTag, data)
     if (AreUnitsEqual(unitTag, "player")) then return end
 
     self:d("received data from " .. unitTag)
+    self:d(tprint(data))
     self:Fire(event, unitTag, data)
 end
 
@@ -81,24 +107,24 @@ end
 
 --- @protected
 function slib:Fire(event, unitTag, data)
-    local eventName = L.EVENTS[event]
+    local eventName = L.EVENTS[event.event]
 
     unitTag = unitTag or "player"
 
     if (event == L.EVENT_BUFF_SELECTED) then
-        self:FireCallbacks(eventName, unitTag, data.abilityId, data.name, data.unitName)
+        self:FireCallbacks(eventName, unitTag, event.abilityId, event.name, event.unitName)
     elseif (event == L.EVENT_MARAUDER_SPAWNED) then
-        self:FireCallbacks(eventName, data.name)
+        self:FireCallbacks(eventName, event.name)
     elseif (event == L.EVENT_MYSTERY_VERSE_USED) then
-        self:FireCallbacks(eventName, unitTag, data.abilityId, data.name)
+        self:FireCallbacks(eventName, unitTag, event.abilityId, event.name)
     elseif (event == L.EVENT_SWEETROLL_CONSUMED) then
-        self:FireCallbacks(eventName, data.unitname)
+        self:FireCallbacks(eventName, event.unitname)
     elseif (event == L.EVENT_TOMESHELL_DESTROYED) then
-        self:FireCallbacks(eventName, unitTag, data.destroyed, data.remaining)
+        self:FireCallbacks(eventName, unitTag, event.destroyed, event.remaining)
     elseif (event == L.EVENT_ITEM_DETECTED) then
-        self:FireCallbacks(eventName, data.itemInfo)
+        self:FireCallbacks(eventName, event.itemInfo)
     elseif (event == L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED) then
-        self:FireCallbacks(eventName, data.mapId, data.mapName, data.state)
+        self:FireCallbacks(eventName, event.mapId, event.mapName, event.state)
     end
 end
 
