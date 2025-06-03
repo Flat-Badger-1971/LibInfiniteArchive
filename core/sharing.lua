@@ -107,24 +107,32 @@ end
 
 --- @protected
 function slib:Fire(event, unitTag, data)
-    local eventName = L.EVENTS[event.event]
+    local edata = data
+    local eventNum = event
+
+    if (type(event) == "table") then
+        edata = event
+        eventNum = edata.event
+    end
+
+    local eventName = L.EVENTS[eventNum]
 
     unitTag = unitTag or "player"
 
-    if (event == L.EVENT_BUFF_SELECTED) then
-        self:FireCallbacks(eventName, unitTag, event.abilityId, event.name, event.unitName)
-    elseif (event == L.EVENT_MARAUDER_SPAWNED) then
-        self:FireCallbacks(eventName, event.name)
-    elseif (event == L.EVENT_MYSTERY_VERSE_USED) then
-        self:FireCallbacks(eventName, unitTag, event.abilityId, event.name)
-    elseif (event == L.EVENT_SWEETROLL_CONSUMED) then
-        self:FireCallbacks(eventName, event.unitname)
-    elseif (event == L.EVENT_TOMESHELL_DESTROYED) then
-        self:FireCallbacks(eventName, unitTag, event.destroyed, event.remaining)
-    elseif (event == L.EVENT_ITEM_DETECTED) then
-        self:FireCallbacks(eventName, event.itemInfo)
-    elseif (event == L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED) then
-        self:FireCallbacks(eventName, event.mapId, event.mapName, event.state)
+    if (eventNum == L.EVENT_BUFF_SELECTED) then
+        self:FireCallbacks(eventName, unitTag, edata.abilityId, edata.name, edata.unitName)
+    elseif (eventNum == L.EVENT_MARAUDER_SPAWNED) then
+        self:FireCallbacks(eventName, edata.name)
+    elseif (eventNum == L.EVENT_MYSTERY_VERSE_USED) then
+        self:FireCallbacks(eventName, unitTag, edata.abilityId, edata.name)
+    elseif (eventNum == L.EVENT_SWEETROLL_CONSUMED) then
+        self:FireCallbacks(eventName, edata.unitname)
+    elseif (eventNum == L.EVENT_TOMESHELL_DESTROYED) then
+        self:FireCallbacks(eventName, unitTag, edata.destroyed, edata.remaining)
+    elseif (eventNum == L.EVENT_ITEM_DETECTED) then
+        self:FireCallbacks(eventName, edata.itemInfo)
+    elseif (eventNum == L.EVENT_UNKNOWN_PORTAL_STATE_CHANGED) then
+        self:FireCallbacks(eventName, edata.mapId, edata.state, edata.mapName)
     end
 end
 
