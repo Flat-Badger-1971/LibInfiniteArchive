@@ -7,7 +7,8 @@
     "hint.enable": true,
     "diagnostics.disable": [
         "inject-field",
-        "param-type-mismatch"
+        "param-type-mismatch",
+        "assign-type-mismatch"
     ],
     "diagnostics.neededFileStatus": {
         "codestyle-check": "Any"
@@ -17,6 +18,9 @@
         "C:/Users/antho/Documents/Elder Scrolls Online/live/AddOns/LLS_Addons/eso-api/library",
         "esoapi/local.lua",
         "../LibGroupBroadcast/ProtocolManager.lua",
-        "../LibGroupBroadcast/StartUp.lua"
-    ]
+        "../LibGroupBroadcast/StartUp.lua",
+        "C:/Users/antho/Documents/Elder Scrolls Online/live/AddOns/LLS_Addons/eso-api-update-48/library",
+        "C:/Users/antho/Documents/Elder Scrolls Online/live/AddOns/LLS_Addons/eso-api-update-49/library"
+    ],
+    "workspace.preloadFileSize": 600
 }

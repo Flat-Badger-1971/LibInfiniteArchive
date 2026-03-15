@@ -489,20 +489,29 @@ end
 --- Get a table of each index corresponding to an Infinite Archive quest position in the player's quest journal
 --- @param rebuild boolean|nil Force a rebuild of the cached data
 --- @return table indices A numerically indexed table of quest indices
+--- @-- GetJournalQuestId(index)
 function lib:GetArchiveQuestIndices(rebuild)
     if (#self.ArchiveQuestIndices == 0 or rebuild) then
         ZO_ClearNumericallyIndexedTable(self.ArchiveQuestIndices)
 
         for index = 1, GetNumJournalQuests() do
-            local name, _, _, _, _, complete = GetJournalQuestInfo(index)
+            local complete = select(6, GetJournalQuestInfo(index))
+            local id = GetJournalQuestId(index)
 
-            if (not complete and ZO_IsElementInNumericallyIndexedTable(self.ARCHIVE_QUESTS, name)) then
+            if (not complete and ZO_IsElementInNumericallyIndexedTable(self.ARCHIVE_QUESTS, id)) then
                 table.insert(self.ArchiveQuestIndices, index)
             end
         end
     end
 
     return self.ArchiveQuestIndices
+end
+
+--- Does the player currently have a quest in their journal for picking up an item in the archive?
+--- (ensure GetArchiveQuestIndices has been called at least once to populate the cache)
+--- @return boolean hasArchiveItemQuest
+function lib:HasArchiveItemQuest()
+    return #self.ArchiveQuestIndices > 0
 end
 
 --- Get the number of tomeshells required for the current group type

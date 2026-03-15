@@ -78,7 +78,7 @@ L.MARAUDERS = {
 }
 
 -- quests that require you to collect objects in the infinite archive
-L.ARCHIVE_QUESTS = { GetQuestName(7091), GetQuestName(7101), GetQuestName(7102) }
+L.ARCHIVE_QUESTS = { 7091, 7101, 7102 }
 
 -- mystery verse ids and texture names
 L.MYSTERY = {
